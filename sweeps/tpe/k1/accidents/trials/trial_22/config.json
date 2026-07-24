@@ -1,0 +1,14 @@
+{
+  "dataset": "accidents",
+  "k": 1,
+  "lr": 2.3494141939069956e-05,
+  "ratio": 18.403222737318586,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\accidents.json",
+  "started_at": "2026-07-23T22:10:46.489657+00:00"
+}

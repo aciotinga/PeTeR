@@ -1,0 +1,14 @@
+{
+  "dataset": "book",
+  "k": 5,
+  "lr": 4.589077532238683e-05,
+  "ratio": 0.5977237487279806,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\book.json",
+  "started_at": "2026-07-24T16:13:00.585450+00:00"
+}

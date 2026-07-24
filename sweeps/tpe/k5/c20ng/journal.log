@@ -1,0 +1,11 @@
+{"op_code":0,"worker_id":"8a0f3bf9-b081-4524-8317-2e79f1c9df91-20268","study_name":"peter_c20ng_k5","directions":[2]}
+{"op_code":0,"worker_id":"7d57d5e9-a6cb-449f-999f-fc9125093f9b-10600","study_name":"peter_c20ng_k5","directions":[2]}
+{"op_code":4,"worker_id":"7d57d5e9-a6cb-449f-999f-fc9125093f9b-10600","study_id":0,"datetime_start":"2026-07-24T09:13:00.545427"}
+{"op_code":5,"worker_id":"7d57d5e9-a6cb-449f-999f-fc9125093f9b-10600","trial_id":0,"param_name":"lr","param_value_internal":6.291969340317861e-05,"distribution":"{\"name\": \"FloatDistribution\", \"attributes\": {\"step\": null, \"low\": 1e-08, \"high\": 0.5, \"log\": true}}"}
+{"op_code":5,"worker_id":"7d57d5e9-a6cb-449f-999f-fc9125093f9b-10600","trial_id":0,"param_name":"ratio","param_value_internal":9.35709599041014,"distribution":"{\"name\": \"FloatDistribution\", \"attributes\": {\"step\": null, \"low\": 0.1, \"high\": 100.0, \"log\": true}}"}
+{"op_code":0,"worker_id":"7ec492c5-c2ad-41f5-a7e4-a001d9998c06-38392","study_name":"peter_c20ng_k5","directions":[2]}
+{"op_code":4,"worker_id":"7ec492c5-c2ad-41f5-a7e4-a001d9998c06-38392","study_id":0,"datetime_start":"2026-07-24T09:13:01.758362"}
+{"op_code":5,"worker_id":"7ec492c5-c2ad-41f5-a7e4-a001d9998c06-38392","trial_id":1,"param_name":"lr","param_value_internal":0.08282609693696798,"distribution":"{\"name\": \"FloatDistribution\", \"attributes\": {\"step\": null, \"low\": 1e-08, \"high\": 0.5, \"log\": true}}"}
+{"op_code":5,"worker_id":"7ec492c5-c2ad-41f5-a7e4-a001d9998c06-38392","trial_id":1,"param_name":"ratio","param_value_internal":10.425139755760549,"distribution":"{\"name\": \"FloatDistribution\", \"attributes\": {\"step\": null, \"low\": 0.1, \"high\": 100.0, \"log\": true}}"}
+{"op_code":0,"worker_id":"409928af-1e48-45b8-ba0f-09587bc7b506-38392","study_name":"peter_c20ng_k5","directions":[2]}
+{"op_code":4,"worker_id":"409928af-1e48-45b8-ba0f-09587bc7b506-38392","study_id":0,"datetime_start":"2026-07-24T09:13:02.627030"}

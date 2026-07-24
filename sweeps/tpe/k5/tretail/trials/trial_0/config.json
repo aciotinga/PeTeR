@@ -1,0 +1,14 @@
+{
+  "dataset": "tretail",
+  "k": 5,
+  "lr": 0.048859950423286114,
+  "ratio": 2.3278594402713884,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\tretail.json",
+  "started_at": "2026-07-24T16:13:00.758890+00:00"
+}

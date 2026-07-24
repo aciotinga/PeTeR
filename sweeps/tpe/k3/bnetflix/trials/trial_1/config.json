@@ -1,0 +1,14 @@
+{
+  "dataset": "bnetflix",
+  "k": 3,
+  "lr": 5.7318847950984437e-08,
+  "ratio": 66.12283435243408,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\bnetflix.json",
+  "started_at": "2026-07-24T16:13:01.481219+00:00"
+}

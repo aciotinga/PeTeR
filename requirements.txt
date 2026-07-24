@@ -1,0 +1,4 @@
+sparc-pc
+numpy
+matplotlib
+optuna

@@ -1,0 +1,14 @@
+{
+  "dataset": "kosarek",
+  "k": 3,
+  "lr": 4.3410157945258116e-05,
+  "ratio": 2.9018130811734455,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\kosarek.json",
+  "started_at": "2026-07-24T16:13:00.468471+00:00"
+}

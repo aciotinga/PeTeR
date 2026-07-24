@@ -1,0 +1,14 @@
+{
+  "dataset": "bbc",
+  "k": 3,
+  "lr": 2.2675365731008846e-08,
+  "ratio": 1.2844965362734282,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\bbc.json",
+  "started_at": "2026-07-24T16:11:25.446023+00:00"
+}

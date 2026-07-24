@@ -1,0 +1,14 @@
+{
+  "dataset": "dna",
+  "k": 5,
+  "lr": 5.730352064450574e-07,
+  "ratio": 39.50644974358648,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\dna.json",
+  "started_at": "2026-07-24T16:13:01.813863+00:00"
+}

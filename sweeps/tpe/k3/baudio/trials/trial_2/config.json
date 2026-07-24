@@ -1,0 +1,14 @@
+{
+  "dataset": "baudio",
+  "k": 3,
+  "lr": 5.6692767962624935e-05,
+  "ratio": 38.65605799621434,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\baudio.json",
+  "started_at": "2026-07-24T16:13:02.144188+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "moviereview",
+  "k": 1,
+  "lr": 2.781601014019272e-07,
+  "ratio": 1.1241030385754462,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\moviereview.json",
+  "started_at": "2026-07-24T16:08:02.209145+00:00"
+}

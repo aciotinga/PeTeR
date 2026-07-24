@@ -1,0 +1,14 @@
+{
+  "dataset": "cr52",
+  "k": 3,
+  "lr": 1.3621008353897415e-06,
+  "ratio": 0.15637686214661445,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\cr52.json",
+  "started_at": "2026-07-24T16:12:19.832634+00:00"
+}
