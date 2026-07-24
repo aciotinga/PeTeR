@@ -1,0 +1,14 @@
+{
+  "dataset": "bbc",
+  "k": 3,
+  "lr": 0.04472778196534092,
+  "ratio": 0.1372005379053669,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/bbc.json",
+  "started_at": "2026-07-24T17:56:26.852028+00:00"
+}

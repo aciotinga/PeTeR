@@ -1,0 +1,14 @@
+{
+  "dataset": "baudio",
+  "k": 5,
+  "lr": 0.006157061840397606,
+  "ratio": 1.2505568519251156,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/baudio.json",
+  "started_at": "2026-07-24T19:00:00.570479+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "msweb",
+  "k": 1,
+  "lr": 0.0002732375363458377,
+  "ratio": 12.153600458599476,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/msweb.json",
+  "started_at": "2026-07-24T19:20:41.964369+00:00"
+}

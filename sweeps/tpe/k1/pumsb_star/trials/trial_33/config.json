@@ -1,0 +1,14 @@
+{
+  "dataset": "pumsb_star",
+  "k": 1,
+  "lr": 0.32007212532542917,
+  "ratio": 52.39433791035797,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/pumsb_star.json",
+  "started_at": "2026-07-24T19:17:25.005501+00:00"
+}

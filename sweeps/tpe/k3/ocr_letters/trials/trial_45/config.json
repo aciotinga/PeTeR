@@ -1,0 +1,14 @@
+{
+  "dataset": "ocr_letters",
+  "k": 3,
+  "lr": 0.46555952186400146,
+  "ratio": 45.5543191105095,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/ocr_letters.json",
+  "started_at": "2026-07-24T20:18:03.915513+00:00"
+}

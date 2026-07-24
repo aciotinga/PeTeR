@@ -1,0 +1,14 @@
+{
+  "dataset": "connect4",
+  "k": 1,
+  "lr": 4.89194243830276e-07,
+  "ratio": 0.4732928163370513,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/connect4.json",
+  "started_at": "2026-07-24T17:24:30.498817+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "plants",
+  "k": 1,
+  "lr": 0.3363366420354311,
+  "ratio": 0.41266757521253833,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/plants.json",
+  "started_at": "2026-07-24T19:17:24.127921+00:00"
+}

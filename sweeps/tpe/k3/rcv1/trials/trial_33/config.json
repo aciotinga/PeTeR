@@ -1,0 +1,14 @@
+{
+  "dataset": "rcv1",
+  "k": 3,
+  "lr": 2.4891971837720266e-05,
+  "ratio": 0.1797914754436568,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/rcv1.json",
+  "started_at": "2026-07-24T19:22:25.318513+00:00"
+}

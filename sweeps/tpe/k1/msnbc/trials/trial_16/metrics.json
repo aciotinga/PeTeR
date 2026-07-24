@@ -1,0 +1,9 @@
+{
+  "final_lambda": 1.376638332732828,
+  "final_orig_test_ll": -6.458462607202511,
+  "final_adv_test_ll": -10.30919138495541,
+  "best_orig_test_ll": -6.432552217899683,
+  "best_adv_test_ll": -10.308192131204315,
+  "best_orig_iter": 1,
+  "best_adv_iter": 499
+}

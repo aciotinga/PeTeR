@@ -1,0 +1,14 @@
+{
+  "dataset": "voting",
+  "k": 3,
+  "lr": 0.024106447373547054,
+  "ratio": 0.11084689867047132,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/voting.json",
+  "started_at": "2026-07-24T17:21:57.548682+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "nips",
+  "k": 3,
+  "lr": 3.1153924931386337e-07,
+  "ratio": 45.596459662361134,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/nips.json",
+  "started_at": "2026-07-24T17:57:32.340094+00:00"
+}

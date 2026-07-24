@@ -1,0 +1,14 @@
+{
+  "dataset": "cr52",
+  "k": 1,
+  "lr": 0.008828021428446525,
+  "ratio": 0.20777462785964376,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/cr52.json",
+  "started_at": "2026-07-24T17:35:20.696870+00:00"
+}

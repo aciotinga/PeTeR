@@ -1,0 +1,14 @@
+{
+  "dataset": "c20ng",
+  "k": 3,
+  "lr": 0.021768117646110887,
+  "ratio": 5.242730299586917,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/c20ng.json",
+  "started_at": "2026-07-24T17:29:09.312719+00:00"
+}

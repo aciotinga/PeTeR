@@ -1,0 +1,14 @@
+{
+  "dataset": "kosarek",
+  "k": 1,
+  "lr": 7.252671572416696e-05,
+  "ratio": 52.00033956165208,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/kosarek.json",
+  "started_at": "2026-07-24T18:05:57.200012+00:00"
+}

@@ -1,0 +1,14 @@
+{
+  "dataset": "accidents",
+  "k": 3,
+  "lr": 0.173356071291512,
+  "ratio": 30.46025818839619,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/accidents.json",
+  "started_at": "2026-07-24T19:50:23.523988+00:00"
+}

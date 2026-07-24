@@ -1,0 +1,14 @@
+{
+  "dataset": "book",
+  "k": 3,
+  "lr": 0.33554285695367636,
+  "ratio": 2.3392979864843966,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/book.json",
+  "started_at": "2026-07-24T18:44:36.580398+00:00"
+}

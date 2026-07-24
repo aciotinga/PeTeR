@@ -1,0 +1,14 @@
+{
+  "dataset": "adult",
+  "k": 5,
+  "lr": 0.024632024216510975,
+  "ratio": 1.225706695243949,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/adult.json",
+  "started_at": "2026-07-24T20:31:05.014454+00:00"
+}

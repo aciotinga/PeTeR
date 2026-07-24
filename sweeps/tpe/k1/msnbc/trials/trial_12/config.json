@@ -1,0 +1,14 @@
+{
+  "dataset": "msnbc",
+  "k": 1,
+  "lr": 0.0014274424286598265,
+  "ratio": 28.818044933285478,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/msnbc.json",
+  "started_at": "2026-07-24T17:51:56.470583+00:00"
+}

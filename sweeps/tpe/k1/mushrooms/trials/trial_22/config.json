@@ -1,0 +1,14 @@
+{
+  "dataset": "mushrooms",
+  "k": 1,
+  "lr": 0.023623296023156392,
+  "ratio": 1.181501917446505,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/mushrooms.json",
+  "started_at": "2026-07-24T18:36:49.594223+00:00"
+}

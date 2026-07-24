@@ -1,0 +1,14 @@
+{
+  "dataset": "kdd",
+  "k": 1,
+  "lr": 0.0589866356184191,
+  "ratio": 30.19272015230169,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/kdd.json",
+  "started_at": "2026-07-24T20:36:08.109552+00:00"
+}

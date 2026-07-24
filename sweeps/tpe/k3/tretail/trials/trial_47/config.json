@@ -1,0 +1,14 @@
+{
+  "dataset": "tretail",
+  "k": 3,
+  "lr": 0.12726185205017435,
+  "ratio": 80.76227805005686,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/tretail.json",
+  "started_at": "2026-07-24T20:21:15.287579+00:00"
+}

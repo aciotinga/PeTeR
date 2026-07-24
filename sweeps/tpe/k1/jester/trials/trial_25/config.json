@@ -1,0 +1,14 @@
+{
+  "dataset": "jester",
+  "k": 1,
+  "lr": 0.00058514755427741,
+  "ratio": 2.3354062888080884,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/jester.json",
+  "started_at": "2026-07-24T18:47:09.029660+00:00"
+}

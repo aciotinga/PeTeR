@@ -1,0 +1,14 @@
+{
+  "dataset": "nltcs",
+  "k": 3,
+  "lr": 0.27627256935466,
+  "ratio": 84.90653203362898,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/nltcs.json",
+  "started_at": "2026-07-24T19:36:56.189714+00:00"
+}

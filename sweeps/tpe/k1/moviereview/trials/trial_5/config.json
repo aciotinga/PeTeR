@@ -1,0 +1,14 @@
+{
+  "dataset": "moviereview",
+  "k": 1,
+  "lr": 1.1501242743874783e-07,
+  "ratio": 4.467693776919192,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/moviereview.json",
+  "started_at": "2026-07-24T17:24:45.543509+00:00"
+}

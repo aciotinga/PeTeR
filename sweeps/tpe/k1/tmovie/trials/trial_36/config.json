@@ -1,0 +1,14 @@
+{
+  "dataset": "tmovie",
+  "k": 1,
+  "lr": 0.012860095646245507,
+  "ratio": 56.724756642319505,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/tmovie.json",
+  "started_at": "2026-07-24T19:31:22.761576+00:00"
+}

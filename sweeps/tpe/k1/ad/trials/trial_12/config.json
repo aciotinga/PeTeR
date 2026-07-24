@@ -1,0 +1,14 @@
+{
+  "dataset": "ad",
+  "k": 1,
+  "lr": 0.23268510624728136,
+  "ratio": 10.229064374026066,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/ad.json",
+  "started_at": "2026-07-24T17:51:14.493664+00:00"
+}

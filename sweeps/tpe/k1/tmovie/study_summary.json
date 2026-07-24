@@ -1,0 +1,406 @@
+{
+  "dataset": "tmovie",
+  "k": 1,
+  "iters": 500,
+  "n_trials_target": 50,
+  "jobs": 100,
+  "study_name": "peter_tmovie_k1",
+  "search_space": {
+    "lr": {
+      "low": 1e-08,
+      "high": 0.5,
+      "log": true
+    },
+    "ratio": {
+      "low": 0.1,
+      "high": 100.0,
+      "log": true
+    }
+  },
+  "objective": "final_adv_test_ll",
+  "direction": "maximize",
+  "n_complete": 10,
+  "n_failed": 40,
+  "n_finished": 50,
+  "best": {
+    "trial_number": 5,
+    "lr": 2.2629855227497713e-05,
+    "ratio": 0.20642439528669695,
+    "final_adv_test_ll": -57.51192680720599,
+    "recreate_cmd": "python peter.py tmovie --k 1 --lr 2.26299e-05 --ratio 0.206424 --iters 500"
+  },
+  "trials": [
+    {
+      "number": 0,
+      "state": "RUNNING",
+      "lr": 1.66028826796989e-05,
+      "ratio": 1.8451892066095268,
+      "value": null
+    },
+    {
+      "number": 1,
+      "state": "RUNNING",
+      "lr": 0.38052398717771896,
+      "ratio": 0.45481725698831843,
+      "value": null
+    },
+    {
+      "number": 2,
+      "state": "RUNNING",
+      "lr": 2.827274571479766e-06,
+      "ratio": 33.376431575116044,
+      "value": null
+    },
+    {
+      "number": 3,
+      "state": "FAIL",
+      "lr": 0.0008499199436130822,
+      "ratio": 8.721417782091493,
+      "value": null
+    },
+    {
+      "number": 4,
+      "state": "COMPLETE",
+      "lr": 1.8911671974951457e-07,
+      "ratio": 2.7244279729544423,
+      "value": -62.03798778571574
+    },
+    {
+      "number": 5,
+      "state": "COMPLETE",
+      "lr": 2.2629855227497713e-05,
+      "ratio": 0.20642439528669695,
+      "value": -57.51192680720599
+    },
+    {
+      "number": 6,
+      "state": "COMPLETE",
+      "lr": 1.2252842191765007e-07,
+      "ratio": 0.22578946983286696,
+      "value": -62.00485636241815
+    },
+    {
+      "number": 7,
+      "state": "COMPLETE",
+      "lr": 0.00037244044586194554,
+      "ratio": 0.13497814723100007,
+      "value": -61.081649606192116
+    },
+    {
+      "number": 8,
+      "state": "COMPLETE",
+      "lr": 4.289562669406505e-06,
+      "ratio": 0.12824747976592166,
+      "value": -58.24129029266064
+    },
+    {
+      "number": 9,
+      "state": "COMPLETE",
+      "lr": 1.1145534272504749e-06,
+      "ratio": 10.557316591583715,
+      "value": -61.76266062301062
+    },
+    {
+      "number": 10,
+      "state": "FAIL",
+      "lr": 0.0039492475594498895,
+      "ratio": 2.7523945241992696,
+      "value": null
+    },
+    {
+      "number": 11,
+      "state": "FAIL",
+      "lr": 0.0008277771452070708,
+      "ratio": 26.38275493774621,
+      "value": null
+    },
+    {
+      "number": 12,
+      "state": "COMPLETE",
+      "lr": 1.0463582145610747e-08,
+      "ratio": 4.522029353225334,
+      "value": -61.9329553393249
+    },
+    {
+      "number": 13,
+      "state": "COMPLETE",
+      "lr": 2.674394192713924e-07,
+      "ratio": 41.684435889979035,
+      "value": -61.89766527167441
+    },
+    {
+      "number": 14,
+      "state": "COMPLETE",
+      "lr": 1.8499925015745144e-06,
+      "ratio": 1.9172312856979628,
+      "value": -61.795476856315446
+    },
+    {
+      "number": 15,
+      "state": "COMPLETE",
+      "lr": 0.00019250244425624724,
+      "ratio": 5.777858716545674,
+      "value": -59.011304953283755
+    },
+    {
+      "number": 16,
+      "state": "FAIL",
+      "lr": 0.01515930342414404,
+      "ratio": 10.508962070805586,
+      "value": null
+    },
+    {
+      "number": 17,
+      "state": "FAIL",
+      "lr": 0.044843921249085934,
+      "ratio": 2.173259062013172,
+      "value": null
+    },
+    {
+      "number": 18,
+      "state": "FAIL",
+      "lr": 0.036609998770572395,
+      "ratio": 26.184480485615705,
+      "value": null
+    },
+    {
+      "number": 19,
+      "state": "FAIL",
+      "lr": 0.004531001130319767,
+      "ratio": 0.9645698743823112,
+      "value": null
+    },
+    {
+      "number": 20,
+      "state": "FAIL",
+      "lr": 0.23804657671689067,
+      "ratio": 12.079844979786795,
+      "value": null
+    },
+    {
+      "number": 21,
+      "state": "FAIL",
+      "lr": 0.025955702582831856,
+      "ratio": 20.406618381722076,
+      "value": null
+    },
+    {
+      "number": 22,
+      "state": "FAIL",
+      "lr": 0.012176020672442042,
+      "ratio": 58.194337353466096,
+      "value": null
+    },
+    {
+      "number": 23,
+      "state": "FAIL",
+      "lr": 0.20589429484939434,
+      "ratio": 4.5259026715518065,
+      "value": null
+    },
+    {
+      "number": 24,
+      "state": "FAIL",
+      "lr": 0.02129869400288292,
+      "ratio": 22.26495034616687,
+      "value": null
+    },
+    {
+      "number": 25,
+      "state": "FAIL",
+      "lr": 0.0030177780336655695,
+      "ratio": 32.13750820573246,
+      "value": null
+    },
+    {
+      "number": 26,
+      "state": "FAIL",
+      "lr": 0.029682746245157834,
+      "ratio": 20.744659294758716,
+      "value": null
+    },
+    {
+      "number": 27,
+      "state": "FAIL",
+      "lr": 0.039316282183625685,
+      "ratio": 28.524981740415658,
+      "value": null
+    },
+    {
+      "number": 28,
+      "state": "FAIL",
+      "lr": 0.07623093539577087,
+      "ratio": 8.381072133606576,
+      "value": null
+    },
+    {
+      "number": 29,
+      "state": "FAIL",
+      "lr": 0.024146782766015566,
+      "ratio": 64.46142679581361,
+      "value": null
+    },
+    {
+      "number": 30,
+      "state": "FAIL",
+      "lr": 0.0009028172355523254,
+      "ratio": 0.8516492141926116,
+      "value": null
+    },
+    {
+      "number": 31,
+      "state": "FAIL",
+      "lr": 0.015816445299704995,
+      "ratio": 53.78164548825498,
+      "value": null
+    },
+    {
+      "number": 32,
+      "state": "FAIL",
+      "lr": 0.31251559849045635,
+      "ratio": 7.671829284790496,
+      "value": null
+    },
+    {
+      "number": 33,
+      "state": "FAIL",
+      "lr": 0.1296127096393416,
+      "ratio": 10.701824003780951,
+      "value": null
+    },
+    {
+      "number": 34,
+      "state": "FAIL",
+      "lr": 0.16612961650442543,
+      "ratio": 82.97673792641109,
+      "value": null
+    },
+    {
+      "number": 35,
+      "state": "FAIL",
+      "lr": 0.004242789788442194,
+      "ratio": 12.2973167244636,
+      "value": null
+    },
+    {
+      "number": 36,
+      "state": "FAIL",
+      "lr": 0.012860095646245507,
+      "ratio": 56.724756642319505,
+      "value": null
+    },
+    {
+      "number": 37,
+      "state": "FAIL",
+      "lr": 0.09593812248576494,
+      "ratio": 54.70708578013561,
+      "value": null
+    },
+    {
+      "number": 38,
+      "state": "FAIL",
+      "lr": 0.29921584370459137,
+      "ratio": 6.690305246396948,
+      "value": null
+    },
+    {
+      "number": 39,
+      "state": "FAIL",
+      "lr": 0.18702212232888069,
+      "ratio": 24.59978039361537,
+      "value": null
+    },
+    {
+      "number": 40,
+      "state": "FAIL",
+      "lr": 0.005213644825849923,
+      "ratio": 0.6628840231481768,
+      "value": null
+    },
+    {
+      "number": 41,
+      "state": "FAIL",
+      "lr": 0.34033875378454814,
+      "ratio": 10.18646259616615,
+      "value": null
+    },
+    {
+      "number": 42,
+      "state": "FAIL",
+      "lr": 0.22076199570906918,
+      "ratio": 39.05889379331301,
+      "value": null
+    },
+    {
+      "number": 43,
+      "state": "FAIL",
+      "lr": 0.3723069219729543,
+      "ratio": 23.9975485354616,
+      "value": null
+    },
+    {
+      "number": 44,
+      "state": "FAIL",
+      "lr": 0.02770686264455695,
+      "ratio": 5.398894027558573,
+      "value": null
+    },
+    {
+      "number": 45,
+      "state": "FAIL",
+      "lr": 0.16688527001186912,
+      "ratio": 6.175984590663111,
+      "value": null
+    },
+    {
+      "number": 46,
+      "state": "FAIL",
+      "lr": 0.09229353371342859,
+      "ratio": 4.755734958704919,
+      "value": null
+    },
+    {
+      "number": 47,
+      "state": "FAIL",
+      "lr": 0.07488143496572042,
+      "ratio": 68.16519747267634,
+      "value": null
+    },
+    {
+      "number": 48,
+      "state": "FAIL",
+      "lr": 0.048305782906834016,
+      "ratio": 78.50789734532414,
+      "value": null
+    },
+    {
+      "number": 49,
+      "state": "FAIL",
+      "lr": 0.007372827025887608,
+      "ratio": 46.98064284375316,
+      "value": null
+    },
+    {
+      "number": 50,
+      "state": "FAIL",
+      "lr": 0.013233283788066081,
+      "ratio": 2.244235176933268,
+      "value": null
+    },
+    {
+      "number": 51,
+      "state": "FAIL",
+      "lr": 0.022848819472002124,
+      "ratio": 26.37470531980092,
+      "value": null
+    },
+    {
+      "number": 52,
+      "state": "FAIL",
+      "lr": 0.017511862251584555,
+      "ratio": 97.2227885169108,
+      "value": null
+    }
+  ],
+  "updated_at": "2026-07-24T22:50:13.855445+00:00"
+}
