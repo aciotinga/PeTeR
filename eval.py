@@ -1,15 +1,15 @@
 """Compare MLE-PC, best PeTeR PC, and RL-TPM on original + adversarial test sets.
 
-For each (dataset, k), looks up the best PeTeR ``(lr, ratio)`` from
-``sweeps/tpe`` (preferred) or ``sweeps/grid``, materializes
-``results/.../circuit.json`` via ``peter.run`` if missing, then prints mean
-log-likelihood of MLE / PeTeR / RL-TPM on both test sets.
+Builds one job per ``(dataset, k)``, interleaved across Ks, and runs them with
+``-j`` worker processes (same pattern as ``tune.py``).
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 from sparc.nodes import CircuitNode
@@ -33,27 +33,19 @@ def rltpm_path(dataset: str, k: int) -> Path:
     )
 
 
-def best_peter_params(
-    dataset: str,
-    k: int,
-) -> tuple[float, float, float, str] | None:
-    """Return ``(lr, ratio, recorded_adv_ll, source)`` or None."""
+def best_peter_params(dataset: str, k: int) -> tuple[float, float, str] | None:
     candidates: list[tuple[float, float, float, str]] = []
-
     for ds, run_k, adv_ll, lr, ratio in best_from_tpe(k):
         if ds == dataset and run_k == k:
             candidates.append((lr, ratio, adv_ll, "tpe"))
-
     for ds, run_k, adv_ll, _orig, lr, ratio in best_from_grid(k):
         if ds == dataset and run_k == k:
             candidates.append((lr, ratio, adv_ll, "grid"))
-
     if not candidates:
         return None
-    # Prefer higher recorded adversarial LL; break ties toward TPE.
     candidates.sort(key=lambda c: (c[2], c[3] == "tpe"), reverse=True)
-    lr, ratio, adv_ll, source = candidates[0]
-    return lr, ratio, adv_ll, source
+    lr, ratio, _adv, source = candidates[0]
+    return lr, ratio, source
 
 
 def iters_for(dataset: str, k: int, source: str) -> int:
@@ -74,7 +66,7 @@ def ensure_peter_circuit(dataset: str, k: int, lr: float, ratio: float, iters: i
     if circuit.is_file():
         return circuit
     print(
-        f"  materializing peter circuit  lr={lr:g}  ratio={ratio:g}  iters={iters} ...",
+        f"start  {dataset}  k={k}  materialize  lr={lr:g}  ratio={ratio:g}",
         flush=True,
     )
     outcome = run(
@@ -89,9 +81,7 @@ def ensure_peter_circuit(dataset: str, k: int, lr: float, ratio: float, iters: i
         out_dir=out_dir,
     )
     if outcome.status != "ok" or not circuit.is_file():
-        raise RuntimeError(
-            f"failed to materialize peter circuit for {dataset} k={k}: {outcome.error}"
-        )
+        raise RuntimeError(outcome.error or "peter run failed")
     return circuit
 
 
@@ -100,50 +90,73 @@ def eval_circuit(path: Path, orig, adv) -> tuple[float, float]:
     return mean_log_likelihood(graph, orig), mean_log_likelihood(graph, adv)
 
 
-def eval_one(dataset: str, k: int) -> None:
+def collect_jobs(ks: list[int], datasets: list[str] | None) -> list[tuple[str, int]]:
+    """Round-robin ``(dataset, k)`` jobs across Ks."""
+    per_k: list[list[tuple[str, int]]] = []
+    for k in ks:
+        names = datasets if datasets else discover_datasets(k)
+        if datasets:
+            available = set(discover_datasets(k))
+            missing = [d for d in datasets if d not in available]
+            if missing:
+                raise SystemExit(
+                    f"Dataset(s) not runnable for k={k}: {', '.join(missing)}"
+                )
+        per_k.append([(d, k) for d in names])
+
+    jobs: list[tuple[str, int]] = []
+    while any(per_k):
+        for bucket in per_k:
+            if bucket:
+                jobs.append(bucket.pop(0))
+    return jobs
+
+
+def eval_one(args: tuple[str, int]) -> str:
+    """Worker entry point. Returns a printable block (or SKIP line)."""
+    dataset, k = args
+    print(f"start  {dataset}  k={k}", flush=True)
+
     best = best_peter_params(dataset, k)
     if best is None:
-        print(f"{dataset}  k={k}  SKIP (no sweep/tpe winner)")
-        return
+        msg = f"{dataset}  k={k}  SKIP (no sweep/tpe winner)"
+        print(f"done   {msg}", flush=True)
+        return msg
 
-    lr, ratio, recorded_adv, source = best
-    mle = resolve_circuit_path(dataset)
+    lr, ratio, source = best
     rltpm = rltpm_path(dataset, k)
     if not rltpm.is_file():
-        print(f"{dataset}  k={k}  SKIP (missing RL-TPM: {rltpm})")
-        return
+        msg = f"{dataset}  k={k}  SKIP (missing RL-TPM)"
+        print(f"done   {msg}", flush=True)
+        return msg
 
     try:
         orig, adv = resolve_eval_datasets(dataset, k)
-    except FileNotFoundError as exc:
-        print(f"{dataset}  k={k}  SKIP ({exc})")
-        return
-
-    iters = iters_for(dataset, k, source)
-    try:
-        peter = ensure_peter_circuit(dataset, k, lr, ratio, iters)
+        mle = resolve_circuit_path(dataset)
+        peter = ensure_peter_circuit(dataset, k, lr, ratio, iters_for(dataset, k, source))
+        mle_o, mle_a = eval_circuit(mle, orig, adv)
+        peter_o, peter_a = eval_circuit(peter, orig, adv)
+        rltpm_o, rltpm_a = eval_circuit(rltpm, orig, adv)
     except Exception as exc:
-        print(f"{dataset}  k={k}  SKIP (peter: {exc})")
-        return
+        msg = f"{dataset}  k={k}  SKIP ({exc})"
+        print(f"done   {msg}", flush=True)
+        return msg
 
-    mle_o, mle_a = eval_circuit(mle, orig, adv)
-    peter_o, peter_a = eval_circuit(peter, orig, adv)
-    rltpm_o, rltpm_a = eval_circuit(rltpm, orig, adv)
-
-    print(
+    block = (
         f"{dataset}  k={k}  peter={source}  lr={lr:g}  ratio={ratio:g}  "
-        f"dir={format_hyperparam_dir(lr, ratio)}"
+        f"dir={format_hyperparam_dir(lr, ratio)}\n"
+        f"  {'method':<8}  {'orig_test':>12}  {'adv_test':>12}\n"
+        f"  {'mle-pc':<8}  {mle_o:12.4f}  {mle_a:12.4f}\n"
+        f"  {'peter':<8}  {peter_o:12.4f}  {peter_a:12.4f}\n"
+        f"  {'rltpm':<8}  {rltpm_o:12.4f}  {rltpm_a:12.4f}"
     )
-    print(f"  {'method':<8}  {'orig_test':>12}  {'adv_test':>12}")
-    print(f"  {'mle-pc':<8}  {mle_o:12.4f}  {mle_a:12.4f}")
-    print(f"  {'peter':<8}  {peter_o:12.4f}  {peter_a:12.4f}")
-    print(f"  {'rltpm':<8}  {rltpm_o:12.4f}  {rltpm_a:12.4f}")
-    print()
+    print(f"done   {dataset}  k={k}", flush=True)
+    return block
 
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Compare MLE-PC, best PeTeR, and RL-TPM mean test log-likelihoods.",
+        description="Compare MLE-PC, best PeTeR, and RL-TPM (parallel job queue).",
     )
     p.add_argument(
         "--k",
@@ -157,19 +170,42 @@ def build_parser() -> argparse.ArgumentParser:
         action="append",
         dest="datasets",
         metavar="NAME",
-        help="Only this dataset (repeatable). Default: all with example_pcs + eval data",
+        help="Only this dataset (repeatable). Default: all runnable",
+    )
+    p.add_argument(
+        "-j",
+        "--jobs",
+        type=int,
+        default=max(1, (os.cpu_count() or 1)),
+        metavar="N",
+        help="Parallel worker processes (default: number of available CPUs)",
     )
     return p
 
 
 def main() -> None:
     args = build_parser().parse_args()
-    ks = [args.k] if args.k is not None else list(VALID_K)
+    if args.jobs < 1:
+        raise SystemExit("--jobs must be at least 1")
 
-    for k in ks:
-        datasets = args.datasets if args.datasets else discover_datasets(k)
-        for dataset in datasets:
-            eval_one(dataset, k)
+    ks = [args.k] if args.k is not None else list(VALID_K)
+    jobs = collect_jobs(ks, args.datasets)
+    print(f"eval: ks={ks}  jobs={args.jobs}  queued={len(jobs)}", flush=True)
+
+    results: list[str] = []
+    if args.jobs == 1:
+        for job in jobs:
+            results.append(eval_one(job))
+    else:
+        with ProcessPoolExecutor(max_workers=args.jobs) as pool:
+            futures = {pool.submit(eval_one, job): job for job in jobs}
+            for future in as_completed(futures):
+                results.append(future.result())
+
+    print("\n=== results ===")
+    for block in sorted(results):
+        print(block)
+        print()
 
 
 if __name__ == "__main__":
