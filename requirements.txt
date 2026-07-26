@@ -1,4 +1,5 @@
 sparc-pc
 numpy
+scipy
 matplotlib
 optuna
