@@ -1,5 +1,14 @@
 """Compare MLE-PC, best PeTeR PC, and RL-TPM on original + adversarial test sets.
 
+Each method is scored on its own adversarial set:
+
+* MLE-PC  — ``adversarial_datasets/<dataset>_K<k>.data``
+* PeTeR   — ``results/.../<dataset>_K<k>_peter.data`` (next to ``circuit.json``)
+* RL-TPM  — ``rltpm_learned_pcs/.../<dataset>_K<k>_rltpm.data``
+
+Scores are cached beside each adversarial file as ``*.eval.json`` (skip recompute
+unless ``--force``).
+
 Builds one job per ``(dataset, k)``, interleaved across Ks, and runs them with
 ``-j`` worker processes (same pattern as ``tune.py``).
 """
@@ -12,6 +21,7 @@ import os
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
+import numpy as np
 from sparc.nodes import CircuitNode
 
 from best_sweep import best_from_grid, best_from_tpe
@@ -31,6 +41,68 @@ def rltpm_path(dataset: str, k: int) -> Path:
         / f"K{k}"
         / f"hclt_{dataset}_blocksize4_seed0.json"
     )
+
+
+def load_binary_data(path: Path) -> np.ndarray:
+    if not path.is_file():
+        raise FileNotFoundError(f"Missing dataset: {path}")
+    return np.loadtxt(path, delimiter=",", dtype=np.int32)
+
+
+def eval_cache_path(adv_path: Path) -> Path:
+    """JSON cache sibling of an adversarial ``.data`` file."""
+    return adv_path.with_suffix(".eval.json")
+
+
+def mle_adv_path(dataset: str, k: int) -> Path:
+    return _ROOT / "adversarial_datasets" / f"{dataset}_K{k}.data"
+
+
+def peter_adv_path(dataset: str, k: int, lr: float, ratio: float) -> Path:
+    return run_output_dir(dataset, k, lr, ratio) / f"{dataset}_K{k}_peter.data"
+
+
+def rltpm_adv_path(dataset: str, k: int) -> Path:
+    return rltpm_path(dataset, k).parent / f"{dataset}_K{k}_rltpm.data"
+
+
+def load_eval_cache(adv_path: Path) -> tuple[float, float] | None:
+    path = eval_cache_path(adv_path)
+    if not path.is_file():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return float(payload["orig_test_ll"]), float(payload["own_adv_ll"])
+
+
+def save_eval_cache(adv_path: Path, orig_ll: float, adv_ll: float) -> None:
+    path = eval_cache_path(adv_path)
+    path.write_text(
+        json.dumps(
+            {"orig_test_ll": orig_ll, "own_adv_ll": adv_ll},
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
+def eval_circuit(
+    circuit_path: Path,
+    orig: np.ndarray,
+    adv: np.ndarray,
+    *,
+    adv_path: Path,
+    force: bool = False,
+) -> tuple[float, float]:
+    if not force:
+        cached = load_eval_cache(adv_path)
+        if cached is not None:
+            return cached
+    graph = CircuitNode.load(circuit_path).compile()
+    orig_ll = mean_log_likelihood(graph, orig)
+    adv_ll = mean_log_likelihood(graph, adv)
+    save_eval_cache(adv_path, orig_ll, adv_ll)
+    return orig_ll, adv_ll
 
 
 def best_peter_params(dataset: str, k: int) -> tuple[float, float, str] | None:
@@ -112,9 +184,9 @@ def collect_jobs(ks: list[int], datasets: list[str] | None) -> list[tuple[str, i
     return jobs
 
 
-def eval_one(args: tuple[str, int]) -> str:
+def eval_one(args: tuple[str, int, bool]) -> str:
     """Worker entry point. Returns a printable block (or SKIP line)."""
-    dataset, k = args
+    dataset, k, force = args
     print(f"start  {dataset}  k={k}", flush=True)
 
     best = best_peter_params(dataset, k)
@@ -131,12 +203,24 @@ def eval_one(args: tuple[str, int]) -> str:
         return msg
 
     try:
-        orig, adv = resolve_eval_datasets(dataset, k)
+        orig, _ = resolve_eval_datasets(dataset, k)
         mle = resolve_circuit_path(dataset)
         peter = ensure_peter_circuit(dataset, k, lr, ratio, iters_for(dataset, k, source))
-        mle_o, mle_a = eval_circuit(mle, orig, adv)
-        peter_o, peter_a = eval_circuit(peter, orig, adv)
-        rltpm_o, rltpm_a = eval_circuit(rltpm, orig, adv)
+        mle_adv_file = mle_adv_path(dataset, k)
+        peter_adv_file = peter_adv_path(dataset, k, lr, ratio)
+        rltpm_adv_file = rltpm_adv_path(dataset, k)
+        mle_adv = load_binary_data(mle_adv_file)
+        peter_adv = load_binary_data(peter_adv_file)
+        rltpm_adv = load_binary_data(rltpm_adv_file)
+        mle_o, mle_a = eval_circuit(
+            mle, orig, mle_adv, adv_path=mle_adv_file, force=force
+        )
+        peter_o, peter_a = eval_circuit(
+            peter, orig, peter_adv, adv_path=peter_adv_file, force=force
+        )
+        rltpm_o, rltpm_a = eval_circuit(
+            rltpm, orig, rltpm_adv, adv_path=rltpm_adv_file, force=force
+        )
     except Exception as exc:
         msg = f"{dataset}  k={k}  SKIP ({exc})"
         print(f"done   {msg}", flush=True)
@@ -145,7 +229,7 @@ def eval_one(args: tuple[str, int]) -> str:
     block = (
         f"{dataset}  k={k}  peter={source}  lr={lr:g}  ratio={ratio:g}  "
         f"dir={format_hyperparam_dir(lr, ratio)}\n"
-        f"  {'method':<8}  {'orig_test':>12}  {'adv_test':>12}\n"
+        f"  {'method':<8}  {'orig_test':>12}  {'own_adv':>12}\n"
         f"  {'mle-pc':<8}  {mle_o:12.4f}  {mle_a:12.4f}\n"
         f"  {'peter':<8}  {peter_o:12.4f}  {peter_a:12.4f}\n"
         f"  {'rltpm':<8}  {rltpm_o:12.4f}  {rltpm_a:12.4f}"
@@ -156,7 +240,10 @@ def eval_one(args: tuple[str, int]) -> str:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        description="Compare MLE-PC, best PeTeR, and RL-TPM (parallel job queue).",
+        description=(
+            "Compare MLE-PC, best PeTeR, and RL-TPM on original test and each "
+            "method's own adversarial set (parallel job queue)."
+        ),
     )
     p.add_argument(
         "--k",
@@ -180,6 +267,11 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="N",
         help="Parallel worker processes (default: number of available CPUs)",
     )
+    p.add_argument(
+        "--force",
+        action="store_true",
+        help="Recompute even when a sibling .eval.json cache exists",
+    )
     return p
 
 
@@ -189,8 +281,12 @@ def main() -> None:
         raise SystemExit("--jobs must be at least 1")
 
     ks = [args.k] if args.k is not None else list(VALID_K)
-    jobs = collect_jobs(ks, args.datasets)
-    print(f"eval: ks={ks}  jobs={args.jobs}  queued={len(jobs)}", flush=True)
+    pairs = collect_jobs(ks, args.datasets)
+    jobs = [(dataset, k, args.force) for dataset, k in pairs]
+    print(
+        f"eval: ks={ks}  jobs={args.jobs}  queued={len(jobs)}  force={args.force}",
+        flush=True,
+    )
 
     results: list[str] = []
     if args.jobs == 1:
