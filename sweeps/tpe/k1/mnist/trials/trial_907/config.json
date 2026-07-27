@@ -1,0 +1,14 @@
+{
+  "dataset": "mnist",
+  "k": 1,
+  "lr": 0.00013536503583667938,
+  "ratio": 33.85100179123311,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "/scratch/acioting/AAAI27PeTeR/mnist/hclt_mnist_blocksize4.json",
+  "started_at": "2026-07-27T10:37:23.310619+00:00"
+}
