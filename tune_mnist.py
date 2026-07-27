@@ -1,7 +1,7 @@
 """Bayesian TPE hyperparameter search for MNIST PeTeR (lr and ratio).
 
 Mirrors :mod:`tune` but only for MNIST. Maximizes mean log-likelihood on
-``corrupted_datasets/mnist/sigma0.1/r0.data`` (stored as ``final_adv_test_ll``).
+``corrupted_datasets/mnist/sigma0.010/r0.data`` (stored as ``final_adv_test_ll``).
 
 Search space (log-uniform)::
 
@@ -37,6 +37,7 @@ from optuna.trial import TrialState
 
 from peter import DEFAULT_ITERS, VALID_K
 from peter_mnist import DATASET, require_mnist_inputs, run
+from prepare_mnist_data import TUNE_SIGMA, format_sigma
 from sweep_io import (
     tpe_dataset_dir,
     tpe_journal_path,
@@ -51,6 +52,8 @@ RATIO_LOW = 0.1
 RATIO_HIGH = 100.0
 DEFAULT_N_TRIALS = 50
 N_STARTUP_TRIALS = 10
+_TUNE_CORRUPT = f"corrupted_datasets/mnist/sigma{format_sigma(TUNE_SIGMA)}/r0.data"
+_TUNE_LABEL = f"sigma{format_sigma(TUNE_SIGMA)}/r0"
 
 _FINISHED_STATES = (TrialState.COMPLETE, TrialState.FAIL)
 
@@ -125,7 +128,7 @@ def build_study_summary(
             "lr": bt.params["lr"],
             "ratio": bt.params["ratio"],
             "final_adv_test_ll": bt.value,
-            "objective_note": "mean LL on corrupted_datasets/mnist/sigma0.1/r0.data",
+            "objective_note": f"mean LL on {_TUNE_CORRUPT}",
             "recreate_cmd": (
                 f"python peter_mnist.py --k {k} --lr {bt.params['lr']:g} "
                 f"--ratio {bt.params['ratio']:g} --iters {iters}"
@@ -143,7 +146,7 @@ def build_study_summary(
             "ratio": {"low": RATIO_LOW, "high": RATIO_HIGH, "log": True},
         },
         "objective": "final_adv_test_ll",
-        "objective_data": "corrupted_datasets/mnist/sigma0.1/r0.data",
+        "objective_data": _TUNE_CORRUPT,
         "direction": "maximize",
         "n_complete": len(complete),
         "n_failed": len(failed),
@@ -299,7 +302,7 @@ def run_tune(
     print(
         f"tune_mnist: ks={ks}  iters={iters}  n_trials={n_trials}/study  jobs={jobs}  "
         f"studies={len(ks)}  queued_trials={len(job_list)}  "
-        f"objective=sigma0.1/r0 mean LL",
+        f"objective={_TUNE_LABEL} mean LL",
         flush=True,
     )
 
@@ -337,7 +340,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Optuna TPE search over lr and ratio for MNIST PeTeR. "
-            "Maximizes mean LL on corrupted sigma0.1/r0. "
+            f"Maximizes mean LL on corrupted {_TUNE_LABEL}. "
             "Interleaves trials across K into one ProcessPoolExecutor queue. "
             "Writes metadata only under sweeps/tpe/ (no circuits)."
         ),

@@ -4,7 +4,7 @@ Writes the (optionally truncated) MNIST test set to::
 
     original_datasets/mnist/mnist.test.data
 
-Then, for each sigma in ``{0.1, 0.2, ..., 1.0}`` and each of 10 replicates,
+Then, for each sigma in ``{0.001, 0.002, ..., 0.010}`` and each of 10 replicates,
 writes::
 
     corrupted_datasets/mnist/sigma<s>/r0.data
@@ -41,11 +41,17 @@ _TEST_IMAGES_URL = (
 _TEST_IMAGES_NAME = "t10k-images-idx3-ubyte.gz"
 
 NUM_COPIES = 10
-SIGMAS = tuple(round(0.1 * i, 1) for i in range(1, 11))
+SIGMAS = tuple(round(0.001 * i, 3) for i in range(1, 11))
+# Upper end of SIGMAS; used as the PeTeR tune / live-eval corruption target.
+TUNE_SIGMA = 0.1
+
+
+def format_sigma(sigma: float) -> str:
+    return f"{sigma:.3f}"
 
 
 def sigma_dir(sigma: float) -> Path:
-    return _CORRUPT_ROOT / f"sigma{sigma:.1f}"
+    return _CORRUPT_ROOT / f"sigma{format_sigma(sigma)}"
 
 
 def corrupt_path(sigma: float, replicate: int) -> Path:
@@ -53,7 +59,9 @@ def corrupt_path(sigma: float, replicate: int) -> Path:
 
 
 def seed_for(sigma: float, replicate: int) -> int:
-    digest = hashlib.md5(f"mnist|sigma{sigma:.1f}|r{replicate}".encode()).hexdigest()
+    digest = hashlib.md5(
+        f"mnist|sigma{format_sigma(sigma)}|r{replicate}".encode()
+    ).hexdigest()
     return int(digest[:8], 16)
 
 
@@ -137,7 +145,7 @@ def main() -> None:
             save_dataset(out, corrupted)
             print(
                 f"wrote  {out.relative_to(_ROOT)}  "
-                f"(sigma={sigma:.1f}  r{replicate})",
+                f"(sigma={format_sigma(sigma)}  r{replicate})",
                 flush=True,
             )
 

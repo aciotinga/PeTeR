@@ -1,0 +1,48 @@
+{
+  "dataset": "mnist",
+  "k": 1,
+  "source": "tpe",
+  "lr": 2.7001862237401832e-06,
+  "ratio": 0.17230491130528763,
+  "tune_final_adv_test_ll": -3351.5832458847826,
+  "mle_circuit": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\mnist\\hclt_mnist_blocksize4.json",
+  "peter_circuit": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\results\\mnist\\k1\\lr=2.70019e-06_ratio=0.172305\\circuit.json",
+  "sigmas": [
+    0.001,
+    0.002,
+    0.003,
+    0.004,
+    0.005,
+    0.006,
+    0.007,
+    0.008,
+    0.009,
+    0.01
+  ],
+  "mle": {
+    "orig_test_ll": -724.2829366012824,
+    "sigma0.001_mean_ll": -913.5143507866329,
+    "sigma0.002_mean_ll": -1880.4259926620423,
+    "sigma0.003_mean_ll": -2450.7486799353856,
+    "sigma0.004_mean_ll": -2757.833166793028,
+    "sigma0.005_mean_ll": -2943.2658321615513,
+    "sigma0.006_mean_ll": -3060.0607921710825,
+    "sigma0.007_mean_ll": -3142.7391677542805,
+    "sigma0.008_mean_ll": -3200.000509213192,
+    "sigma0.009_mean_ll": -3243.4520376286373,
+    "sigma0.010_mean_ll": -3278.280098485991
+  },
+  "peter": {
+    "orig_test_ll": -1129.6193932039384,
+    "sigma0.001_mean_ll": -1247.2802546532325,
+    "sigma0.002_mean_ll": -1893.3265161636277,
+    "sigma0.003_mean_ll": -2316.6035344421903,
+    "sigma0.004_mean_ll": -2561.617639453767,
+    "sigma0.005_mean_ll": -2716.4715525351016,
+    "sigma0.006_mean_ll": -2819.064334241025,
+    "sigma0.007_mean_ll": -2894.263241975416,
+    "sigma0.008_mean_ll": -2948.3239866145814,
+    "sigma0.009_mean_ll": -2991.309564887461,
+    "sigma0.010_mean_ll": -3025.5829154437533
+  }
+}

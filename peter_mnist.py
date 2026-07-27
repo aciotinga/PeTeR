@@ -4,10 +4,10 @@ Mirrors :mod:`peter` but loads ``mnist/hclt_mnist_blocksize4.json`` and
 evaluates on::
 
     original_datasets/mnist/mnist.test.data
-    corrupted_datasets/mnist/sigma0.1/r0.data
+    corrupted_datasets/mnist/sigma0.010/r0.data
 
 ``RunMetrics.final_adv_test_ll`` / ``best_adv_test_ll`` store mean log-likelihood
-on the sigma0.1/r0 corrupted set (the tuning objective).
+on the sigma0.010/r0 corrupted set (the tuning objective).
 
 Default full-run artifacts land under::
 
@@ -41,14 +41,14 @@ from peter import (
     save_json,
     save_run_error,
 )
-from prepare_mnist_data import corrupt_path
+from prepare_mnist_data import TUNE_SIGMA, corrupt_path
 from robustify import ETA_LAMBDA, run_dro_ogda
 
 _ROOT = Path(__file__).resolve().parent
 DATASET = "mnist"
 _CIRCUIT = _ROOT / "mnist" / "hclt_mnist_blocksize4.json"
 _ORIG_TEST = _ROOT / "original_datasets" / "mnist" / "mnist.test.data"
-_CORRUPT_EVAL = corrupt_path(0.1, 0)
+_CORRUPT_EVAL = corrupt_path(TUNE_SIGMA, 0)
 
 
 def circuit_path() -> Path:
@@ -173,12 +173,12 @@ def _run_training(
     p_hat = CircuitNode.load(_CIRCUIT)
     _log(quiet, f"  nodes in scope: {len(p_hat.scope_as_list())}")
 
-    _log(quiet, "loading eval datasets (original + sigma0.1/r0)")
+    _log(quiet, "loading eval datasets (original + sigma0.010/r0)")
     original_data, corrupt_data = load_eval_datasets()
     _log(
         quiet,
         f"  original test: {len(original_data)} rows, "
-        f"corrupt sigma0.1/r0: {len(corrupt_data)} rows",
+        f"corrupt sigma0.010/r0: {len(corrupt_data)} rows",
     )
     _log(quiet, f"results -> {out_dir.resolve()}")
 
@@ -221,7 +221,7 @@ def _run_training(
     _log(
         quiet,
         f"final test LL: orig={metrics.final_orig_test_ll:.6f}  "
-        f"corrupt(sigma0.1/r0)={metrics.final_adv_test_ll:.6f}",
+        f"corrupt(sigma0.010/r0)={metrics.final_adv_test_ll:.6f}",
     )
     return RunOutcome(out_dir=out_dir, status="ok", metrics=metrics)
 
@@ -230,7 +230,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Run PeTeR on MNIST with tunable lr/ratio. "
-            "Eval target is mean LL on corrupted sigma0.1/r0. "
+            "Eval target is mean LL on corrupted sigma0.010/r0. "
             "Saves under results/mnist/."
         ),
     )

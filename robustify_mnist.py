@@ -5,7 +5,7 @@ Loads ``mnist/hclt_mnist_blocksize4.json``, runs DRO-OGDA with tunable
 iteration on:
 
 * ``original_datasets/mnist/mnist.test.data``
-* ``corrupted_datasets/mnist/sigma0.1/r0.data``
+* ``corrupted_datasets/mnist/sigma0.010/r0.data``
 
 A live matplotlib window tracks both mean log-likelihoods.  The robustified
 circuit (and a final PNG of the curve) are written under ``mnist/``.
@@ -21,7 +21,7 @@ import numpy as np
 from sparc.nodes import CircuitNode
 
 from peter import DEFAULT_ITERS, DEFAULT_LR, DEFAULT_RATIO, WARM_START_ITERS
-from prepare_mnist_data import corrupt_path
+from prepare_mnist_data import TUNE_SIGMA, corrupt_path, format_sigma
 from robustify import (
     ETA_LAMBDA,
     THETA_NUM_SAMPLES,
@@ -33,12 +33,13 @@ _ROOT = Path(__file__).resolve().parent
 _MNIST_DIR = _ROOT / "mnist"
 _DEFAULT_CIRCUIT = _MNIST_DIR / "hclt_mnist_blocksize4.json"
 _ORIG_TEST = _ROOT / "original_datasets" / "mnist" / "mnist.test.data"
-_CORRUPT_EVAL = corrupt_path(0.1, 0)
+_CORRUPT_EVAL = corrupt_path(TUNE_SIGMA, 0)
 _DEFAULT_CHECKPOINT_EVERY = 5
+_TUNE_SIGMA_LABEL = f"sigma{format_sigma(TUNE_SIGMA)}"
 
 
 class MnistLiveLikelihoodPlot:
-    """Live plot of original vs sigma0.1/r0 corrupted mean log-likelihood."""
+    """Live plot of original vs tune-sigma corrupted mean log-likelihood."""
 
     def __init__(self, *, k: float, lr: float, ratio: float) -> None:
         try:
@@ -53,7 +54,7 @@ class MnistLiveLikelihoodPlot:
         self.fig, self.ax = plt.subplots(figsize=(9, 5))
         (self._line_orig,) = self.ax.plot([], [], label="original test", linewidth=1.5)
         (self._line_corrupt,) = self.ax.plot(
-            [], [], label="corrupted sigma0.1 / r0", linewidth=1.5
+            [], [], label=f"corrupted {_TUNE_SIGMA_LABEL} / r0", linewidth=1.5
         )
         self.ax.set(
             xlabel="iteration",
@@ -106,7 +107,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         description=(
             "Robustify the MNIST circuit with PeTeR; live-plot original vs "
-            "sigma0.1/r0 log-likelihood; save under mnist/."
+            f"{_TUNE_SIGMA_LABEL}/r0 log-likelihood; save under mnist/."
         ),
     )
     p.add_argument(

@@ -1,7 +1,7 @@
 """Grid search over lr and ratio for MNIST PeTeR.
 
 Mirrors :mod:`sweep` but only for MNIST. Same learning-rate / ratio grid.
-Objective metric in ``metrics.json`` is mean LL on sigma0.1/r0
+Objective metric in ``metrics.json`` is mean LL on sigma0.010/r0
 (``final_adv_test_ll``).
 
 Metadata-only artifacts::
@@ -22,6 +22,7 @@ from pathlib import Path
 
 from peter import DEFAULT_ITERS, VALID_K, RunOutcome
 from peter_mnist import DATASET, require_mnist_inputs, run
+from prepare_mnist_data import TUNE_SIGMA, format_sigma
 from sweep import LEARNING_RATES, RATIOS
 from sweep_io import (
     grid_run_dir,
@@ -32,6 +33,8 @@ from sweep_io import (
 
 _ROOT = Path(__file__).resolve().parent
 GRID_ROOT = _ROOT / "sweeps" / "grid"
+_TUNE_CORRUPT = f"corrupted_datasets/mnist/sigma{format_sigma(TUNE_SIGMA)}/r0.data"
+_TUNE_LABEL = f"sigma{format_sigma(TUNE_SIGMA)}/r0"
 
 
 @dataclass(frozen=True)
@@ -100,7 +103,7 @@ def save_summary(k: int, iters: int, jobs: int, records: list[SweepRunRecord]) -
         "learning_rates": LEARNING_RATES,
         "ratios": RATIOS,
         "objective": "final_adv_test_ll",
-        "objective_data": "corrupted_datasets/mnist/sigma0.1/r0.data",
+        "objective_data": _TUNE_CORRUPT,
         "updated_at": datetime.now(timezone.utc).isoformat(),
         "total_runs": len(records),
         "succeeded": sum(r.status == "ok" for r in records),
@@ -184,7 +187,7 @@ def run_sweep(
     print(
         f"sweep_mnist: k={k}  iters={iters}  jobs={jobs}  "
         f"{len(LEARNING_RATES)} lrs x {len(RATIOS)} ratios = {len(combos)} runs  "
-        f"objective=sigma0.1/r0 mean LL",
+        f"objective={_TUNE_LABEL} mean LL",
         flush=True,
     )
 
@@ -247,7 +250,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Hyperparameter grid search over lr and ratio for MNIST PeTeR. "
-            "Maximizes mean LL on corrupted sigma0.1/r0 (recorded as final_adv_test_ll). "
+            f"Maximizes mean LL on corrupted {_TUNE_LABEL} (recorded as final_adv_test_ll). "
             "Writes metadata only under sweeps/grid/ (no circuits)."
         ),
     )
