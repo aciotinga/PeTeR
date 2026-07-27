@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -243,6 +244,7 @@ def run_dro_ogda(
     original_data: np.ndarray | None = None,
     adversarial_data: np.ndarray | None = None,
     plotter: LiveLikelihoodPlot | None = None,
+    on_iter: Callable[[int, CircuitNode, float], None] | None = None,
     quiet: bool = False,
 ) -> tuple[CircuitNode, float]:
     eta_theta, eta_phi = lr, lr * ratio
@@ -305,6 +307,8 @@ def run_dro_ogda(
             )
         if do_eval and eval_every is not None and it % eval_every == 0:
             eval_at(it)
+        if on_iter is not None:
+            on_iter(it, p_theta.node, lam)
 
     return p_theta.node, lam
 
