@@ -1,0 +1,7 @@
+{
+  "status": "failed",
+  "error_type": "ValueError",
+  "error": "Shape mismatch: original (10000, 784) vs corrupt (500, 784). Re-run prepare_mnist_data.py so both use the same number of rows.",
+  "traceback": "Traceback (most recent call last):\n  File \"/scratch/acioting/AAAI27PeTeR/peter_mnist.py\", line 138, in run\n    return _run_training(\n           ^^^^^^^^^^^^^^\n  File \"/scratch/acioting/AAAI27PeTeR/peter_mnist.py\", line 177, in _run_training\n    original_data, corrupt_data = load_eval_datasets()\n                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/scratch/acioting/AAAI27PeTeR/peter_mnist.py\", line 87, in load_eval_datasets\n    raise ValueError(\nValueError: Shape mismatch: original (10000, 784) vs corrupt (500, 784). Re-run prepare_mnist_data.py so both use the same number of rows.\n",
+  "failed_at": "2026-07-28T01:53:24.748396+00:00"
+}

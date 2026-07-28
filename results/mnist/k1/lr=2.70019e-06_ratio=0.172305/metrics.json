@@ -1,9 +1,9 @@
 {
-  "final_lambda": 0.0,
-  "final_orig_test_ll": -1129.6193932039384,
-  "final_adv_test_ll": -3351.5839679487262,
-  "best_orig_test_ll": -724.2829366012824,
-  "best_adv_test_ll": -3351.467439429557,
-  "best_orig_iter": 0,
-  "best_adv_iter": 497
+  "final_lambda": 1000.0,
+  "final_orig_test_ll": -1423.0376523014504,
+  "final_adv_test_ll": -3263.61382501482,
+  "best_orig_test_ll": -926.9548337672354,
+  "best_adv_test_ll": -3263.040576283577,
+  "best_orig_iter": 501,
+  "best_adv_iter": 993
 }
