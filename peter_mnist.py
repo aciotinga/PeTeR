@@ -12,11 +12,16 @@ on the sigma0.100/r0 corrupted set (the tuning objective).
 Default full-run artifacts land under::
 
     results/mnist/k<k>/lr=<lr>_ratio=<ratio>/
+
+Pass ``--continue`` to resume from that directory's ``circuit.json``, using
+the prior ``config.json`` iters as ``start_iter`` and training up to a higher
+``--iters`` total.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 from dataclasses import asdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -103,6 +108,50 @@ def _log(quiet: bool, *args, **kwargs) -> None:
         print(*args, **kwargs)
 
 
+def circuit_out_path(out_dir: Path) -> Path:
+    return out_dir / "circuit.json"
+
+
+def load_resume_state(out_dir: Path) -> tuple[Path, int, float]:
+    """Load resume state from a prior ``results/`` run.
+
+    Returns ``(circuit_path, start_iter, lam_init)``.
+    """
+    circuit_out = circuit_out_path(out_dir)
+    if not circuit_out.is_file():
+        raise FileNotFoundError(
+            f"Cannot continue: missing {circuit_out}. "
+            "Run without --continue first."
+        )
+
+    config_path = out_dir / "config.json"
+    if not config_path.is_file():
+        raise FileNotFoundError(
+            f"Cannot continue: missing {config_path} (needed for prior iters)."
+        )
+    try:
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Invalid config.json in {out_dir}: {exc}") from exc
+    try:
+        start_iter = int(config["iters"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError(
+            f"config.json in {out_dir} must contain integer 'iters'"
+        ) from exc
+
+    lam_init = 0.0
+    metrics_file = metrics_path(out_dir)
+    if metrics_file.is_file():
+        try:
+            metrics = json.loads(metrics_file.read_text(encoding="utf-8"))
+            lam_init = float(metrics.get("final_lambda", 0.0))
+        except (OSError, json.JSONDecodeError, TypeError, ValueError):
+            lam_init = 0.0
+
+    return circuit_out, start_iter, lam_init
+
+
 def run(
     k: int,
     lr: float,
@@ -113,10 +162,14 @@ def run(
     save_plot: bool = True,
     quiet: bool = False,
     out_dir: Path | None = None,
+    continue_run: bool = False,
 ) -> RunOutcome:
     """Execute one MNIST PeTeR run and persist artifacts.
 
     On failure, writes ``error.json`` and returns ``status="failed"`` (does not raise).
+
+    When ``continue_run`` is True, loads ``circuit.json`` from the results dir and
+    resumes OGDA from the prior ``config.json`` iters up to ``iters`` (total).
     """
     if k not in VALID_K:
         raise ValueError(f"k must be one of {VALID_K}, got {k}")
@@ -124,6 +177,23 @@ def run(
     require_mnist_inputs()
     resolved_out = out_dir if out_dir is not None else run_output_dir(DATASET, k, lr, ratio)
     resolved_out.mkdir(parents=True, exist_ok=True)
+
+    start_iter = 0
+    p_theta_init: CircuitNode | None = None
+    lam_init = 0.0
+    if continue_run:
+        resume_circuit, start_iter, lam_init = load_resume_state(resolved_out)
+        if start_iter >= iters:
+            raise ValueError(
+                f"Latest results are at iter {start_iter}, but --iters={iters}. "
+                "Increase --iters to continue."
+            )
+        _log(
+            quiet,
+            f"continuing from {resume_circuit.resolve()} "
+            f"(start_iter={start_iter}, lambda={lam_init:.4f})",
+        )
+        p_theta_init = CircuitNode.load(resume_circuit)
 
     config = RunConfig(
         dataset=DATASET,
@@ -151,6 +221,9 @@ def run(
             save_circuit=save_circuit,
             save_plot=save_plot,
             quiet=quiet,
+            start_iter=start_iter,
+            p_theta_init=p_theta_init,
+            lam_init=lam_init,
         )
     except Exception as exc:
         save_run_error(resolved_out, exc)
@@ -174,9 +247,17 @@ def _run_training(
     save_circuit: bool,
     save_plot: bool,
     quiet: bool,
+    start_iter: int = 0,
+    p_theta_init: CircuitNode | None = None,
+    lam_init: float = 0.0,
 ) -> RunOutcome:
-    _log(quiet, f"dataset={DATASET!r}  k={k}  lr={lr:g}  ratio={ratio:g}  iters={iters}")
-    _log(quiet, f"loading circuit from {_CIRCUIT}")
+    resume_note = f"  resume_from={start_iter}" if start_iter > 0 else ""
+    _log(
+        quiet,
+        f"dataset={DATASET!r}  k={k}  lr={lr:g}  ratio={ratio:g}  iters={iters}"
+        f"{resume_note}",
+    )
+    _log(quiet, f"loading CW reference from {_CIRCUIT}")
     p_hat = CircuitNode.load(_CIRCUIT)
     _log(quiet, f"  nodes in scope: {len(p_hat.scope_as_list())}")
 
@@ -207,10 +288,13 @@ def _run_training(
         adversarial_data=corrupt_data,
         plotter=recorder,
         quiet=quiet,
+        start_iter=start_iter,
+        p_theta_init=p_theta_init,
+        lam_init=lam_init,
     )
 
     if save_circuit:
-        circuit_out = out_dir / "circuit.json"
+        circuit_out = circuit_out_path(out_dir)
         p_theta.save(circuit_out)
         _log(quiet, f"\nsaved circuit to {circuit_out.resolve()}")
 
@@ -265,7 +349,19 @@ def build_parser() -> argparse.ArgumentParser:
         "--iters",
         type=int,
         default=DEFAULT_ITERS,
-        help=f"OGDA iterations after warm start (default: {DEFAULT_ITERS})",
+        help=(
+            f"Total OGDA iterations after warm start (default: {DEFAULT_ITERS}). "
+            "With --continue, this is the new total target (must exceed prior iters)."
+        ),
+    )
+    parser.add_argument(
+        "--continue",
+        dest="continue_run",
+        action="store_true",
+        help=(
+            "Resume from results/mnist/.../circuit.json for this k/lr/ratio. "
+            "Increase --iters above the prior config iters."
+        ),
     )
     return parser
 
@@ -279,7 +375,16 @@ def main() -> None:
     if args.iters < 1:
         raise SystemExit("--iters must be at least 1")
 
-    outcome = run(k=args.k, lr=args.lr, ratio=args.ratio, iters=args.iters)
+    try:
+        outcome = run(
+            k=args.k,
+            lr=args.lr,
+            ratio=args.ratio,
+            iters=args.iters,
+            continue_run=args.continue_run,
+        )
+    except (FileNotFoundError, ValueError) as exc:
+        raise SystemExit(str(exc)) from exc
     if outcome.status == "failed":
         raise SystemExit(1)
 

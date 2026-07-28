@@ -9,6 +9,6 @@
   "eval_every": 1,
   "deterministic": true,
   "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/mnist/hclt_mnist_blocksize4.json",
-  "started_at": "2026-07-27T21:15:49.127145+00:00"
+  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\mnist\\hclt_mnist_blocksize4.json",
+  "started_at": "2026-07-28T01:57:23.765819+00:00"
 }
