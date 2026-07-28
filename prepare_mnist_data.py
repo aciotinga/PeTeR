@@ -4,6 +4,14 @@ Writes the (optionally truncated) MNIST test set to::
 
     original_datasets/mnist/mnist.test.data
 
+Also writes a peter_mnist-only truncated original and its TUNE_SIGMA
+corrupt copies (``n=PETER_EVAL_N``)::
+
+    original_datasets/mnist/mnist.test.n500.data
+    corrupted_datasets/mnist/sigma0.100/r0.data
+    ...
+    corrupted_datasets/mnist/sigma0.100/r9.data
+
 Then, for each sigma in ``{0.001, 0.002, ..., 0.010}`` and each of 10 replicates,
 writes::
 
@@ -32,6 +40,8 @@ import numpy as np
 
 _ROOT = Path(__file__).resolve().parent
 _ORIG_PATH = _ROOT / "original_datasets" / "mnist" / "mnist.test.data"
+# Truncated original used only by peter_mnist (matches TUNE_SIGMA corrupt size).
+_ORIG_PETER_PATH = _ROOT / "original_datasets" / "mnist" / "mnist.test.n500.data"
 _CORRUPT_ROOT = _ROOT / "corrupted_datasets" / "mnist"
 _MNIST_CACHE = _ROOT / "data" / "MNIST" / "raw"
 
@@ -44,6 +54,8 @@ NUM_COPIES = 10
 SIGMAS = tuple(round(0.001 * i, 3) for i in range(1, 11))
 # Upper end of SIGMAS; used as the PeTeR tune / live-eval corruption target.
 TUNE_SIGMA = 0.1
+# Row count for peter_mnist original + TUNE_SIGMA corrupt eval sets.
+PETER_EVAL_N = 500
 
 
 def format_sigma(sigma: float) -> str:
@@ -56,6 +68,10 @@ def sigma_dir(sigma: float) -> Path:
 
 def corrupt_path(sigma: float, replicate: int) -> Path:
     return sigma_dir(sigma) / f"r{replicate}.data"
+
+
+def original_peter_path() -> Path:
+    return _ORIG_PETER_PATH
 
 
 def seed_for(sigma: float, replicate: int) -> int:
@@ -136,6 +152,32 @@ def main() -> None:
 
     save_dataset(_ORIG_PATH, data)
     print(f"wrote  {_ORIG_PATH.relative_to(_ROOT)}", flush=True)
+
+    if len(data) >= PETER_EVAL_N:
+        peter_rows = data[:PETER_EVAL_N]
+        save_dataset(_ORIG_PETER_PATH, peter_rows)
+        print(
+            f"wrote  {_ORIG_PETER_PATH.relative_to(_ROOT)}  "
+            f"(peter_mnist original, n={PETER_EVAL_N})",
+            flush=True,
+        )
+        for replicate in range(NUM_COPIES):
+            out = corrupt_path(TUNE_SIGMA, replicate)
+            rng = np.random.default_rng(seed_for(TUNE_SIGMA, replicate))
+            corrupted = gaussian_corrupt(peter_rows, TUNE_SIGMA, rng)
+            save_dataset(out, corrupted)
+            print(
+                f"wrote  {out.relative_to(_ROOT)}  "
+                f"(sigma={format_sigma(TUNE_SIGMA)}  r{replicate}  "
+                f"n={PETER_EVAL_N})",
+                flush=True,
+            )
+    else:
+        print(
+            f"skip peter_mnist n={PETER_EVAL_N} originals/corrupt "
+            f"(only {len(data)} rows available)",
+            flush=True,
+        )
 
     for sigma in SIGMAS:
         for replicate in range(NUM_COPIES):

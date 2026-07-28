@@ -3,11 +3,11 @@
 Mirrors :mod:`peter` but loads ``mnist/hclt_mnist_blocksize4.json`` and
 evaluates on::
 
-    original_datasets/mnist/mnist.test.data
-    corrupted_datasets/mnist/sigma0.010/r0.data
+    original_datasets/mnist/mnist.test.n500.data
+    corrupted_datasets/mnist/sigma0.100/r0.data
 
 ``RunMetrics.final_adv_test_ll`` / ``best_adv_test_ll`` store mean log-likelihood
-on the sigma0.010/r0 corrupted set (the tuning objective).
+on the sigma0.100/r0 corrupted set (the tuning objective).
 
 Default full-run artifacts land under::
 
@@ -41,14 +41,21 @@ from peter import (
     save_json,
     save_run_error,
 )
-from prepare_mnist_data import TUNE_SIGMA, corrupt_path
+from prepare_mnist_data import (
+    TUNE_SIGMA,
+    corrupt_path,
+    format_sigma,
+    original_peter_path,
+)
 from robustify import ETA_LAMBDA, run_dro_ogda
 
 _ROOT = Path(__file__).resolve().parent
 DATASET = "mnist"
 _CIRCUIT = _ROOT / "mnist" / "hclt_mnist_blocksize4.json"
-_ORIG_TEST = _ROOT / "original_datasets" / "mnist" / "mnist.test.data"
+# Truncated original (n=500); full mnist.test.data is left for other scripts.
+_ORIG_TEST = original_peter_path()
 _CORRUPT_EVAL = corrupt_path(TUNE_SIGMA, 0)
+_TUNE_LABEL = f"sigma{format_sigma(TUNE_SIGMA)}/r0"
 
 
 def circuit_path() -> Path:
@@ -173,12 +180,12 @@ def _run_training(
     p_hat = CircuitNode.load(_CIRCUIT)
     _log(quiet, f"  nodes in scope: {len(p_hat.scope_as_list())}")
 
-    _log(quiet, "loading eval datasets (original + sigma0.010/r0)")
+    _log(quiet, f"loading eval datasets (original n500 + {_TUNE_LABEL})")
     original_data, corrupt_data = load_eval_datasets()
     _log(
         quiet,
         f"  original test: {len(original_data)} rows, "
-        f"corrupt sigma0.010/r0: {len(corrupt_data)} rows",
+        f"corrupt {_TUNE_LABEL}: {len(corrupt_data)} rows",
     )
     _log(quiet, f"results -> {out_dir.resolve()}")
 
@@ -221,7 +228,7 @@ def _run_training(
     _log(
         quiet,
         f"final test LL: orig={metrics.final_orig_test_ll:.6f}  "
-        f"corrupt(sigma0.010/r0)={metrics.final_adv_test_ll:.6f}",
+        f"corrupt({_TUNE_LABEL})={metrics.final_adv_test_ll:.6f}",
     )
     return RunOutcome(out_dir=out_dir, status="ok", metrics=metrics)
 
@@ -230,7 +237,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Run PeTeR on MNIST with tunable lr/ratio. "
-            "Eval target is mean LL on corrupted sigma0.010/r0. "
+            f"Eval target is mean LL on corrupted {_TUNE_LABEL} "
+            "(paired with mnist.test.n500.data). "
             "Saves under results/mnist/."
         ),
     )
