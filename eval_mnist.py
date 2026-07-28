@@ -10,7 +10,8 @@ Scores MLE (``mnist/hclt_mnist_blocksize4.json``) and PeTeR on:
 * original test
 * each sigma in ``{0.001, ..., 0.010}``: mean LL over ``r0.data`` … ``r9.data``
 
-Writes a summary JSON under ``results/mnist/k<k>/eval_summary.json``.
+Writes a summary JSON under ``results/mnist/k<k>/.../eval_summary.json`` and a
+dropoff plot ``mnist/eval_k<k>_dropoff.png`` (x-axis = sigma * 256).
 """
 
 from __future__ import annotations
@@ -30,7 +31,9 @@ from robustify import mean_log_likelihood
 from sweep_io import TPE_ROOT
 
 _ROOT = Path(__file__).resolve().parent
+_MNIST_DIR = _ROOT / "mnist"
 _TUNE_LABEL = f"sigma{format_sigma(TUNE_SIGMA)}"
+_SIGMA_AXIS_SCALE = 256.0
 
 
 def load_binary_data(path: Path) -> np.ndarray:
@@ -166,6 +169,67 @@ def print_table(
         print(f"  {label:<22}  {mle:12.4f}  {peter:12.4f}  {peter - mle:+10.4f}")
 
 
+def dropoff_plot_path(k: int) -> Path:
+    return _MNIST_DIR / f"eval_k{k}_dropoff.png"
+
+
+def save_dropoff_plot(
+    k: int,
+    mle_scores: dict[str, float],
+    peter_scores: dict[str, float],
+    *,
+    lr: float,
+    ratio: float,
+) -> Path:
+    """Plot mean LL vs sigma*256 for MLE and PeTeR; save under mnist/."""
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError as exc:
+        raise SystemExit(
+            "Plotting requires matplotlib. Install it with: pip install matplotlib"
+        ) from exc
+
+    xs = [sigma * _SIGMA_AXIS_SCALE for sigma in SIGMAS]
+    mle_ys = [mle_scores[f"sigma{format_sigma(s)}_mean_ll"] for s in SIGMAS]
+    peter_ys = [peter_scores[f"sigma{format_sigma(s)}_mean_ll"] for s in SIGMAS]
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.plot(xs, mle_ys, marker="o", linewidth=1.5, label="mle-pc")
+    ax.plot(xs, peter_ys, marker="o", linewidth=1.5, label="peter")
+    ax.set(
+        xlabel=r"$\sigma \times 256$",
+        ylabel="mean log-likelihood",
+        title=(
+            f"MNIST corruption dropoff  k={k}  "
+            f"lr={lr:g}  ratio={ratio:g}"
+        ),
+    )
+    ax.legend(loc="best")
+    ax.grid(True, alpha=0.3)
+    fig.tight_layout()
+
+    out = dropoff_plot_path(k)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+    return out
+
+
+def report_scores(
+    k: int,
+    lr: float,
+    ratio: float,
+    source: str,
+    mle_scores: dict[str, float],
+    peter_scores: dict[str, float],
+) -> None:
+    print_table(k, lr, ratio, source, mle_scores, peter_scores)
+    plot_path = save_dropoff_plot(
+        k, mle_scores, peter_scores, lr=lr, ratio=ratio
+    )
+    print(f"  wrote {plot_path.relative_to(_ROOT)}", flush=True)
+
+
 def eval_k(k: int, *, force: bool = False) -> dict | None:
     print(f"start  mnist  k={k}", flush=True)
     best = best_peter_params(k)
@@ -186,7 +250,7 @@ def eval_k(k: int, *, force: bool = False) -> dict | None:
         payload = json.loads(summary_path.read_text(encoding="utf-8"))
         if cache_is_current(payload):
             print(f"  using cached {summary_path.relative_to(_ROOT)}", flush=True)
-            print_table(k, lr, ratio, source, payload["mle"], payload["peter"])
+            report_scores(k, lr, ratio, source, payload["mle"], payload["peter"])
             print(f"done   mnist  k={k}", flush=True)
             return payload
         print(
@@ -225,7 +289,7 @@ def eval_k(k: int, *, force: bool = False) -> dict | None:
     summary_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     print(f"  wrote {summary_path.relative_to(_ROOT)}", flush=True)
 
-    print_table(k, lr, ratio, source, mle_scores, peter_scores)
+    report_scores(k, lr, ratio, source, mle_scores, peter_scores)
     print(f"done   mnist  k={k}", flush=True)
     return payload
 

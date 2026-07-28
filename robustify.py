@@ -246,21 +246,41 @@ def run_dro_ogda(
     plotter: LiveLikelihoodPlot | None = None,
     on_iter: Callable[[int, CircuitNode, float], None] | None = None,
     quiet: bool = False,
+    start_iter: int = 0,
+    p_theta_init: CircuitNode | None = None,
+    lam_init: float = 0.0,
 ) -> tuple[CircuitNode, float]:
+    """Run DRO-OGDA.
+
+    ``p_hat`` is the CW-ball reference (typically the MLE).  To resume, pass
+    ``start_iter`` / ``p_theta_init`` / ``lam_init`` from a checkpoint; warm
+    start is skipped when ``start_iter > 0``.
+    """
+    if start_iter < 0:
+        raise ValueError(f"start_iter must be non-negative, got {start_iter}")
+    if start_iter >= num_iters:
+        raise ValueError(
+            f"start_iter ({start_iter}) must be < num_iters ({num_iters})"
+        )
+
     eta_theta, eta_phi = lr, lr * ratio
     p_hat_g = p_hat.compile()
-    p_theta = CompiledPlayer.clone_from(p_hat)
-    q_phi = CompiledPlayer.clone_from(p_hat)
-    lam = 0.0
+    theta_src = p_theta_init if p_theta_init is not None else p_hat
+    p_theta = CompiledPlayer.clone_from(theta_src)
+    # Without a saved Q, warm-start the adversary from the current theta.
+    q_phi = CompiledPlayer.clone_from(theta_src)
+    lam = float(lam_init)
     prev: dict = {}
     do_eval = original_data is not None and adversarial_data is not None
     cw_kw = dict(metric_p=1.0, scale_factor=1.0)
 
     if not quiet:
+        resume_note = f"  resume_from={start_iter}" if start_iter > 0 else ""
         print(
             f"initial: log(E)={log_exp_query(p_theta.graph, q_phi.graph):.6f}  "
             f"CW={cw_distance(p_hat_g, q_phi.graph, **cw_kw):.6f}  "
             f"lr={lr:g}  ratio={ratio:g}  (eta_theta={eta_theta:g}  eta_phi={eta_phi:g})"
+            f"{resume_note}"
         )
 
     def eval_at(it: int) -> None:
@@ -272,7 +292,7 @@ def run_dro_ogda(
             plotter.update(it, orig_ll, adv_ll)
 
     if do_eval:
-        eval_at(0)
+        eval_at(start_iter)
 
     step_kw = dict(
         k=k,
@@ -283,7 +303,7 @@ def run_dro_ogda(
         deterministic=deterministic,
     )
 
-    if warm_start_iters > 0:
+    if start_iter == 0 and warm_start_iters > 0:
         if not quiet:
             print(f"  warm start: {warm_start_iters} Q-only iteration(s)")
         for w in range(1, warm_start_iters + 1):
@@ -296,7 +316,7 @@ def run_dro_ogda(
                     f"log(E)={log_e:.6f}  CW={cw:.6f}  violation={cw - k:+.6f}  lambda={lam:.4f}"
                 )
 
-    for it in range(1, num_iters + 1):
+    for it in range(start_iter + 1, num_iters + 1):
         lam, log_e, cw = ogda_step(
             p_theta, q_phi, p_hat_g, lam, prev, it=it, update_theta=True, **step_kw
         )

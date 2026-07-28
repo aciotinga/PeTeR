@@ -14,8 +14,8 @@ Scores are cached beside each adversarial file as ``*.eval.json`` (skip
 recompute unless ``--force``). Cache fields: ``orig_test_ll``, ``own_adv_ll``,
 ``rand_mean_ll``.
 
-After scoring, prints PeTeR win counts and a paired Wilcoxon signed-rank test
-of PeTeR vs RL-TPM on ``rand_mean``, separately for each K.
+After scoring, prints PeTeR win counts and paired Wilcoxon signed-rank tests
+of PeTeR vs RL-TPM on ``own_adv`` and ``rand_mean``, separately for each K.
 
 Builds one job per ``(dataset, k)``, interleaved across Ks, and runs them with
 ``-j`` worker processes (same pattern as ``tune.py``).
@@ -302,12 +302,22 @@ def wilcoxon_peter_vs_rltpm(peter: np.ndarray, rltpm: np.ndarray) -> str:
     return f"{prefix}  W={float(res.statistic):.4g}  p={float(res.pvalue):.4g}"
 
 
-def report_wilcoxon_rand_mean(scored: list[ScoredJob], ks: list[int]) -> None:
-    """Print per-K Wilcoxon on shared random-corruption mean LL."""
-    print("=== wilcoxon peter vs rltpm (rand_mean, per K) ===")
+def report_wilcoxon(
+    scored: list[ScoredJob],
+    ks: list[int],
+    metric: str,
+    peter_idx: int,
+    rltpm_idx: int,
+) -> None:
+    """Print per-K Wilcoxon of PeTeR vs RL-TPM on one score column."""
+    print(f"=== wilcoxon peter vs rltpm ({metric}, per K) ===")
     for k in ks:
-        peter = np.array([s[5] for kk, s in scored if kk == k], dtype=np.float64)
-        rltpm = np.array([s[8] for kk, s in scored if kk == k], dtype=np.float64)
+        peter = np.array(
+            [s[peter_idx] for kk, s in scored if kk == k], dtype=np.float64
+        )
+        rltpm = np.array(
+            [s[rltpm_idx] for kk, s in scored if kk == k], dtype=np.float64
+        )
         print(f"  k={k}  {wilcoxon_peter_vs_rltpm(peter, rltpm)}")
 
 
@@ -390,7 +400,9 @@ def main() -> None:
     print(f"  vs rltpm   orig_test: {beat_rltpm_orig}/{n}")
     print(f"  vs mle-pc  rand_mean: {beat_mle_rand}/{n}")
     print(f"  vs rltpm   rand_mean: {beat_rltpm_rand}/{n}")
-    report_wilcoxon_rand_mean(scored, ks)
+    # Indices: peter_a=4, peter_r=5, rltpm_a=7, rltpm_r=8
+    report_wilcoxon(scored, ks, "own_adv", peter_idx=4, rltpm_idx=7)
+    report_wilcoxon(scored, ks, "rand_mean", peter_idx=5, rltpm_idx=8)
 
 
 if __name__ == "__main__":

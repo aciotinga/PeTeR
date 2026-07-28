@@ -1,43 +1,32 @@
-"""Save a grid of random MNIST images across corruption levels.
+"""Save a grid comparing original, sigma=0.01, and MLE FGSM adversarials.
 
-For each ``corrupted_datasets/mnist/sigma*/`` directory, randomly samples
-``--num`` images (default 4) from ``r0.data`` and writes a single figure
-under ``mnist/``.  The same row indices are used at every sigma so columns
-are comparable.  An optional top row shows the matching original digits.
+Randomly samples ``--num`` images (default 4) and writes a single figure
+under ``mnist/`` with three rows:
+
+* original test digits
+* Gaussian corruption at ``sigma=0.010`` (``r0.data`` by default)
+* matching rows from the MLE FGSM attack (``adversarial_datasets/K{k}/``)
+
+The same row indices are used in every row so columns are comparable.
 """
 
 from __future__ import annotations
 
 import argparse
-import re
 from pathlib import Path
 
 import numpy as np
 
+from fgsm import default_output
+from prepare_mnist_data import corrupt_path, format_sigma
+from peter import VALID_K
+
 _ROOT = Path(__file__).resolve().parent
-_CORRUPT_ROOT = _ROOT / "corrupted_datasets" / "mnist"
 _ORIG_PATH = _ROOT / "original_datasets" / "mnist" / "mnist.test.data"
 _DEFAULT_OUT = _ROOT / "mnist" / "corruption_grid.png"
+_COMPARE_SIGMA = 0.010
 
 _IMG_SIDE = 28
-_SIGMA_DIR_RE = re.compile(r"^sigma(\d+(?:\.\d+)?)$")
-
-
-def discover_sigma_dirs() -> list[tuple[float, Path]]:
-    if not _CORRUPT_ROOT.is_dir():
-        raise FileNotFoundError(f"Missing {_CORRUPT_ROOT}")
-    found: list[tuple[float, Path]] = []
-    for d in sorted(_CORRUPT_ROOT.iterdir()):
-        if not d.is_dir():
-            continue
-        m = _SIGMA_DIR_RE.match(d.name)
-        if m is None:
-            continue
-        found.append((float(m.group(1)), d))
-    found.sort(key=lambda x: x[0])
-    if not found:
-        raise FileNotFoundError(f"No sigma* directories under {_CORRUPT_ROOT}")
-    return found
 
 
 def load_rows(path: Path) -> np.ndarray:
@@ -60,8 +49,8 @@ def to_image(row: np.ndarray) -> np.ndarray:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         description=(
-            "Save a grid of randomly sampled MNIST images, one row per "
-            "corruption sigma (4 samples by default)."
+            "Save a grid of randomly sampled MNIST images: original, "
+            f"sigma={format_sigma(_COMPARE_SIGMA)}, and MLE FGSM adversarials."
         ),
     )
     p.add_argument(
@@ -69,25 +58,27 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=4,
         metavar="N",
-        help="Images to sample per corruption level (default: 4)",
+        help="Images to sample (default: 4)",
     )
     p.add_argument(
         "--replicate",
         type=int,
         default=0,
         metavar="R",
-        help="Which rR.data file to sample from (default: 0)",
+        help=f"Which rR.data file to use for sigma={format_sigma(_COMPARE_SIGMA)} (default: 0)",
+    )
+    p.add_argument(
+        "--k",
+        type=int,
+        choices=VALID_K,
+        default=1,
+        help="L-inf budget K for the MLE FGSM dataset (default: 1)",
     )
     p.add_argument(
         "--seed",
         type=int,
         default=0,
         help="RNG seed for row sampling (default: 0)",
-    )
-    p.add_argument(
-        "--no-original",
-        action="store_true",
-        help="Do not include an original-test top row",
     )
     p.add_argument(
         "-o",
@@ -106,44 +97,34 @@ def main() -> None:
     if args.replicate < 0:
         raise SystemExit("--replicate must be non-negative")
 
-    sigma_dirs = discover_sigma_dirs()
-    datasets: list[tuple[str, np.ndarray]] = []
+    sigma_path = corrupt_path(_COMPARE_SIGMA, args.replicate)
+    adv_path = default_output(args.k)
 
-    for sigma, d in sigma_dirs:
-        path = d / f"r{args.replicate}.data"
-        datasets.append((f"sigma={sigma:g}", load_rows(path)))
+    datasets: list[tuple[str, np.ndarray]] = [
+        ("original", load_rows(_ORIG_PATH)),
+        (f"sigma={format_sigma(_COMPARE_SIGMA)}", load_rows(sigma_path)),
+        (f"FGSM MLE K={args.k}", load_rows(adv_path)),
+    ]
 
-    n_rows = datasets[0][1].shape[0]
-    for label, data in datasets[1:]:
+    n_rows = min(data.shape[0] for _, data in datasets)
+    for label, data in datasets:
         if data.shape[0] != n_rows:
-            raise SystemExit(
-                f"Row-count mismatch: {datasets[0][0]} has {n_rows}, "
-                f"{label} has {data.shape[0]}"
+            print(
+                f"warning: {label} has {data.shape[0]} rows; "
+                f"using first {n_rows} shared indices",
+                flush=True,
             )
 
     if args.num > n_rows:
-        raise SystemExit(f"--num={args.num} exceeds dataset size {n_rows}")
+        raise SystemExit(f"--num={args.num} exceeds shared dataset size {n_rows}")
 
     rng = np.random.default_rng(args.seed)
     indices = rng.choice(n_rows, size=args.num, replace=False)
     indices.sort()
 
-    rows: list[tuple[str, list[np.ndarray]]] = []
-    if not args.no_original:
-        if not _ORIG_PATH.is_file():
-            raise SystemExit(
-                f"Original test set not found at {_ORIG_PATH}. "
-                "Re-run prepare_mnist_data.py or pass --no-original."
-            )
-        original = load_rows(_ORIG_PATH)
-        if original.shape[0] != n_rows:
-            raise SystemExit(
-                f"Original has {original.shape[0]} rows but corrupted has {n_rows}"
-            )
-        rows.append(("original", [to_image(original[i]) for i in indices]))
-
-    for label, data in datasets:
-        rows.append((label, [to_image(data[i]) for i in indices]))
+    rows: list[tuple[str, list[np.ndarray]]] = [
+        (label, [to_image(data[i]) for i in indices]) for label, data in datasets
+    ]
 
     try:
         import matplotlib.pyplot as plt
@@ -172,8 +153,9 @@ def main() -> None:
                 ax.set_title(f"idx {indices[c]}", fontsize=9)
 
     fig.suptitle(
-        f"MNIST corruptions  (r{args.replicate}, seed={args.seed})",
-        fontsize=12,
+        f"MNIST: original vs sigma={format_sigma(_COMPARE_SIGMA)} vs "
+        f"FGSM MLE (K={args.k}, r{args.replicate}, seed={args.seed})",
+        fontsize=11,
     )
     fig.tight_layout()
 
@@ -184,6 +166,7 @@ def main() -> None:
     print(f"saved {out.resolve()}")
     print(f"  sampled indices: {', '.join(map(str, indices.tolist()))}")
     print(f"  levels: {', '.join(label for label, _ in rows)}")
+    print(f"  adv source: {adv_path.relative_to(_ROOT)}")
 
 
 if __name__ == "__main__":

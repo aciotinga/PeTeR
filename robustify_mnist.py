@@ -10,11 +10,15 @@ iteration on:
 A live matplotlib window tracks both mean log-likelihoods.  The robustified
 circuit (and a final PNG of the curve) are written under ``mnist/``.
 Checkpoints are saved every ``--checkpoint-every`` iterations (default 5).
+If a matching checkpoint exists, training resumes from the latest one
+unless ``--no-resume`` is set.
 """
 
 from __future__ import annotations
 
 import argparse
+import json
+import re
 from pathlib import Path
 
 import numpy as np
@@ -36,6 +40,7 @@ _ORIG_TEST = _ROOT / "original_datasets" / "mnist" / "mnist.test.data"
 _CORRUPT_EVAL = corrupt_path(TUNE_SIGMA, 0)
 _DEFAULT_CHECKPOINT_EVERY = 5
 _TUNE_SIGMA_LABEL = f"sigma{format_sigma(TUNE_SIGMA)}"
+_CKPT_RE = re.compile(r"^(?P<stem>.+)_iter(?P<it>\d+)$")
 
 
 class MnistLiveLikelihoodPlot:
@@ -101,6 +106,41 @@ def default_output_path(k: float, lr: float, ratio: float) -> Path:
 
 def checkpoint_path(out_path: Path, it: int) -> Path:
     return out_path.with_name(f"{out_path.stem}_iter{it:04d}{out_path.suffix}")
+
+
+def checkpoint_meta_path(ckpt: Path) -> Path:
+    return ckpt.with_suffix(".meta.json")
+
+
+def find_latest_checkpoint(out_path: Path) -> tuple[Path, int] | None:
+    """Return ``(path, iter)`` for the highest ``*_iterNNNN`` matching ``out_path``."""
+    parent = out_path.parent
+    if not parent.is_dir():
+        return None
+    best: tuple[Path, int] | None = None
+    for path in parent.glob(f"{out_path.stem}_iter*{out_path.suffix}"):
+        m = _CKPT_RE.match(path.stem)
+        if m is None or m.group("stem") != out_path.stem:
+            continue
+        it = int(m.group("it"))
+        if best is None or it > best[1]:
+            best = (path, it)
+    return best
+
+
+def load_checkpoint_lambda(ckpt: Path) -> float:
+    meta = checkpoint_meta_path(ckpt)
+    if not meta.is_file():
+        return 0.0
+    try:
+        payload = json.loads(meta.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return 0.0
+    lam = payload.get("lambda", 0.0)
+    try:
+        return float(lam)
+    except (TypeError, ValueError):
+        return 0.0
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -183,6 +223,11 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
     p.add_argument(
+        "--no-resume",
+        action="store_true",
+        help="Ignore existing checkpoints and start from --circuit",
+    )
+    p.add_argument(
         "--deterministic",
         action="store_true",
         default=True,
@@ -236,7 +281,27 @@ def main() -> None:
     plot_path = out_path.with_suffix(".likelihood.png")
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    print(f"loading {circuit_path.name} from {circuit_path.parent}")
+    start_iter = 0
+    p_theta_init: CircuitNode | None = None
+    lam_init = 0.0
+    if not args.no_resume:
+        latest = find_latest_checkpoint(out_path)
+        if latest is not None:
+            ckpt_path, start_iter = latest
+            if start_iter >= args.iters:
+                raise SystemExit(
+                    f"Latest checkpoint is iter {start_iter}, but --iters={args.iters}. "
+                    "Increase --iters to continue, or pass --no-resume."
+                )
+            print(
+                f"resuming from checkpoint iter {start_iter}: "
+                f"{ckpt_path.relative_to(_ROOT)}"
+            )
+            p_theta_init = CircuitNode.load(ckpt_path)
+            lam_init = load_checkpoint_lambda(ckpt_path)
+            print(f"  restored lambda={lam_init:.4f}")
+
+    print(f"loading CW reference {circuit_path.name} from {circuit_path.parent}")
     p_hat = CircuitNode.load(circuit_path)
     print(f"  nodes in scope: {len(p_hat.scope_as_list())}")
 
@@ -254,7 +319,7 @@ def main() -> None:
     print(f"  rows={original_data.shape[0]}  dims={original_data.shape[1]}")
 
     # Warm up LL once so the first live-plot update is not dominated by compile cost.
-    g0 = p_hat.compile()
+    g0 = (p_theta_init if p_theta_init is not None else p_hat).compile()
     print(
         f"  initial LL: orig={mean_log_likelihood(g0, original_data):.6f}  "
         f"corrupt={mean_log_likelihood(g0, corrupted_data):.6f}"
@@ -264,11 +329,15 @@ def main() -> None:
 
     plotter = MnistLiveLikelihoodPlot(k=args.k, lr=args.lr, ratio=args.ratio)
 
-    def on_iter(it: int, node: CircuitNode, _lam: float) -> None:
+    def on_iter(it: int, node: CircuitNode, lam: float) -> None:
         if args.checkpoint_every <= 0 or it % args.checkpoint_every != 0:
             return
         ckpt = checkpoint_path(out_path, it)
         node.save(ckpt)
+        meta = {"iter": it, "lambda": float(lam)}
+        checkpoint_meta_path(ckpt).write_text(
+            json.dumps(meta, indent=2) + "\n", encoding="utf-8"
+        )
         print(f"  checkpoint iter {it:3d} -> {ckpt.name}")
 
     p_theta, lam = run_dro_ogda(
@@ -286,6 +355,9 @@ def main() -> None:
         adversarial_data=corrupted_data,
         plotter=plotter,
         on_iter=on_iter,
+        start_iter=start_iter,
+        p_theta_init=p_theta_init,
+        lam_init=lam_init,
     )
 
     p_theta.save(out_path)
