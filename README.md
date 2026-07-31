@@ -34,7 +34,7 @@ python reproduce.py doctor --strict --profile sparc
 python reproduce.py mnist all
 ```
 
-### Both (full paper artifacts + verify)
+### Both (full paper artifacts, all tables and figures)
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
@@ -45,7 +45,6 @@ python reproduce.py doctor --strict --profile all
 python reproduce.py debd all --download -j 100
 python reproduce.py mnist all
 python reproduce.py artifacts
-python reproduce.py verify-paper
 ```
 
 The above commands should recreate all of our results. Runtime results will differ depending on your hardware. Randomness is (potentially) OS-dependent; PyJuice requires Linux. See our appendix for information on OS version, packages, etc.
