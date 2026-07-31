@@ -118,6 +118,54 @@ class DebdImportTests(unittest.TestCase):
             reproduce.import_debd(source, root=self.root, dry_run=True)
         self.assertFalse((self.root / "original_datasets").exists())
 
+    def test_download_fetches_archive_and_imports(self) -> None:
+        archive_path = Path(self.temp.name) / "remote.zip"
+        with zipfile.ZipFile(archive_path, "w") as archive:
+            for split, data in self.contents.items():
+                archive.writestr(f"datasets/toy/toy.{split}.data", data)
+
+        def fake_retrieve(url: str, filename: str | Path, reporthook=None) -> tuple[str, None]:
+            Path(filename).write_bytes(archive_path.read_bytes())
+            return str(filename), None
+
+        with (
+            patch.object(reproduce.urllib.request, "urlretrieve", side_effect=fake_retrieve),
+            contextlib.redirect_stdout(io.StringIO()),
+        ):
+            written = reproduce.download_and_import_debd(
+                root=self.root,
+                url="https://example.test/debd.zip",
+            )
+        self.assertTrue(written.is_file())
+        self.assertEqual(
+            written,
+            self.root / "data" / "debd" / "Density-Estimation-Datasets-master.zip",
+        )
+        for split in self.contents:
+            destination = (
+                self.root / "original_datasets" / "toy" / f"toy.{split}.data"
+            )
+            self.assertEqual(self.contents[split], destination.read_bytes())
+
+    def test_download_reuses_cached_archive(self) -> None:
+        cache = self.root / "data" / "debd" / "Density-Estimation-Datasets-master.zip"
+        cache.parent.mkdir(parents=True)
+        with zipfile.ZipFile(cache, "w") as archive:
+            for split, data in self.contents.items():
+                archive.writestr(f"datasets/toy/toy.{split}.data", data)
+        with (
+            patch.object(
+                reproduce.urllib.request,
+                "urlretrieve",
+                side_effect=AssertionError("should not download"),
+            ),
+            contextlib.redirect_stdout(io.StringIO()),
+        ):
+            written = reproduce.download_and_import_debd(root=self.root)
+        self.assertEqual(cache, written)
+        self.assertTrue(
+            (self.root / "original_datasets" / "toy" / "toy.train.data").is_file()
+        )
 
 class ManifestTests(unittest.TestCase):
     @classmethod
@@ -307,6 +355,8 @@ class CommandConstructionTests(unittest.TestCase):
         calls: list[str] = []
         debd_args = argparse.Namespace(
             source=Path("debd.zip"),
+            download=False,
+            url=None,
             force=False,
             dry_run=True,
             datasets=None,
@@ -524,6 +574,7 @@ class CliTests(unittest.TestCase):
     def test_every_stage_has_dependency_free_dry_run(self) -> None:
         commands = [
             ["--dry-run", "doctor"],
+            ["--dry-run", "debd", "download"],
             [
                 "--dry-run",
                 "debd",

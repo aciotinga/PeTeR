@@ -3,7 +3,9 @@
   "source": {
     "name": "Density Estimation Benchmark Datasets",
     "url": "https://github.com/UCLA-StarAI/Density-Estimation-Datasets",
-    "download_policy": "Download manually, then pass the extracted directory or archive to reproduce.py."
+    "archive_url": "https://codeload.github.com/UCLA-StarAI/Density-Estimation-Datasets/zip/refs/heads/master",
+    "archive_filename": "Density-Estimation-Datasets-master.zip",
+    "download_policy": "Prefer `python reproduce.py debd download`, which fetches the GitHub master zip, caches it under data/debd/, and hash-validates into original_datasets/. Manual import via `debd import --source PATH` remains supported."
   },
   "dataset_count": 28,
   "datasets": {

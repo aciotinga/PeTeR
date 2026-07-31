@@ -12,12 +12,11 @@ models, evaluations, tables, and figures are ignored by Git.
 ## Quick start
 
 Paste one block. Install PyTorch from https://pytorch.org/get-started/locally/
-before any PyJuice step. DEBD archive:
-https://github.com/UCLA-StarAI/Density-Estimation-Datasets
+before any PyJuice step.
 
 ### DEBD only
 
-SparC + PyJuice. Runs corruptions, PeTeR, RL-TPM, attacks, eval, CW (Table 3), and Table 4 rebenchmark.
+SparC + PyJuice. Downloads DEBD, then runs corruptions, PeTeR, RL-TPM, attacks, eval, CW (Table 3), and Table 4 rebenchmark.
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
@@ -25,7 +24,7 @@ python -m pip install --upgrade pip
 python -m pip install torch torchvision   # platform/CUDA-specific
 python -m pip install -r requirements-sparc-paper.txt -r requirements-pyjuice-paper.txt
 python reproduce.py doctor --strict --profile all
-python reproduce.py debd all --source /path/to/Density-Estimation-Datasets.zip -j 8
+python reproduce.py debd all --download -j 8
 ```
 
 ### MNIST only
@@ -48,7 +47,7 @@ python -m pip install --upgrade pip
 python -m pip install torch torchvision   # platform/CUDA-specific
 python -m pip install -r requirements-sparc-paper.txt -r requirements-pyjuice-paper.txt
 python reproduce.py doctor --strict --profile all
-python reproduce.py debd all --source /path/to/Density-Estimation-Datasets.zip -j 8
+python reproduce.py debd all --download -j 8
 python reproduce.py mnist all
 python reproduce.py artifacts
 python reproduce.py verify-paper
@@ -137,19 +136,24 @@ are not expected to equal the submitted Intel measurements.
 
 ## DEBD data
 
-Download the Density Estimation Benchmark Datasets manually from:
+One command downloads the UCLA-StarAI archive, caches it under `data/debd/`,
+hash-validates every split against `manifests/debd.json`, and writes
+`original_datasets/`:
 
-<https://github.com/UCLA-StarAI/Density-Estimation-Datasets>
+```bash
+python reproduce.py debd download
+```
 
-Keep the upstream archive or extracted checkout unchanged. Import either form:
+Source: <https://github.com/UCLA-StarAI/Density-Estimation-Datasets>
+
+Re-fetch with `python reproduce.py debd download --force`. A local checkout or
+archive still works:
 
 ```bash
 python reproduce.py debd import --source /path/to/archive-or-directory
 ```
 
-The importer finds all 28 train/validation/test triplets, verifies row counts,
-dimensions, and normalized SHA-256 hashes from `manifests/debd.json`, and then
-writes the expected layout:
+Layout after import:
 
 ```text
 original_datasets/<dataset>/<dataset>.train.data
@@ -165,7 +169,7 @@ downloads validate identically. Invalid or incomplete archives are rejected.
 The combined command is:
 
 ```bash
-python reproduce.py debd all --source /path/to/debd.zip -j 8
+python reproduce.py debd all --download -j 8
 ```
 
 It requires a combined SparC/PyJuice environment. To use separate environments,
@@ -174,7 +178,7 @@ run the stages in this order.
 In the SparC environment:
 
 ```bash
-python reproduce.py debd import --source /path/to/debd.zip
+python reproduce.py debd download
 python reproduce.py debd corrupt -j 8
 python reproduce.py debd peter -j 8
 ```

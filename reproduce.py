@@ -18,6 +18,8 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import urllib.error
+import urllib.request
 import zipfile
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
@@ -30,6 +32,11 @@ ROOT = Path(__file__).resolve().parent
 MANIFEST_DIR = ROOT / "manifests"
 OUTPUT_DIR = ROOT / "paper_outputs"
 EPSILONS = (1, 3, 5)
+DEFAULT_DEBD_ARCHIVE_URL = (
+    "https://codeload.github.com/UCLA-StarAI/Density-Estimation-Datasets/"
+    "zip/refs/heads/master"
+)
+DEFAULT_DEBD_ARCHIVE_NAME = "Density-Estimation-Datasets-master.zip"
 
 DEBD_STAGE_ORDER = (
     "import",
@@ -236,7 +243,8 @@ def require_debd_inputs(datasets: Sequence[str], *, root: Path = ROOT) -> None:
             "DEBD preflight failed:\n  "
             + "\n  ".join(errors[:20])
             + ("\n  ..." if len(errors) > 20 else "")
-            + "\nRun `python reproduce.py debd import --source PATH` first."
+            + "\nRun `python reproduce.py debd download` "
+            "(or `debd import --source PATH`) first."
         )
 
 
@@ -314,6 +322,70 @@ def read_debd_source(source: Path, expected_names: set[str]) -> dict[str, bytes]
     raise ReproductionError(
         f"Unsupported DEBD source {source}; use an extracted directory, zip, or tar archive."
     )
+
+
+def debd_archive_url(*, root: Path = ROOT) -> str:
+    source = load_manifest("debd.json", root=root).get("source", {})
+    url = source.get("archive_url")
+    if isinstance(url, str) and url.strip():
+        return url.strip()
+    return DEFAULT_DEBD_ARCHIVE_URL
+
+
+def debd_archive_cache_path(*, root: Path = ROOT) -> Path:
+    source = load_manifest("debd.json", root=root).get("source", {})
+    name = source.get("archive_filename", DEFAULT_DEBD_ARCHIVE_NAME)
+    if not isinstance(name, str) or not name.strip():
+        name = DEFAULT_DEBD_ARCHIVE_NAME
+    return root / "data" / "debd" / Path(name).name
+
+
+def download_debd_archive(
+    *,
+    root: Path = ROOT,
+    url: str | None = None,
+    cache_path: Path | None = None,
+    force: bool = False,
+    dry_run: bool = False,
+) -> Path:
+    resolved_url = url or debd_archive_url(root=root)
+    destination = cache_path or debd_archive_cache_path(root=root)
+    if destination.is_file() and not force:
+        print(f"skip  cached DEBD archive {display_path(destination)}")
+        return destination
+    print(f"download {resolved_url}")
+    print(f"  -> {display_path(destination)}")
+    if dry_run:
+        return destination
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    temporary = destination.with_suffix(destination.suffix + ".tmp")
+    try:
+        urllib.request.urlretrieve(resolved_url, temporary)
+        temporary.replace(destination)
+    except (OSError, urllib.error.URLError) as exc:
+        if temporary.exists():
+            temporary.unlink()
+        raise ReproductionError(
+            f"Failed to download DEBD archive from {resolved_url}: {exc}"
+        ) from exc
+    return destination
+
+
+def download_and_import_debd(
+    *,
+    root: Path = ROOT,
+    url: str | None = None,
+    force: bool = False,
+    dry_run: bool = False,
+) -> Path:
+    archive = download_debd_archive(
+        root=root, url=url, force=force, dry_run=dry_run
+    )
+    if dry_run and not archive.is_file():
+        print("DEBD download dry-run complete; archive not fetched, import skipped.")
+        return archive
+    import_debd(archive, root=root, force=force, dry_run=dry_run)
+    return archive
 
 
 def import_debd(
@@ -2084,7 +2156,15 @@ def doctor(*, strict: bool, profile: str) -> int:
 
 
 def run_debd_all(args: argparse.Namespace) -> None:
-    if args.source is not None:
+    if getattr(args, "download", False) and args.source is not None:
+        raise ReproductionError("Use either --source or --download, not both.")
+    if getattr(args, "download", False):
+        download_and_import_debd(
+            url=getattr(args, "url", None),
+            force=args.force,
+            dry_run=args.dry_run,
+        )
+    elif args.source is not None:
         import_debd(
             args.source,
             force=args.force,
@@ -2193,6 +2273,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     add_force_argument(import_parser)
 
+    download_parser = debd_subparsers.add_parser(
+        "download",
+        help="Download the canonical DEBD archive and import it under original_datasets/.",
+    )
+    download_parser.add_argument(
+        "--url",
+        help="Override the archive URL from manifests/debd.json.",
+    )
+    add_force_argument(download_parser)
+
     corrupt_parser = debd_subparsers.add_parser(
         "corrupt", help="Create random and MLE-PC-targeted corruptions."
     )
@@ -2244,6 +2334,15 @@ def build_parser() -> argparse.ArgumentParser:
         "--source",
         type=Path,
         help="Optional DEBD directory/archive to import before running.",
+    )
+    debd_all_parser.add_argument(
+        "--download",
+        action="store_true",
+        help="Download the canonical DEBD archive and import it before running.",
+    )
+    debd_all_parser.add_argument(
+        "--url",
+        help="Archive URL used with --download (default: manifests/debd.json).",
     )
     add_scope_arguments(debd_all_parser)
     add_jobs_argument(debd_all_parser)
@@ -2348,6 +2447,10 @@ def dispatch(args: argparse.Namespace) -> int:
         if args.debd_command == "import":
             import_debd(
                 args.source, force=args.force, dry_run=args.dry_run
+            )
+        elif args.debd_command == "download":
+            download_and_import_debd(
+                url=args.url, force=args.force, dry_run=args.dry_run
             )
         elif args.debd_command == "corrupt":
             run_debd_corrupt(args)
