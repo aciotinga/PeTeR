@@ -1,14 +1,14 @@
-{
-  "dataset": "dna",
-  "k": 1,
-  "lr": 5.226212051832052e-06,
-  "ratio": 42.76902495378333,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/dna.json",
-  "started_at": "2026-07-24T17:51:42.069360+00:00"
-}
+{
+  "dataset": "dna",
+  "k": 1,
+  "lr": 5.226212051832052e-06,
+  "ratio": 42.76902495378333,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/dna.json",
+  "started_at": "2026-07-24T17:51:42.069360+00:00"
+}

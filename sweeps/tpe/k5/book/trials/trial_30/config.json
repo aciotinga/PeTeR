@@ -1,14 +1,14 @@
-{
-  "dataset": "book",
-  "k": 5,
-  "lr": 0.0008705590230348364,
-  "ratio": 0.6884964826290714,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/book.json",
-  "started_at": "2026-07-24T19:07:30.976646+00:00"
-}
+{
+  "dataset": "book",
+  "k": 5,
+  "lr": 0.0008705590230348364,
+  "ratio": 0.6884964826290714,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/book.json",
+  "started_at": "2026-07-24T19:07:30.976646+00:00"
+}

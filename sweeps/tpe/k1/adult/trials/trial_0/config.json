@@ -1,14 +1,14 @@
-{
-  "dataset": "adult",
-  "k": 1,
-  "lr": 0.0004915190789413656,
-  "ratio": 31.227483733221185,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\adult.json",
-  "started_at": "2026-07-24T16:08:02.158106+00:00"
-}
+{
+  "dataset": "adult",
+  "k": 1,
+  "lr": 0.0004915190789413656,
+  "ratio": 31.227483733221185,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/adult.json",
+  "started_at": "2026-07-24T16:08:02.158106+00:00"
+}

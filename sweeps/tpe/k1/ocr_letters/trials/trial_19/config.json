@@ -1,14 +1,14 @@
-{
-  "dataset": "ocr_letters",
-  "k": 1,
-  "lr": 0.005709368755315068,
-  "ratio": 0.12585170858979602,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/ocr_letters.json",
-  "started_at": "2026-07-24T18:23:29.700436+00:00"
-}
+{
+  "dataset": "ocr_letters",
+  "k": 1,
+  "lr": 0.005709368755315068,
+  "ratio": 0.12585170858979602,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/ocr_letters.json",
+  "started_at": "2026-07-24T18:23:29.700436+00:00"
+}

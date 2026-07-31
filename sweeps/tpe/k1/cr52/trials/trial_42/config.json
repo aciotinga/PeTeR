@@ -1,14 +1,14 @@
-{
-  "dataset": "cr52",
-  "k": 1,
-  "lr": 0.46925194875767734,
-  "ratio": 28.42235266750664,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/cr52.json",
-  "started_at": "2026-07-24T19:58:07.325089+00:00"
-}
+{
+  "dataset": "cr52",
+  "k": 1,
+  "lr": 0.46925194875767734,
+  "ratio": 28.42235266750664,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/cr52.json",
+  "started_at": "2026-07-24T19:58:07.325089+00:00"
+}

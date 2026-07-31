@@ -1,14 +1,14 @@
-{
-  "dataset": "bnetflix",
-  "k": 1,
-  "lr": 0.4738907860003906,
-  "ratio": 0.11352124733476143,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/bnetflix.json",
-  "started_at": "2026-07-24T19:20:02.704753+00:00"
-}
+{
+  "dataset": "bnetflix",
+  "k": 1,
+  "lr": 0.4738907860003906,
+  "ratio": 0.11352124733476143,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/bnetflix.json",
+  "started_at": "2026-07-24T19:20:02.704753+00:00"
+}

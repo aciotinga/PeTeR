@@ -1,14 +1,14 @@
-{
-  "dataset": "baudio",
-  "k": 1,
-  "lr": 0.0008239643791828547,
-  "ratio": 0.2723732435119682,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/baudio.json",
-  "started_at": "2026-07-24T20:25:07.591993+00:00"
-}
+{
+  "dataset": "baudio",
+  "k": 1,
+  "lr": 0.0008239643791828547,
+  "ratio": 0.2723732435119682,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/baudio.json",
+  "started_at": "2026-07-24T20:25:07.591993+00:00"
+}

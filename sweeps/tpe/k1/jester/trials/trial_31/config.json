@@ -1,14 +1,14 @@
-{
-  "dataset": "jester",
-  "k": 1,
-  "lr": 0.005316384587081915,
-  "ratio": 0.9755534995913571,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/jester.json",
-  "started_at": "2026-07-24T19:09:11.895686+00:00"
-}
+{
+  "dataset": "jester",
+  "k": 1,
+  "lr": 0.005316384587081915,
+  "ratio": 0.9755534995913571,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/jester.json",
+  "started_at": "2026-07-24T19:09:11.895686+00:00"
+}

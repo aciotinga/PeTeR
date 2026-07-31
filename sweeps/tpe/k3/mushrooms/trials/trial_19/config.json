@@ -1,14 +1,14 @@
-{
-  "dataset": "mushrooms",
-  "k": 3,
-  "lr": 0.000791266601737805,
-  "ratio": 93.33194503201423,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/mushrooms.json",
-  "started_at": "2026-07-24T18:28:26.261127+00:00"
-}
+{
+  "dataset": "mushrooms",
+  "k": 3,
+  "lr": 0.000791266601737805,
+  "ratio": 93.33194503201423,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/mushrooms.json",
+  "started_at": "2026-07-24T18:28:26.261127+00:00"
+}

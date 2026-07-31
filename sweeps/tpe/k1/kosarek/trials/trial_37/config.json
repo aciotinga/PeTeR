@@ -1,14 +1,14 @@
-{
-  "dataset": "kosarek",
-  "k": 1,
-  "lr": 0.00021526705331164017,
-  "ratio": 9.442531418947658,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/kosarek.json",
-  "started_at": "2026-07-24T19:34:55.153791+00:00"
-}
+{
+  "dataset": "kosarek",
+  "k": 1,
+  "lr": 0.00021526705331164017,
+  "ratio": 9.442531418947658,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/kosarek.json",
+  "started_at": "2026-07-24T19:34:55.153791+00:00"
+}

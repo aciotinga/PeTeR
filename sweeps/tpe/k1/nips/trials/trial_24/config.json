@@ -1,14 +1,14 @@
-{
-  "dataset": "nips",
-  "k": 1,
-  "lr": 0.00023600004466858252,
-  "ratio": 96.58306408187758,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/nips.json",
-  "started_at": "2026-07-24T18:44:00.056087+00:00"
-}
+{
+  "dataset": "nips",
+  "k": 1,
+  "lr": 0.00023600004466858252,
+  "ratio": 96.58306408187758,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/nips.json",
+  "started_at": "2026-07-24T18:44:00.056087+00:00"
+}

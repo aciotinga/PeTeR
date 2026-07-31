@@ -1,14 +1,14 @@
-{
-  "dataset": "jester",
-  "k": 1,
-  "lr": 5.659051294607358e-07,
-  "ratio": 84.3335595987835,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\jester.json",
-  "started_at": "2026-07-24T16:13:01.988811+00:00"
-}
+{
+  "dataset": "jester",
+  "k": 1,
+  "lr": 5.659051294607358e-07,
+  "ratio": 84.3335595987835,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/jester.json",
+  "started_at": "2026-07-24T16:13:01.988811+00:00"
+}

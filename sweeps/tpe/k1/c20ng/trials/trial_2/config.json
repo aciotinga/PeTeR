@@ -1,14 +1,14 @@
-{
-  "dataset": "c20ng",
-  "k": 1,
-  "lr": 0.016790693370810253,
-  "ratio": 89.64714633572557,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\c20ng.json",
-  "started_at": "2026-07-24T16:13:01.983769+00:00"
-}
+{
+  "dataset": "c20ng",
+  "k": 1,
+  "lr": 0.016790693370810253,
+  "ratio": 89.64714633572557,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/c20ng.json",
+  "started_at": "2026-07-24T16:13:01.983769+00:00"
+}

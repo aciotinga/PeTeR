@@ -1,14 +1,14 @@
-{
-  "dataset": "tretail",
-  "k": 1,
-  "lr": 0.2069843726273122,
-  "ratio": 45.94214223974247,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/tretail.json",
-  "started_at": "2026-07-24T19:50:21.814283+00:00"
-}
+{
+  "dataset": "tretail",
+  "k": 1,
+  "lr": 0.2069843726273122,
+  "ratio": 45.94214223974247,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/tretail.json",
+  "started_at": "2026-07-24T19:50:21.814283+00:00"
+}

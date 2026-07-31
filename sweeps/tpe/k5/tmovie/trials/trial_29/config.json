@@ -1,14 +1,14 @@
-{
-  "dataset": "tmovie",
-  "k": 5,
-  "lr": 0.32194965310661366,
-  "ratio": 1.7735646769833178,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/tmovie.json",
-  "started_at": "2026-07-24T19:08:15.244441+00:00"
-}
+{
+  "dataset": "tmovie",
+  "k": 5,
+  "lr": 0.32194965310661366,
+  "ratio": 1.7735646769833178,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/tmovie.json",
+  "started_at": "2026-07-24T19:08:15.244441+00:00"
+}

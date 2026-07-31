@@ -1,14 +1,14 @@
-{
-  "dataset": "rcv1",
-  "k": 5,
-  "lr": 0.00016638518938532154,
-  "ratio": 3.770723817589369,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/rcv1.json",
-  "started_at": "2026-07-24T20:45:22.100159+00:00"
-}
+{
+  "dataset": "rcv1",
+  "k": 5,
+  "lr": 0.00016638518938532154,
+  "ratio": 3.770723817589369,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/rcv1.json",
+  "started_at": "2026-07-24T20:45:22.100159+00:00"
+}

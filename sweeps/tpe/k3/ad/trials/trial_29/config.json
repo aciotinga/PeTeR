@@ -1,14 +1,14 @@
-{
-  "dataset": "ad",
-  "k": 3,
-  "lr": 0.00011679352299974985,
-  "ratio": 6.9612789763190674,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/ad.json",
-  "started_at": "2026-07-24T19:01:58.142538+00:00"
-}
+{
+  "dataset": "ad",
+  "k": 3,
+  "lr": 0.00011679352299974985,
+  "ratio": 6.9612789763190674,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/ad.json",
+  "started_at": "2026-07-24T19:01:58.142538+00:00"
+}

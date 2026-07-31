@@ -1,14 +1,14 @@
-{
-  "dataset": "bbc",
-  "k": 5,
-  "lr": 0.47596905022084746,
-  "ratio": 2.1701329072239024,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/bbc.json",
-  "started_at": "2026-07-24T19:28:27.485166+00:00"
-}
+{
+  "dataset": "bbc",
+  "k": 5,
+  "lr": 0.47596905022084746,
+  "ratio": 2.1701329072239024,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/bbc.json",
+  "started_at": "2026-07-24T19:28:27.485166+00:00"
+}

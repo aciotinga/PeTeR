@@ -1,14 +1,14 @@
-{
-  "dataset": "mnist",
-  "k": 1,
-  "lr": 0.00025111182027671617,
-  "ratio": 5.883202178950581,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/mnist/hclt_mnist_blocksize4.json",
-  "started_at": "2026-07-27T08:08:02.847455+00:00"
-}
+{
+  "dataset": "mnist",
+  "k": 1,
+  "lr": 0.00025111182027671617,
+  "ratio": 5.883202178950581,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "mnist/hclt_mnist_blocksize4.json",
+  "started_at": "2026-07-27T08:08:02.847455+00:00"
+}

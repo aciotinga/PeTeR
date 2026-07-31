@@ -1,14 +1,14 @@
-{
-  "dataset": "connect4",
-  "k": 1,
-  "lr": 0.18523531834933532,
-  "ratio": 36.95385360548265,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\connect4.json",
-  "started_at": "2026-07-24T16:08:02.147793+00:00"
-}
+{
+  "dataset": "connect4",
+  "k": 1,
+  "lr": 0.18523531834933532,
+  "ratio": 36.95385360548265,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/connect4.json",
+  "started_at": "2026-07-24T16:08:02.147793+00:00"
+}

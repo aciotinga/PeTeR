@@ -1,14 +1,14 @@
-{
-  "dataset": "connect4",
-  "k": 1,
-  "lr": 0.07459083467401031,
-  "ratio": 35.4179337893176,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/connect4.json",
-  "started_at": "2026-07-24T19:34:35.659167+00:00"
-}
+{
+  "dataset": "connect4",
+  "k": 1,
+  "lr": 0.07459083467401031,
+  "ratio": 35.4179337893176,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/connect4.json",
+  "started_at": "2026-07-24T19:34:35.659167+00:00"
+}

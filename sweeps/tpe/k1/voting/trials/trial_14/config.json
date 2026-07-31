@@ -1,14 +1,14 @@
-{
-  "dataset": "voting",
-  "k": 1,
-  "lr": 1.739136677468428e-08,
-  "ratio": 0.14291705725506,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/voting.json",
-  "started_at": "2026-07-24T18:01:33.923943+00:00"
-}
+{
+  "dataset": "voting",
+  "k": 1,
+  "lr": 1.739136677468428e-08,
+  "ratio": 0.14291705725506,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/voting.json",
+  "started_at": "2026-07-24T18:01:33.923943+00:00"
+}

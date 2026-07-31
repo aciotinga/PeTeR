@@ -1,14 +1,14 @@
-{
-  "dataset": "cwebkb",
-  "k": 3,
-  "lr": 0.1766700086801856,
-  "ratio": 1.8540533935718633,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/cwebkb.json",
-  "started_at": "2026-07-24T20:30:14.202240+00:00"
-}
+{
+  "dataset": "cwebkb",
+  "k": 3,
+  "lr": 0.1766700086801856,
+  "ratio": 1.8540533935718633,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/cwebkb.json",
+  "started_at": "2026-07-24T20:30:14.202240+00:00"
+}

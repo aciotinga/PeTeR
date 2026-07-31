@@ -1,14 +1,14 @@
-{
-  "dataset": "msnbc",
-  "k": 3,
-  "lr": 0.1182223703874643,
-  "ratio": 13.113560381344328,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/msnbc.json",
-  "started_at": "2026-07-24T19:41:37.477067+00:00"
-}
+{
+  "dataset": "msnbc",
+  "k": 3,
+  "lr": 0.1182223703874643,
+  "ratio": 13.113560381344328,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/msnbc.json",
+  "started_at": "2026-07-24T19:41:37.477067+00:00"
+}

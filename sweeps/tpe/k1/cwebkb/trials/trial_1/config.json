@@ -1,14 +1,14 @@
-{
-  "dataset": "cwebkb",
-  "k": 1,
-  "lr": 0.00454754316382045,
-  "ratio": 3.7254838375077806,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\cwebkb.json",
-  "started_at": "2026-07-24T16:13:00.906591+00:00"
-}
+{
+  "dataset": "cwebkb",
+  "k": 1,
+  "lr": 0.00454754316382045,
+  "ratio": 3.7254838375077806,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/cwebkb.json",
+  "started_at": "2026-07-24T16:13:00.906591+00:00"
+}

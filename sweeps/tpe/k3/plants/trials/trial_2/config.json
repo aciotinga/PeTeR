@@ -1,14 +1,14 @@
-{
-  "dataset": "plants",
-  "k": 3,
-  "lr": 5.118335203280886e-08,
-  "ratio": 62.266207785831185,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/plants.json",
-  "started_at": "2026-07-24T17:21:57.418892+00:00"
-}
+{
+  "dataset": "plants",
+  "k": 3,
+  "lr": 5.118335203280886e-08,
+  "ratio": 62.266207785831185,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/plants.json",
+  "started_at": "2026-07-24T17:21:57.418892+00:00"
+}

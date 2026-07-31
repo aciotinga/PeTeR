@@ -1,14 +1,14 @@
-{
-  "dataset": "c20ng",
-  "k": 5,
-  "lr": 5.476748696618637e-05,
-  "ratio": 9.404097126817677,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/c20ng.json",
-  "started_at": "2026-07-24T17:21:57.474931+00:00"
-}
+{
+  "dataset": "c20ng",
+  "k": 5,
+  "lr": 5.476748696618637e-05,
+  "ratio": 9.404097126817677,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/c20ng.json",
+  "started_at": "2026-07-24T17:21:57.474931+00:00"
+}

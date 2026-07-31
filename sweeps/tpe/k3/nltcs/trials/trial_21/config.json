@@ -1,14 +1,14 @@
-{
-  "dataset": "nltcs",
-  "k": 3,
-  "lr": 0.2922744936365382,
-  "ratio": 1.2735552564085546,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/nltcs.json",
-  "started_at": "2026-07-24T18:38:17.724077+00:00"
-}
+{
+  "dataset": "nltcs",
+  "k": 3,
+  "lr": 0.2922744936365382,
+  "ratio": 1.2735552564085546,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/nltcs.json",
+  "started_at": "2026-07-24T18:38:17.724077+00:00"
+}

@@ -1,14 +1,14 @@
-{
-  "dataset": "baudio",
-  "k": 1,
-  "lr": 0.16864436016188042,
-  "ratio": 25.034261523988796,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\baudio.json",
-  "started_at": "2026-07-24T16:08:02.149801+00:00"
-}
+{
+  "dataset": "baudio",
+  "k": 1,
+  "lr": 0.16864436016188042,
+  "ratio": 25.034261523988796,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/baudio.json",
+  "started_at": "2026-07-24T16:08:02.149801+00:00"
+}

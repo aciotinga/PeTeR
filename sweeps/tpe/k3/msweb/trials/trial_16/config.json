@@ -1,14 +1,14 @@
-{
-  "dataset": "msweb",
-  "k": 3,
-  "lr": 1.0617150148332733e-06,
-  "ratio": 0.36271395152391867,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/msweb.json",
-  "started_at": "2026-07-24T18:16:21.193038+00:00"
-}
+{
+  "dataset": "msweb",
+  "k": 3,
+  "lr": 1.0617150148332733e-06,
+  "ratio": 0.36271395152391867,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/msweb.json",
+  "started_at": "2026-07-24T18:16:21.193038+00:00"
+}

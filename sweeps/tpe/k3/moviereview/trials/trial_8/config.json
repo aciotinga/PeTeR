@@ -1,14 +1,14 @@
-{
-  "dataset": "moviereview",
-  "k": 3,
-  "lr": 9.522357713325616e-05,
-  "ratio": 0.7664582122466507,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/moviereview.json",
-  "started_at": "2026-07-24T17:40:06.623782+00:00"
-}
+{
+  "dataset": "moviereview",
+  "k": 3,
+  "lr": 9.522357713325616e-05,
+  "ratio": 0.7664582122466507,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/moviereview.json",
+  "started_at": "2026-07-24T17:40:06.623782+00:00"
+}

@@ -1,14 +1,14 @@
-{
-  "dataset": "rcv1",
-  "k": 1,
-  "lr": 0.05453353070078137,
-  "ratio": 0.11214581267275921,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\rcv1.json",
-  "started_at": "2026-07-24T16:13:02.148739+00:00"
-}
+{
+  "dataset": "rcv1",
+  "k": 1,
+  "lr": 0.05453353070078137,
+  "ratio": 0.11214581267275921,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/rcv1.json",
+  "started_at": "2026-07-24T16:13:02.148739+00:00"
+}

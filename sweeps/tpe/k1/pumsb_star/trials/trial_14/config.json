@@ -1,14 +1,14 @@
-{
-  "dataset": "pumsb_star",
-  "k": 1,
-  "lr": 2.4028788454811037e-08,
-  "ratio": 0.7556570303474147,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "/scratch/acioting/AAAI27PeTeR/example_pcs/pumsb_star.json",
-  "started_at": "2026-07-24T18:01:26.794436+00:00"
-}
+{
+  "dataset": "pumsb_star",
+  "k": 1,
+  "lr": 2.4028788454811037e-08,
+  "ratio": 0.7556570303474147,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/pumsb_star.json",
+  "started_at": "2026-07-24T18:01:26.794436+00:00"
+}

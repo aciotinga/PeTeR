@@ -1,7 +1,7 @@
-{
-  "status": "failed",
-  "error_type": "ValueError",
-  "error": "probabilities must be finite and non-negative",
-  "traceback": "Traceback (most recent call last):\n  File \"/scratch/acioting/AAAI27PeTeR/peter_mnist.py\", line 138, in run\n    return _run_training(\n           ^^^^^^^^^^^^^^\n  File \"/scratch/acioting/AAAI27PeTeR/peter_mnist.py\", line 188, in _run_training\n    p_theta, final_lambda = run_dro_ogda(\n                            ^^^^^^^^^^^^^\n  File \"/scratch/acioting/AAAI27PeTeR/robustify.py\", line 300, in run_dro_ogda\n    lam, log_e, cw = ogda_step(\n                     ^^^^^^^^^^\n  File \"/scratch/acioting/AAAI27PeTeR/robustify.py\", line 224, in ogda_step\n    p_theta.apply_grads(ogda_dir(grad_theta, prev.get(\"theta\")), eta_theta, ascent=True)\n  File \"/scratch/acioting/AAAI27PeTeR/robustify.py\", line 100, in apply_grads\n    apply_grads(self.node, grads, lr, ascent=ascent)\n  File \"/home/acioting/.conda/envs/sparc/lib/python3.12/site-packages/sparc/optim.py\", line 144, in apply_grads\n    node.set_probabilities_list(\n  File \"sparc/nodes.pyx\", line 554, in sparc.nodes.CategoricalInputNode.set_probabilities_list\n  File \"sparc/nodes.pyx\", line 558, in sparc.nodes.CategoricalInputNode.set_probabilities_list\n  File \"sparc/nodes.pyx\", line 54, in sparc.nodes.validate_probabilities\nValueError: probabilities must be finite and non-negative\n",
-  "failed_at": "2026-07-27T20:43:22.328003+00:00"
-}
+{
+  "status": "failed",
+  "error_type": "ValueError",
+  "error": "probabilities must be finite and non-negative",
+  "traceback": "Traceback (most recent call last):\n  File \"peter_mnist.py\", line 138, in run\n    return _run_training(\n           ^^^^^^^^^^^^^^\n  File \"peter_mnist.py\", line 188, in _run_training\n    p_theta, final_lambda = run_dro_ogda(\n                            ^^^^^^^^^^^^^\n  File \"robustify.py\", line 300, in run_dro_ogda\n    lam, log_e, cw = ogda_step(\n                     ^^^^^^^^^^\n  File \"robustify.py\", line 224, in ogda_step\n    p_theta.apply_grads(ogda_dir(grad_theta, prev.get(\"theta\")), eta_theta, ascent=True)\n  File \"robustify.py\", line 100, in apply_grads\n    apply_grads(self.node, grads, lr, ascent=ascent)\n  File \"sparc/optim.py\", line 144, in apply_grads\n    node.set_probabilities_list(\n  File \"sparc/nodes.pyx\", line 554, in sparc.nodes.CategoricalInputNode.set_probabilities_list\n  File \"sparc/nodes.pyx\", line 558, in sparc.nodes.CategoricalInputNode.set_probabilities_list\n  File \"sparc/nodes.pyx\", line 54, in sparc.nodes.validate_probabilities\nValueError: probabilities must be finite and non-negative\n",
+  "failed_at": "2026-07-27T20:43:22.328003+00:00"
+}

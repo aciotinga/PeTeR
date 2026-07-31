@@ -1,14 +1,14 @@
-{
-  "dataset": "nips",
-  "k": 5,
-  "lr": 0.0009228035316250408,
-  "ratio": 4.881058110876802,
-  "iters": 500,
-  "theta_num_samples": 100,
-  "warm_start_iters": 100,
-  "eval_every": 1,
-  "deterministic": true,
-  "eta_lambda": 10.0,
-  "circuit_source": "C:\\Users\\Lenovo\\Desktop\\Research\\peter2\\example_pcs\\nips.json",
-  "started_at": "2026-07-24T16:13:00.750764+00:00"
-}
+{
+  "dataset": "nips",
+  "k": 5,
+  "lr": 0.0009228035316250408,
+  "ratio": 4.881058110876802,
+  "iters": 500,
+  "theta_num_samples": 100,
+  "warm_start_iters": 100,
+  "eval_every": 1,
+  "deterministic": true,
+  "eta_lambda": 10.0,
+  "circuit_source": "example_pcs/nips.json",
+  "started_at": "2026-07-24T16:13:00.750764+00:00"
+}
