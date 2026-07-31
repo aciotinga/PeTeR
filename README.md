@@ -24,7 +24,7 @@ python -m pip install --upgrade pip
 python -m pip install torch torchvision   # platform/CUDA-specific
 python -m pip install -r requirements-sparc-paper.txt -r requirements-pyjuice-paper.txt
 python reproduce.py doctor --strict --profile all
-python reproduce.py debd all --download -j 8
+python reproduce.py debd all --download -j 100
 ```
 
 ### MNIST only
@@ -47,7 +47,7 @@ python -m pip install --upgrade pip
 python -m pip install torch torchvision   # platform/CUDA-specific
 python -m pip install -r requirements-sparc-paper.txt -r requirements-pyjuice-paper.txt
 python reproduce.py doctor --strict --profile all
-python reproduce.py debd all --download -j 8
+python reproduce.py debd all --download -j 100
 python reproduce.py mnist all
 python reproduce.py artifacts
 python reproduce.py verify-paper
@@ -169,7 +169,7 @@ downloads validate identically. Invalid or incomplete archives are rejected.
 The combined command is:
 
 ```bash
-python reproduce.py debd all --download -j 8
+python reproduce.py debd all --download -j 100
 ```
 
 It requires a combined SparC/PyJuice environment. To use separate environments,
@@ -179,8 +179,8 @@ In the SparC environment:
 
 ```bash
 python reproduce.py debd download
-python reproduce.py debd corrupt -j 8
-python reproduce.py debd peter -j 8
+python reproduce.py debd corrupt -j 100
+python reproduce.py debd peter -j 100
 ```
 
 In the PyJuice environment:
@@ -192,8 +192,8 @@ python reproduce.py debd rltpm -j 1
 Back in the SparC environment:
 
 ```bash
-python reproduce.py debd attack -j 8
-python reproduce.py debd evaluate -j 8
+python reproduce.py debd attack -j 100
+python reproduce.py debd evaluate -j 100
 ```
 
 For Appendix C, use an environment containing PyJuice, PyTorch, and SparC:
