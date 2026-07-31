@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "paper_environment": {
+    "peter": {
+      "os": "Rocky Linux 8.10",
+      "cpu": "2 x AMD EPYC 7713",
+      "ram": "2 TB DDR4",
+      "gpu": null,
+      "parallel_cpu_cores": 128,
+      "sparc_pc": "0.6.1"
+    },
+    "pyjuice_baselines": {
+      "gpu": "2 x NVIDIA L40S",
+      "pyjuice": "2.4.3"
+    },
+    "runtime_table": {
+      "cpu": "Intel i9-13950HX"
+    }
+  },
+  "repo_authoritative_execution": {
+    "debd_tuning_data": "MLE-PC adversarial test set, not validation",
+    "debd_lr_upper_bound": 0.5,
+    "rltpm_selection": "single fixed configuration; no sweep in this repo",
+    "mnist_tuning": "sigma=0.100 on first 500 test images",
+    "mnist_gaussian_evaluation": "sigma=0.001..0.010 on 10000 images; clean and FGSM headline scores use the 500-image subset",
+    "mnist_multiple_testing_in_eval_cache": "Holm-Bonferroni over 10 sigmas",
+    "paper_verifier_additional_test": "plain Bonferroni is computed for the paper's stated claims",
+    "mnist_display_policy": "manuscript headline values truncate toward zero (for example, -4734.946 is displayed as -4734 and 1.175443 as 1.17)"
+  },
+  "manuscript_differences": [
+    {
+      "topic": "DEBD tuning split",
+      "paper": "corrupted validation data disjoint from test",
+      "executed": "MLE-adversarial test data"
+    },
+    {
+      "topic": "DEBD TPE learning-rate upper bound",
+      "paper": 0.1,
+      "executed": 0.5
+    },
+    {
+      "topic": "RL-TPM tuning",
+      "paper": "same validation-based tuning protocol",
+      "executed": "fixed settings in learn_rltpm.py"
+    },
+    {
+      "topic": "MNIST data sizes",
+      "paper": "not distinguished",
+      "executed": "500-image clean/FGSM and 10000-image Gaussian evaluation"
+    }
+  ]
+}

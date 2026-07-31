@@ -1,0 +1,1205 @@
+{
+  "schema_version": 1,
+  "paper_scope": {
+    "debd_datasets": [
+      "accidents",
+      "ad",
+      "adult",
+      "baudio",
+      "bbc",
+      "bnetflix",
+      "book",
+      "c20ng",
+      "connect4",
+      "cr52",
+      "cwebkb",
+      "dna",
+      "jester",
+      "kdd",
+      "kosarek",
+      "moviereview",
+      "msnbc",
+      "msweb",
+      "mushrooms",
+      "nips",
+      "nltcs",
+      "ocr_letters",
+      "plants",
+      "pumsb_star",
+      "rcv1",
+      "tmovie",
+      "tretail",
+      "voting"
+    ],
+    "epsilons": [
+      1,
+      3,
+      5
+    ],
+    "mnist_epsilon": 1
+  },
+  "debd": {
+    "mle_pc": {
+      "structure": "Hidden Chow-Liu Tree",
+      "implementation": "PyJuice 2.4.3",
+      "parameter_learning": "1000 EM iterations on the training split",
+      "included_under": "example_pcs/"
+    },
+    "random_corruption": {
+      "copies": 10,
+      "flips": "epsilon bit indices sampled with replacement per row",
+      "seed": "first 32 bits of MD5('<dataset>|K<epsilon>|r<replicate>')"
+    },
+    "adversarial_attack": {
+      "algorithm": "greedy model-aware bit flip",
+      "budget": "at most epsilon flips per row",
+      "candidate_row_cap": 65536
+    },
+    "peter": {
+      "iterations": 500,
+      "warm_start_iterations": 100,
+      "theta_samples": 100,
+      "eval_every": 1,
+      "deterministic": true,
+      "eta_lambda": 10.0,
+      "cw_metric_p": 1.0,
+      "cw_scale_factor": 1.0,
+      "tpe": {
+        "lr": {
+          "low": 1e-08,
+          "high": 0.5,
+          "log": true
+        },
+        "ratio": {
+          "low": 0.1,
+          "high": 100.0,
+          "log": true
+        },
+        "startup_trials": 10,
+        "objective": "final_adv_test_ll",
+        "objective_data": "MLE-PC adversarial test set"
+      },
+      "winners": {
+        "accidents": {
+          "1": {
+            "lr": 0.0006981656161618853,
+            "ratio": 38.192994401557144,
+            "final_adv_test_ll": -35.0076207647523,
+            "trial_number": 51,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k1/accidents/study_summary.json"
+          },
+          "3": {
+            "lr": 0.000643299637053419,
+            "ratio": 53.4858499566986,
+            "final_adv_test_ll": -41.166838326671865,
+            "trial_number": 18,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 13,
+            "n_failed": 37,
+            "summary": "sweeps/tpe/k3/accidents/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0017335673988598714,
+            "ratio": 11.894791382319134,
+            "final_adv_test_ll": -46.9233637970977,
+            "trial_number": 3,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k5/accidents/study_summary.json"
+          }
+        },
+        "ad": {
+          "1": {
+            "lr": 4.621653206570055e-07,
+            "ratio": 14.675033103029572,
+            "final_adv_test_ll": -25.04576409759957,
+            "trial_number": 38,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 34,
+            "n_failed": 16,
+            "summary": "sweeps/tpe/k1/ad/study_summary.json"
+          },
+          "3": {
+            "lr": 8.00837301653473e-07,
+            "ratio": 0.4317055726659031,
+            "final_adv_test_ll": -41.67258086407506,
+            "trial_number": 30,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 34,
+            "n_failed": 16,
+            "summary": "sweeps/tpe/k3/ad/study_summary.json"
+          },
+          "5": {
+            "lr": 1.0010886698290722e-08,
+            "ratio": 0.9415870369453128,
+            "final_adv_test_ll": -62.42547726769644,
+            "trial_number": 37,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 18,
+            "n_failed": 32,
+            "summary": "sweeps/tpe/k5/ad/study_summary.json"
+          }
+        },
+        "adult": {
+          "1": {
+            "lr": 5.180360661413496e-05,
+            "ratio": 0.15166354616123814,
+            "final_adv_test_ll": -20.982679830243875,
+            "trial_number": 48,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 14,
+            "n_failed": 36,
+            "summary": "sweeps/tpe/k1/adult/study_summary.json"
+          },
+          "3": {
+            "lr": 0.000265155204177404,
+            "ratio": 10.087866806080827,
+            "final_adv_test_ll": -28.879458406501005,
+            "trial_number": 4,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 11,
+            "n_failed": 39,
+            "summary": "sweeps/tpe/k3/adult/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0012216599750736554,
+            "ratio": 7.155187409099504,
+            "final_adv_test_ll": -35.05545864135861,
+            "trial_number": 4,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 12,
+            "n_failed": 38,
+            "summary": "sweeps/tpe/k5/adult/study_summary.json"
+          }
+        },
+        "baudio": {
+          "1": {
+            "lr": 0.0036316970701050725,
+            "ratio": 1.4424922844126884,
+            "final_adv_test_ll": -44.096862071370346,
+            "trial_number": 45,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 46,
+            "n_failed": 4,
+            "summary": "sweeps/tpe/k1/baudio/study_summary.json"
+          },
+          "3": {
+            "lr": 0.00502961595964916,
+            "ratio": 4.440723719979787,
+            "final_adv_test_ll": -49.293489827516815,
+            "trial_number": 25,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 48,
+            "n_failed": 2,
+            "summary": "sweeps/tpe/k3/baudio/study_summary.json"
+          },
+          "5": {
+            "lr": 0.007138912631778988,
+            "ratio": 3.079936756784423,
+            "final_adv_test_ll": -53.49911817458218,
+            "trial_number": 51,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 48,
+            "n_failed": 2,
+            "summary": "sweeps/tpe/k5/baudio/study_summary.json"
+          }
+        },
+        "bbc": {
+          "1": {
+            "lr": 0.00023154189177100278,
+            "ratio": 3.71583609538831,
+            "final_adv_test_ll": -254.83036896115402,
+            "trial_number": 27,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 18,
+            "n_failed": 32,
+            "summary": "sweeps/tpe/k1/bbc/study_summary.json"
+          },
+          "3": {
+            "lr": 0.007824082972254155,
+            "ratio": 0.8357187394332032,
+            "final_adv_test_ll": -265.8735637616357,
+            "trial_number": 46,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 17,
+            "n_failed": 33,
+            "summary": "sweeps/tpe/k3/bbc/study_summary.json"
+          },
+          "5": {
+            "lr": 0.01770470134621146,
+            "ratio": 0.3469810481241322,
+            "final_adv_test_ll": -274.66686800106777,
+            "trial_number": 7,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 11,
+            "n_failed": 39,
+            "summary": "sweeps/tpe/k5/bbc/study_summary.json"
+          }
+        },
+        "bnetflix": {
+          "1": {
+            "lr": 0.08327839158923914,
+            "ratio": 0.17288149229013178,
+            "final_adv_test_ll": -60.722485103023025,
+            "trial_number": 25,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 30,
+            "n_failed": 20,
+            "summary": "sweeps/tpe/k1/bnetflix/study_summary.json"
+          },
+          "3": {
+            "lr": 0.1678465366115699,
+            "ratio": 0.17483588666750494,
+            "final_adv_test_ll": -65.19980306092224,
+            "trial_number": 17,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 36,
+            "n_failed": 14,
+            "summary": "sweeps/tpe/k3/bnetflix/study_summary.json"
+          },
+          "5": {
+            "lr": 0.24424793266028222,
+            "ratio": 0.38333617547988535,
+            "final_adv_test_ll": -67.8766157699654,
+            "trial_number": 25,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 40,
+            "n_failed": 10,
+            "summary": "sweeps/tpe/k5/bnetflix/study_summary.json"
+          }
+        },
+        "book": {
+          "1": {
+            "lr": 0.0003374250149793166,
+            "ratio": 1.3434002979899073,
+            "final_adv_test_ll": -39.493884949653484,
+            "trial_number": 3,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 20,
+            "n_failed": 30,
+            "summary": "sweeps/tpe/k1/book/study_summary.json"
+          },
+          "3": {
+            "lr": 0.00018512198541302468,
+            "ratio": 4.235575677829791,
+            "final_adv_test_ll": -49.86910354848064,
+            "trial_number": 9,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 13,
+            "n_failed": 37,
+            "summary": "sweeps/tpe/k3/book/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0014867495043385385,
+            "ratio": 2.4064236391488327,
+            "final_adv_test_ll": -58.71175127580416,
+            "trial_number": 48,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 25,
+            "n_failed": 25,
+            "summary": "sweeps/tpe/k5/book/study_summary.json"
+          }
+        },
+        "c20ng": {
+          "1": {
+            "lr": 0.0016135959992964086,
+            "ratio": 6.815422856832435,
+            "final_adv_test_ll": -159.16355686904248,
+            "trial_number": 5,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 17,
+            "n_failed": 33,
+            "summary": "sweeps/tpe/k1/c20ng/study_summary.json"
+          },
+          "3": {
+            "lr": 0.002407725053359614,
+            "ratio": 0.22936998055659813,
+            "final_adv_test_ll": -168.98718988867512,
+            "trial_number": 15,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 16,
+            "n_failed": 34,
+            "summary": "sweeps/tpe/k3/c20ng/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0027874527197610304,
+            "ratio": 0.5892078896405416,
+            "final_adv_test_ll": -177.09622372230567,
+            "trial_number": 31,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 14,
+            "n_failed": 36,
+            "summary": "sweeps/tpe/k5/c20ng/study_summary.json"
+          }
+        },
+        "connect4": {
+          "1": {
+            "lr": 1.842470967760154e-05,
+            "ratio": 12.679207233595601,
+            "final_adv_test_ll": -21.353241709823,
+            "trial_number": 20,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 15,
+            "n_failed": 35,
+            "summary": "sweeps/tpe/k1/connect4/study_summary.json"
+          },
+          "3": {
+            "lr": 9.912549205482379e-05,
+            "ratio": 10.839519066834994,
+            "final_adv_test_ll": -31.642488967820157,
+            "trial_number": 33,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 16,
+            "n_failed": 34,
+            "summary": "sweeps/tpe/k3/connect4/study_summary.json"
+          },
+          "5": {
+            "lr": 0.00022230748736100283,
+            "ratio": 4.1633895209009895,
+            "final_adv_test_ll": -38.997542144014844,
+            "trial_number": 9,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 16,
+            "n_failed": 34,
+            "summary": "sweeps/tpe/k5/connect4/study_summary.json"
+          }
+        },
+        "cr52": {
+          "1": {
+            "lr": 5.668643693260463e-07,
+            "ratio": 97.51366080818983,
+            "final_adv_test_ll": -95.49321615687467,
+            "trial_number": 24,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 32,
+            "n_failed": 18,
+            "summary": "sweeps/tpe/k1/cr52/study_summary.json"
+          },
+          "3": {
+            "lr": 0.0009269442933312562,
+            "ratio": 16.6925634420402,
+            "final_adv_test_ll": -101.54663043374592,
+            "trial_number": 10,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 12,
+            "n_failed": 38,
+            "summary": "sweeps/tpe/k3/cr52/study_summary.json"
+          },
+          "5": {
+            "lr": 0.005498672413108045,
+            "ratio": 0.1147854680866767,
+            "final_adv_test_ll": -116.70472214591405,
+            "trial_number": 21,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 14,
+            "n_failed": 36,
+            "summary": "sweeps/tpe/k5/cr52/study_summary.json"
+          }
+        },
+        "cwebkb": {
+          "1": {
+            "lr": 0.0007215075263813416,
+            "ratio": 0.8629914072616266,
+            "final_adv_test_ll": -156.1970197329156,
+            "trial_number": 24,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 26,
+            "n_failed": 24,
+            "summary": "sweeps/tpe/k1/cwebkb/study_summary.json"
+          },
+          "3": {
+            "lr": 0.002854769956375293,
+            "ratio": 1.0055750568497706,
+            "final_adv_test_ll": -165.76059197648797,
+            "trial_number": 34,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 20,
+            "n_failed": 30,
+            "summary": "sweeps/tpe/k3/cwebkb/study_summary.json"
+          },
+          "5": {
+            "lr": 0.012342403697999882,
+            "ratio": 14.204951189563706,
+            "final_adv_test_ll": -176.47391759737704,
+            "trial_number": 45,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 32,
+            "n_failed": 18,
+            "summary": "sweeps/tpe/k5/cwebkb/study_summary.json"
+          }
+        },
+        "dna": {
+          "1": {
+            "lr": 1.6572142720102067e-05,
+            "ratio": 28.53004545299165,
+            "final_adv_test_ll": -86.25050970683789,
+            "trial_number": 15,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k1/dna/study_summary.json"
+          },
+          "3": {
+            "lr": 0.0002053490745828683,
+            "ratio": 14.773511997327365,
+            "final_adv_test_ll": -93.89708048236541,
+            "trial_number": 2,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k3/dna/study_summary.json"
+          },
+          "5": {
+            "lr": 0.00420435130101484,
+            "ratio": 11.212039651682026,
+            "final_adv_test_ll": -97.5746048556692,
+            "trial_number": 44,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 12,
+            "n_failed": 38,
+            "summary": "sweeps/tpe/k5/dna/study_summary.json"
+          }
+        },
+        "jester": {
+          "1": {
+            "lr": 0.003322120013106795,
+            "ratio": 1.2536751535738073,
+            "final_adv_test_ll": -56.07558282784753,
+            "trial_number": 28,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 49,
+            "n_failed": 1,
+            "summary": "sweeps/tpe/k1/jester/study_summary.json"
+          },
+          "3": {
+            "lr": 0.007420725154311509,
+            "ratio": 2.5952035652142595,
+            "final_adv_test_ll": -60.51610751448168,
+            "trial_number": 35,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 49,
+            "n_failed": 1,
+            "summary": "sweeps/tpe/k3/jester/study_summary.json"
+          },
+          "5": {
+            "lr": 0.009787936890282612,
+            "ratio": 3.150497480910768,
+            "final_adv_test_ll": -64.29973272934346,
+            "trial_number": 29,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 47,
+            "n_failed": 3,
+            "summary": "sweeps/tpe/k5/jester/study_summary.json"
+          }
+        },
+        "kdd": {
+          "1": {
+            "lr": 0.0007056766713767799,
+            "ratio": 10.248685481870465,
+            "final_adv_test_ll": -6.816433788946531,
+            "trial_number": 17,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 17,
+            "n_failed": 33,
+            "summary": "sweeps/tpe/k1/kdd/study_summary.json"
+          },
+          "3": {
+            "lr": 0.04190633319641929,
+            "ratio": 0.13472558389153236,
+            "final_adv_test_ll": -13.274550976809694,
+            "trial_number": 19,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 12,
+            "n_failed": 38,
+            "summary": "sweeps/tpe/k3/kdd/study_summary.json"
+          },
+          "5": {
+            "lr": 0.024571420199395937,
+            "ratio": 0.6780065636835744,
+            "final_adv_test_ll": -19.44125659492438,
+            "trial_number": 13,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 14,
+            "n_failed": 36,
+            "summary": "sweeps/tpe/k5/kdd/study_summary.json"
+          }
+        },
+        "kosarek": {
+          "1": {
+            "lr": 0.00021526705331164017,
+            "ratio": 9.442531418947658,
+            "final_adv_test_ll": -15.824362946177557,
+            "trial_number": 37,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 29,
+            "n_failed": 21,
+            "summary": "sweeps/tpe/k1/kosarek/study_summary.json"
+          },
+          "3": {
+            "lr": 0.00018754690844650473,
+            "ratio": 69.5030546712153,
+            "final_adv_test_ll": -25.035177538383216,
+            "trial_number": 37,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 26,
+            "n_failed": 24,
+            "summary": "sweeps/tpe/k3/kosarek/study_summary.json"
+          },
+          "5": {
+            "lr": 0.03398877455157528,
+            "ratio": 7.719778247166015,
+            "final_adv_test_ll": -32.24280111647439,
+            "trial_number": 52,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 17,
+            "n_failed": 33,
+            "summary": "sweeps/tpe/k5/kosarek/study_summary.json"
+          }
+        },
+        "moviereview": {
+          "1": {
+            "lr": 0.001996293813345007,
+            "ratio": 1.7136032914187935,
+            "final_adv_test_ll": -339.4056329700925,
+            "trial_number": 23,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 11,
+            "n_failed": 39,
+            "summary": "sweeps/tpe/k1/moviereview/study_summary.json"
+          },
+          "3": {
+            "lr": 0.001978366751058181,
+            "ratio": 8.10359395577357,
+            "final_adv_test_ll": -348.58165831508677,
+            "trial_number": 40,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 11,
+            "n_failed": 39,
+            "summary": "sweeps/tpe/k3/moviereview/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0020728116017107202,
+            "ratio": 17.02275179884152,
+            "final_adv_test_ll": -356.26476477327407,
+            "trial_number": 5,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 11,
+            "n_failed": 39,
+            "summary": "sweeps/tpe/k5/moviereview/study_summary.json"
+          }
+        },
+        "msnbc": {
+          "1": {
+            "lr": 0.008909988863373394,
+            "ratio": 15.20952673606547,
+            "final_adv_test_ll": -8.53953766351608,
+            "trial_number": 50,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 19,
+            "n_failed": 31,
+            "summary": "sweeps/tpe/k1/msnbc/study_summary.json"
+          },
+          "3": {
+            "lr": 0.022189640293924624,
+            "ratio": 41.30780822957523,
+            "final_adv_test_ll": -11.11797224147852,
+            "trial_number": 11,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 13,
+            "n_failed": 37,
+            "summary": "sweeps/tpe/k3/msnbc/study_summary.json"
+          },
+          "5": {
+            "lr": 0.024081938365145633,
+            "ratio": 34.389162855087804,
+            "final_adv_test_ll": -11.833794242424153,
+            "trial_number": 24,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 21,
+            "n_failed": 29,
+            "summary": "sweeps/tpe/k5/msnbc/study_summary.json"
+          }
+        },
+        "msweb": {
+          "1": {
+            "lr": 3.8471202759305844e-05,
+            "ratio": 74.51183925011215,
+            "final_adv_test_ll": -17.7122685563287,
+            "trial_number": 28,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 20,
+            "n_failed": 30,
+            "summary": "sweeps/tpe/k1/msweb/study_summary.json"
+          },
+          "3": {
+            "lr": 0.00024141241060490938,
+            "ratio": 3.0649143546231503,
+            "final_adv_test_ll": -25.044110017345698,
+            "trial_number": 11,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 15,
+            "n_failed": 35,
+            "summary": "sweeps/tpe/k3/msweb/study_summary.json"
+          },
+          "5": {
+            "lr": 0.00013637840425111938,
+            "ratio": 88.3939914996627,
+            "final_adv_test_ll": -33.18462242793568,
+            "trial_number": 14,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 20,
+            "n_failed": 30,
+            "summary": "sweeps/tpe/k5/msweb/study_summary.json"
+          }
+        },
+        "mushrooms": {
+          "1": {
+            "lr": 5.3138145532449595e-05,
+            "ratio": 7.411840086879806,
+            "final_adv_test_ll": -25.13129004714258,
+            "trial_number": 14,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 11,
+            "n_failed": 39,
+            "summary": "sweeps/tpe/k1/mushrooms/study_summary.json"
+          },
+          "3": {
+            "lr": 0.0003115747586830707,
+            "ratio": 11.794634502621873,
+            "final_adv_test_ll": -31.31911110175927,
+            "trial_number": 3,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 16,
+            "n_failed": 34,
+            "summary": "sweeps/tpe/k3/mushrooms/study_summary.json"
+          },
+          "5": {
+            "lr": 0.000878292038719982,
+            "ratio": 45.086577302095925,
+            "final_adv_test_ll": -35.96523325393725,
+            "trial_number": 26,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 15,
+            "n_failed": 35,
+            "summary": "sweeps/tpe/k5/mushrooms/study_summary.json"
+          }
+        },
+        "nips": {
+          "1": {
+            "lr": 5.585785662137626e-05,
+            "ratio": 30.617614702874242,
+            "final_adv_test_ll": -284.30522061024374,
+            "trial_number": 19,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 13,
+            "n_failed": 37,
+            "summary": "sweeps/tpe/k1/nips/study_summary.json"
+          },
+          "3": {
+            "lr": 0.0002123883766670486,
+            "ratio": 40.54872404511233,
+            "final_adv_test_ll": -292.0808565615877,
+            "trial_number": 24,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k3/nips/study_summary.json"
+          },
+          "5": {
+            "lr": 8.22831402043801e-06,
+            "ratio": 0.23570646886236374,
+            "final_adv_test_ll": -313.2911097602351,
+            "trial_number": 11,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k5/nips/study_summary.json"
+          }
+        },
+        "nltcs": {
+          "1": {
+            "lr": 0.11110065525603283,
+            "ratio": 0.3251552615952366,
+            "final_adv_test_ll": -9.24452524221385,
+            "trial_number": 31,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 21,
+            "n_failed": 29,
+            "summary": "sweeps/tpe/k1/nltcs/study_summary.json"
+          },
+          "3": {
+            "lr": 0.12421990926363714,
+            "ratio": 0.9180791955356478,
+            "final_adv_test_ll": -11.054374894627712,
+            "trial_number": 18,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 34,
+            "n_failed": 16,
+            "summary": "sweeps/tpe/k3/nltcs/study_summary.json"
+          },
+          "5": {
+            "lr": 0.3749860776448962,
+            "ratio": 1.2119283901441025,
+            "final_adv_test_ll": -11.106551137487637,
+            "trial_number": 39,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 30,
+            "n_failed": 20,
+            "summary": "sweeps/tpe/k5/nltcs/study_summary.json"
+          }
+        },
+        "ocr_letters": {
+          "1": {
+            "lr": 0.0008451039369795539,
+            "ratio": 1.8907624931281648,
+            "final_adv_test_ll": -48.558408409208454,
+            "trial_number": 12,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 20,
+            "n_failed": 30,
+            "summary": "sweeps/tpe/k1/ocr_letters/study_summary.json"
+          },
+          "3": {
+            "lr": 0.00038467314216356416,
+            "ratio": 5.571134534991709,
+            "final_adv_test_ll": -57.387614947717324,
+            "trial_number": 18,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 24,
+            "n_failed": 26,
+            "summary": "sweeps/tpe/k3/ocr_letters/study_summary.json"
+          },
+          "5": {
+            "lr": 0.006549382893872316,
+            "ratio": 7.88096899600939,
+            "final_adv_test_ll": -64.61266636106456,
+            "trial_number": 9,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 15,
+            "n_failed": 35,
+            "summary": "sweeps/tpe/k5/ocr_letters/study_summary.json"
+          }
+        },
+        "plants": {
+          "1": {
+            "lr": 0.0011194922852254211,
+            "ratio": 17.05569515648031,
+            "final_adv_test_ll": -19.283267840913226,
+            "trial_number": 35,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 12,
+            "n_failed": 38,
+            "summary": "sweeps/tpe/k1/plants/study_summary.json"
+          },
+          "3": {
+            "lr": 0.004603979150436159,
+            "ratio": 7.545277856820996,
+            "final_adv_test_ll": -25.67840261623174,
+            "trial_number": 37,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 22,
+            "n_failed": 28,
+            "summary": "sweeps/tpe/k3/plants/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0010805441897824748,
+            "ratio": 4.878144257628167,
+            "final_adv_test_ll": -32.778219991484555,
+            "trial_number": 11,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 19,
+            "n_failed": 31,
+            "summary": "sweeps/tpe/k5/plants/study_summary.json"
+          }
+        },
+        "pumsb_star": {
+          "1": {
+            "lr": 3.344930263453395e-06,
+            "ratio": 21.08316043719984,
+            "final_adv_test_ll": -34.42612902457272,
+            "trial_number": 23,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 15,
+            "n_failed": 35,
+            "summary": "sweeps/tpe/k1/pumsb_star/study_summary.json"
+          },
+          "3": {
+            "lr": 0.0006650532751633437,
+            "ratio": 23.66259045316518,
+            "final_adv_test_ll": -48.36449541642543,
+            "trial_number": 2,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k3/pumsb_star/study_summary.json"
+          },
+          "5": {
+            "lr": 0.00011671326546018173,
+            "ratio": 16.980096333593796,
+            "final_adv_test_ll": -54.291798351565184,
+            "trial_number": 8,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k5/pumsb_star/study_summary.json"
+          }
+        },
+        "rcv1": {
+          "1": {
+            "lr": 0.006484604841823446,
+            "ratio": 0.6278354156881104,
+            "final_adv_test_ll": -56.110201181056254,
+            "trial_number": 61,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 40,
+            "n_failed": 10,
+            "summary": "sweeps/tpe/k1/rcv1/study_summary.json"
+          },
+          "3": {
+            "lr": 0.003522337306173935,
+            "ratio": 0.903124142740475,
+            "final_adv_test_ll": -62.368585640042646,
+            "trial_number": 59,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 33,
+            "n_failed": 17,
+            "summary": "sweeps/tpe/k3/rcv1/study_summary.json"
+          },
+          "5": {
+            "lr": 0.001414515580710901,
+            "ratio": 8.622322636736866,
+            "final_adv_test_ll": -67.35948900462142,
+            "trial_number": 60,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 40,
+            "n_failed": 10,
+            "summary": "sweeps/tpe/k5/rcv1/study_summary.json"
+          }
+        },
+        "tmovie": {
+          "1": {
+            "lr": 2.2629855227497713e-05,
+            "ratio": 0.20642439528669695,
+            "final_adv_test_ll": -57.51192680720599,
+            "trial_number": 5,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k1/tmovie/study_summary.json"
+          },
+          "3": {
+            "lr": 0.00035165625627784416,
+            "ratio": 0.5451052556207411,
+            "final_adv_test_ll": -67.81409617358061,
+            "trial_number": 16,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 10,
+            "n_failed": 40,
+            "summary": "sweeps/tpe/k3/tmovie/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0031876161167979267,
+            "ratio": 0.9954865039757835,
+            "final_adv_test_ll": -77.84882309805995,
+            "trial_number": 19,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 12,
+            "n_failed": 38,
+            "summary": "sweeps/tpe/k5/tmovie/study_summary.json"
+          }
+        },
+        "tretail": {
+          "1": {
+            "lr": 0.009961328719866538,
+            "ratio": 41.81908371239078,
+            "final_adv_test_ll": -14.735878621317243,
+            "trial_number": 28,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 13,
+            "n_failed": 37,
+            "summary": "sweeps/tpe/k1/tretail/study_summary.json"
+          },
+          "3": {
+            "lr": 0.017655862291033417,
+            "ratio": 3.280096121699808,
+            "final_adv_test_ll": -21.036665802134472,
+            "trial_number": 21,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 14,
+            "n_failed": 36,
+            "summary": "sweeps/tpe/k3/tretail/study_summary.json"
+          },
+          "5": {
+            "lr": 0.0167034414286538,
+            "ratio": 0.6426926612676217,
+            "final_adv_test_ll": -29.031767877655486,
+            "trial_number": 8,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 16,
+            "n_failed": 34,
+            "summary": "sweeps/tpe/k5/tretail/study_summary.json"
+          }
+        },
+        "voting": {
+          "1": {
+            "lr": 1.2643606810252955e-06,
+            "ratio": 47.107358325033466,
+            "final_adv_test_ll": -250.20386692661012,
+            "trial_number": 49,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 20,
+            "n_failed": 30,
+            "summary": "sweeps/tpe/k1/voting/study_summary.json"
+          },
+          "3": {
+            "lr": 2.73056915200715e-06,
+            "ratio": 69.92044691564332,
+            "final_adv_test_ll": -265.712465560557,
+            "trial_number": 23,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 15,
+            "n_failed": 35,
+            "summary": "sweeps/tpe/k3/voting/study_summary.json"
+          },
+          "5": {
+            "lr": 1.036980017871663e-05,
+            "ratio": 98.3804196929006,
+            "final_adv_test_ll": -275.276460612523,
+            "trial_number": 6,
+            "iters": 500,
+            "n_trials_target": 50,
+            "n_complete": 14,
+            "n_failed": 36,
+            "summary": "sweeps/tpe/k5/voting/study_summary.json"
+          }
+        }
+      }
+    },
+    "rltpm": {
+      "structure": "Hidden Chow-Liu Tree",
+      "block_size": 4,
+      "seed": 0,
+      "epochs": 1000,
+      "batch_size": 512,
+      "optimizer": {
+        "method": "EM",
+        "lr": 0.1,
+        "pseudocount": 0.1
+      },
+      "scheduler": {
+        "method": "multi_linear",
+        "lrs": [
+          0.9,
+          0.1,
+          0.05
+        ],
+        "epoch_milestones": [
+          0,
+          100,
+          500
+        ]
+      },
+      "max_candidate_rows": 65536
+    },
+    "cw_auxiliary": {
+      "fit_k": [
+        0,
+        1,
+        3,
+        5
+      ],
+      "structure": "Hidden Chow-Liu Tree",
+      "block_size": 4,
+      "seed": 0,
+      "epochs": 1000,
+      "batch_size": 512,
+      "optimizer": {
+        "method": "EM",
+        "lr": 0.1,
+        "pseudocount": 0.1
+      },
+      "scheduler": {
+        "method": "multi_linear",
+        "lrs": [
+          0.9,
+          0.1,
+          0.05
+        ],
+        "epoch_milestones": [
+          0,
+          100,
+          500
+        ]
+      },
+      "k0_data": "clean test split",
+      "positive_k_data": "PeTeR model-aware adversarial test set",
+      "metric_p": 1.0,
+      "scale_factor": 1.0
+    },
+    "runtime": {
+      "epsilon": 1,
+      "warm_start_iterations": 100,
+      "timed_max_iterations": 250,
+      "timed_max_seconds": 30.0,
+      "reported_iterations": 500
+    }
+  },
+  "mnist": {
+    "mle_pc": {
+      "reference": "mnist/hclt_mnist_blocksize4.json",
+      "reference_sha256_normalized_lf": "f85d77666ef09b523670d2f03544b7d285cb118fb799013027507924a0e76faa",
+      "structure": "Hidden Chow-Liu Tree",
+      "num_latents": 4,
+      "categories_per_pixel": 256,
+      "epochs": 350,
+      "batch_size": 512,
+      "optimizer": {
+        "method": "EM",
+        "lr": 0.1,
+        "pseudocount": 0.1
+      },
+      "scheduler": {
+        "method": "multi_linear",
+        "lrs": [
+          0.9,
+          0.1,
+          0.05
+        ],
+        "epoch_milestones": [
+          0,
+          100,
+          350
+        ]
+      },
+      "explicit_seed": null
+    },
+    "data": {
+      "full_test_rows": 10000,
+      "peter_rows": 500,
+      "tune_sigma": 0.1,
+      "evaluation_sigmas": [
+        0.001,
+        0.002,
+        0.003,
+        0.004,
+        0.005,
+        0.006,
+        0.007,
+        0.008,
+        0.009,
+        0.01
+      ],
+      "corruption_copies": 10,
+      "pixel_formula": "clip(round(x + 255 * Normal(0, sigma^2)), 0, 255)"
+    },
+    "peter": {
+      "epsilon": 1,
+      "sweep_iterations": 500,
+      "final_iterations": 1000,
+      "winner": {
+        "lr": 2.7001862237401832e-06,
+        "ratio": 0.17230491130528763,
+        "final_adv_test_ll": -3351.5832458847826,
+        "trial_number": 880,
+        "iters": 500,
+        "n_trials_target": 1000,
+        "n_complete": 198,
+        "n_failed": 802,
+        "summary": "sweeps/tpe/k1/mnist/study_summary.json"
+      }
+    },
+    "attack": {
+      "epsilon": 1,
+      "method": "one-step central-finite-difference sign attack",
+      "rows": 500,
+      "max_candidate_rows": 65536
+    }
+  }
+}

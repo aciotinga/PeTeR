@@ -12,7 +12,8 @@ Plus a shared random-corruption column: mean LL over the 10 copies under
 
 Scores are cached beside each adversarial file as ``*.eval.json`` (skip
 recompute unless ``--force``). Cache fields: ``orig_test_ll``, ``own_adv_ll``,
-``rand_mean_ll``.
+``rand_mean_ll``, ``rand_std_ll`` (std over the 10 random copies; older caches
+may omit std until backfilled by ``ensure_eval_std`` / ``table1.py``).
 
 After scoring, prints PeTeR win counts and paired Wilcoxon signed-rank tests
 of PeTeR vs RL-TPM on ``own_adv`` and ``rand_mean``, separately for each K.
@@ -88,6 +89,7 @@ def load_corrupt_sets(dataset: str, k: int) -> list[np.ndarray]:
 
 
 def load_eval_cache(adv_path: Path) -> tuple[float, float, float] | None:
+    """Return ``(orig_test_ll, own_adv_ll, rand_mean_ll)`` if present."""
     path = eval_cache_path(adv_path)
     if not path.is_file():
         return None
@@ -101,8 +103,30 @@ def load_eval_cache(adv_path: Path) -> tuple[float, float, float] | None:
     )
 
 
+def load_eval_cache_with_std(
+    adv_path: Path,
+) -> tuple[float, float, float, float] | None:
+    """Return ``(orig, adv, rand_mean, rand_std)`` when ``rand_std_ll`` is cached."""
+    path = eval_cache_path(adv_path)
+    if not path.is_file():
+        return None
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if "rand_mean_ll" not in payload or "rand_std_ll" not in payload:
+        return None
+    return (
+        float(payload["orig_test_ll"]),
+        float(payload["own_adv_ll"]),
+        float(payload["rand_mean_ll"]),
+        float(payload["rand_std_ll"]),
+    )
+
+
 def save_eval_cache(
-    adv_path: Path, orig_ll: float, adv_ll: float, rand_mean_ll: float
+    adv_path: Path,
+    orig_ll: float,
+    adv_ll: float,
+    rand_mean_ll: float,
+    rand_std_ll: float,
 ) -> None:
     path = eval_cache_path(adv_path)
     path.write_text(
@@ -111,12 +135,46 @@ def save_eval_cache(
                 "orig_test_ll": orig_ll,
                 "own_adv_ll": adv_ll,
                 "rand_mean_ll": rand_mean_ll,
+                "rand_std_ll": rand_std_ll,
             },
             indent=2,
         )
         + "\n",
         encoding="utf-8",
     )
+
+
+def _rand_mean_std(
+    graph, corrupt_sets: list[np.ndarray]
+) -> tuple[float, float]:
+    lls = np.array(
+        [mean_log_likelihood(graph, rows) for rows in corrupt_sets],
+        dtype=np.float64,
+    )
+    return float(lls.mean()), float(lls.std(ddof=1))
+
+
+def ensure_eval_std(
+    circuit_path: Path,
+    adv_path: Path,
+    corrupt_sets: list[np.ndarray],
+) -> tuple[float, float, float, float]:
+    """Return full cache tuple, backfilling ``rand_std_ll`` (and refreshing mean) if needed.
+
+    Requires an existing eval cache with ``orig_test_ll`` / ``own_adv_ll`` /
+    ``rand_mean_ll``. Recomputes random-corruption LLs only when std is missing.
+    """
+    full = load_eval_cache_with_std(adv_path)
+    if full is not None:
+        return full
+    basic = load_eval_cache(adv_path)
+    if basic is None:
+        raise FileNotFoundError(f"Missing eval cache: {eval_cache_path(adv_path)}")
+    orig_ll, adv_ll, _old_mean = basic
+    graph = CircuitNode.load(circuit_path).compile()
+    rand_mean_ll, rand_std_ll = _rand_mean_std(graph, corrupt_sets)
+    save_eval_cache(adv_path, orig_ll, adv_ll, rand_mean_ll, rand_std_ll)
+    return orig_ll, adv_ll, rand_mean_ll, rand_std_ll
 
 
 def eval_circuit(
@@ -135,10 +193,8 @@ def eval_circuit(
     graph = CircuitNode.load(circuit_path).compile()
     orig_ll = mean_log_likelihood(graph, orig)
     adv_ll = mean_log_likelihood(graph, adv)
-    rand_mean_ll = float(
-        np.mean([mean_log_likelihood(graph, rows) for rows in corrupt_sets])
-    )
-    save_eval_cache(adv_path, orig_ll, adv_ll, rand_mean_ll)
+    rand_mean_ll, rand_std_ll = _rand_mean_std(graph, corrupt_sets)
+    save_eval_cache(adv_path, orig_ll, adv_ll, rand_mean_ll, rand_std_ll)
     return orig_ll, adv_ll, rand_mean_ll
 
 

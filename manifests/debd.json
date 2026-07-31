@@ -1,0 +1,767 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "Density Estimation Benchmark Datasets",
+    "url": "https://github.com/UCLA-StarAI/Density-Estimation-Datasets",
+    "download_policy": "Download manually, then pass the extracted directory or archive to reproduce.py."
+  },
+  "dataset_count": 28,
+  "datasets": {
+    "accidents": {
+      "variables": 111,
+      "splits": {
+        "train": {
+          "file": "accidents.train.data",
+          "rows": 12758,
+          "variables": 111,
+          "sha256": "b6fe9233b5d60e006ddd34216053b96c3b0af6f7f008d8a6eeef73005c2f94b6",
+          "sha256_normalized_lf": "a76648cf00772c275b4277b21d858e235e3c6d3c5ef30beeb4958189b6bed21c"
+        },
+        "valid": {
+          "file": "accidents.valid.data",
+          "rows": 1700,
+          "variables": 111,
+          "sha256": "da43088e0365d9ab616ec0fc85d16bba8fb4f9fa403c1f771b82ca0db27d3cc5",
+          "sha256_normalized_lf": "fd3a80a0f411f157cf3772a057d26980bb166cb89b10cafb818a53f1ec30d46d"
+        },
+        "test": {
+          "file": "accidents.test.data",
+          "rows": 2551,
+          "variables": 111,
+          "sha256": "d60dba8db7786a7308330bfe25cfb02054a01dedba3997cb2a2cc399b8c2c1c9",
+          "sha256_normalized_lf": "df3f1b6c035bf3e306a7d7127320e479d2546ce14a5d6d3043e6be0925b8b414"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "033a43e3a653134d1e375ce7a1c17dc2497d8a6310826073660c91447da4b7c9"
+    },
+    "ad": {
+      "variables": 1556,
+      "splits": {
+        "train": {
+          "file": "ad.train.data",
+          "rows": 2461,
+          "variables": 1556,
+          "sha256": "07dbd21c41d1f51ea8bb75b3a302b7923a17bf99bcab28e3f722c757cfd78d4c",
+          "sha256_normalized_lf": "045d428f4d16f11adc165c0bd6e3d148236890385fd2c1283678d4eb12a88fd6"
+        },
+        "valid": {
+          "file": "ad.valid.data",
+          "rows": 327,
+          "variables": 1556,
+          "sha256": "1276094e4fdac58fd1c0a91f4f6bc51771daf098cff73f30b4838f9342f086b0",
+          "sha256_normalized_lf": "409f039d6d4c859b5b00a45407560cf634321556390e39d9cd481f4cb69401d4"
+        },
+        "test": {
+          "file": "ad.test.data",
+          "rows": 491,
+          "variables": 1556,
+          "sha256": "0501db4f022fae149e0a68710b4efd28a3f84bc42e3d6eea905a3c54b4b8d5b3",
+          "sha256_normalized_lf": "230c3d09c21b36144185c04cb89d3b21090670561778f766721165bb7d9cca97"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "38d59ba11ff9786cbd6c6a6ad550535943b0e80a7c67f2f802f87a6cbff68ec3"
+    },
+    "adult": {
+      "variables": 123,
+      "splits": {
+        "train": {
+          "file": "adult.train.data",
+          "rows": 5000,
+          "variables": 123,
+          "sha256": "ba76e9104712e4bb9c50b13c1017c68ed29e8be1e1208e333cdd2b3f82f024ae",
+          "sha256_normalized_lf": "5590ab772dd51ed1b29bb972d2b416a58aee902b88be2f89b8c77f28f3e3db77"
+        },
+        "valid": {
+          "file": "adult.valid.data",
+          "rows": 1414,
+          "variables": 123,
+          "sha256": "f554c5d1bb77864157920cffd0e22a65d1e17142eaa45be05cc949edaf618362",
+          "sha256_normalized_lf": "dbd7472c04c648e988264b90b76dc086294958ef4b395ee916090b2b82146e59"
+        },
+        "test": {
+          "file": "adult.test.data",
+          "rows": 26147,
+          "variables": 123,
+          "sha256": "ae0dab97122b3f66411b99e4c9e783c6a70dd1ed815efd6dfc9cd09ea6e08eb9",
+          "sha256_normalized_lf": "169b5ea932df510bd09dd199013c897aef9a1b5325688380697c85494d7bb14f"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "3b58583c7381d3ba9527e8f362f0a0a37a6304343339bc5ec92da138913bfee5"
+    },
+    "baudio": {
+      "variables": 100,
+      "splits": {
+        "train": {
+          "file": "baudio.train.data",
+          "rows": 15000,
+          "variables": 100,
+          "sha256": "4e221b70bd1723be790d2fb335e129eb94bb1e8c5ee47992342671cc25143f69",
+          "sha256_normalized_lf": "b1ec73f4aa9d4ce48b465ded865cc3d22b3f68cf6258f9e15fbef8902138add1"
+        },
+        "valid": {
+          "file": "baudio.valid.data",
+          "rows": 2000,
+          "variables": 100,
+          "sha256": "72ff1106256de71e20fda37c0f15010e9e6204ae3eb02d2635ca307589082a18",
+          "sha256_normalized_lf": "7164d8a4943f74953f0e982002d84693fdf483e17f69e7407dc939c5ce5622fe"
+        },
+        "test": {
+          "file": "baudio.test.data",
+          "rows": 3000,
+          "variables": 100,
+          "sha256": "62931f427c37f6139489b90a762e6a44646cca050fe1a6b0f0b32919790fbec4",
+          "sha256_normalized_lf": "1474f3206f1f35e099803a0f40b0cd209bdc8d787825095ef6cb23fd87ed0d05"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "55900aadd44098ff71eac3e7f6b648c67d65592ec8f3cd0f75f44f6cb389c9cc"
+    },
+    "bbc": {
+      "variables": 1058,
+      "splits": {
+        "train": {
+          "file": "bbc.train.data",
+          "rows": 1670,
+          "variables": 1058,
+          "sha256": "7cc3048e2cc67d8cf8551ee4295e37c66d1b409fe8ae46bf8aeee25abb6a267d",
+          "sha256_normalized_lf": "a6f0ba467ebf502ba3b37caa1f20e43ff82664dcd580be92010106cf80fb0db1"
+        },
+        "valid": {
+          "file": "bbc.valid.data",
+          "rows": 225,
+          "variables": 1058,
+          "sha256": "d566164a38c38718b992a6ad4a331c99bd94d6ac91d2c96cda7de0279e44933e",
+          "sha256_normalized_lf": "f6a37bd58cdb6745725628be19dfd3b9b795082faa8ca771b8f27dbf4a5ff46d"
+        },
+        "test": {
+          "file": "bbc.test.data",
+          "rows": 330,
+          "variables": 1058,
+          "sha256": "37c83d0305cb780b8135d63e835cb26cba1a972fa2ace48f977d4b68ab76f77e",
+          "sha256_normalized_lf": "7116fce92a1f3d610cee673a974c8c9895957ee07ce6f086b431ee296aa7734a"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "ead88f9a9512161cfba7c12528b379c78163a86dca5d9b5c04fc53900ad3cde7"
+    },
+    "bnetflix": {
+      "variables": 100,
+      "splits": {
+        "train": {
+          "file": "bnetflix.train.data",
+          "rows": 15000,
+          "variables": 100,
+          "sha256": "53340912e374f9d14007c9c30773449ebde1cc450833690a7c1d311555fb7f0d",
+          "sha256_normalized_lf": "73c87cf0635ec734cc0726a5c644b904ff33e81ea51f1049db0e77b787ebad7c"
+        },
+        "valid": {
+          "file": "bnetflix.valid.data",
+          "rows": 2000,
+          "variables": 100,
+          "sha256": "a3ceecd98345a3dc982b553fe5df123e1d99411d23a443d99ebad082e59e9aed",
+          "sha256_normalized_lf": "7f0a3e597c6f305f707f9ecd2b2aa523c576cdb17fdc5d902fc832ebea5163de"
+        },
+        "test": {
+          "file": "bnetflix.test.data",
+          "rows": 3000,
+          "variables": 100,
+          "sha256": "700182041eca1e6958fa473744b4afacaee1813e42f18db1461d33f799de49b9",
+          "sha256_normalized_lf": "af73990782fd2f146d96059855c4f3bbb6a7a7caefc417ff620a3ed1415a2395"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "7ced9303332705a458b5e9df8bfd29874f2c4c39d051ef47d507fe7618612b25"
+    },
+    "book": {
+      "variables": 500,
+      "splits": {
+        "train": {
+          "file": "book.train.data",
+          "rows": 8700,
+          "variables": 500,
+          "sha256": "f1095df8d90be148ca13599f090114ddd34f414515a2d8cc4b95384d9c4ead62",
+          "sha256_normalized_lf": "e2458d1db3b9f2ad74a4034dee19c72213d20bd246a51750ef728041e130b6a7"
+        },
+        "valid": {
+          "file": "book.valid.data",
+          "rows": 1159,
+          "variables": 500,
+          "sha256": "091af0935e440170447a2aad5237ebe9463e8773a0eab0a596b64c8e78f01560",
+          "sha256_normalized_lf": "a111d7a024f88b062c60431306ad521dec64ec6cc2a2bca10503da647d1f0aaf"
+        },
+        "test": {
+          "file": "book.test.data",
+          "rows": 1739,
+          "variables": 500,
+          "sha256": "537415348c5f341d5214546502a89c02979efb98a7beca341ea71b745c2baa7c",
+          "sha256_normalized_lf": "94e7ec33fe7a84b4a92f248d8f0c0e35143f3cd56f5a609f4311c38218e420b9"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "7d964d1c7f7ec693e6450418a2c48288c4d520966781f73e40568784fae248f7"
+    },
+    "c20ng": {
+      "variables": 910,
+      "splits": {
+        "train": {
+          "file": "c20ng.train.data",
+          "rows": 11293,
+          "variables": 910,
+          "sha256": "e80c0104387c017f089ab3a0ce83770069b7d2081654c37eaa54aeed2bdb9be5",
+          "sha256_normalized_lf": "918fef27a3a6d382f1af3713a81a8465c63d56339a26e183d22b682b18ef8dd3"
+        },
+        "valid": {
+          "file": "c20ng.valid.data",
+          "rows": 3764,
+          "variables": 910,
+          "sha256": "0ae896720f2712105639934077a9cd343ba93078505693f324a381930b5c1ea6",
+          "sha256_normalized_lf": "be357eab542b402197548801af1511e51f6435f29c069f39e09ca5763db03bef"
+        },
+        "test": {
+          "file": "c20ng.test.data",
+          "rows": 3764,
+          "variables": 910,
+          "sha256": "e701e4aac601f11e16898ecd16c1595f700650a9b80036c275edd42e28cca075",
+          "sha256_normalized_lf": "534d7675128740ea820e9ce2be84ed0f52e670b8224ce9c83a4a22492e60ec8c"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "2d8944fa0eb3e35b3e56db3ef0b278a3e8f83895577cfc50957e4434a8ef263e"
+    },
+    "connect4": {
+      "variables": 126,
+      "splits": {
+        "train": {
+          "file": "connect4.train.data",
+          "rows": 16000,
+          "variables": 126,
+          "sha256": "abc9219482a29a4d2d259c5ed41f4ed063a28820d4e70dd28bd5871d0ca6d8f3",
+          "sha256_normalized_lf": "1cf1f300a290a33e15f8989364dd7e87c008699c3627e05cc70a5f2dd01cafd8"
+        },
+        "valid": {
+          "file": "connect4.valid.data",
+          "rows": 4000,
+          "variables": 126,
+          "sha256": "14b6230a192740f5ecc7e116c3dbaf6976a9de24d2b988682f3fe0a7e07d4170",
+          "sha256_normalized_lf": "e4657afaf1b6880aed84b64e348d2d502b32d90ad3177bea730dd5e0384fd3b8"
+        },
+        "test": {
+          "file": "connect4.test.data",
+          "rows": 47557,
+          "variables": 126,
+          "sha256": "a5b1b95551e4a337500d2e2f059902423c62c0be8e0831778628eb0e0166a492",
+          "sha256_normalized_lf": "c04d0db19a386abf551f16de5988cb36c2f154646eea280dc8ff83f2cd52c054"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "0f741e554b60fc3dd0d17f9344754d3bfe16a5ce66b0cbbf16678cb45de1c1fd"
+    },
+    "cr52": {
+      "variables": 889,
+      "splits": {
+        "train": {
+          "file": "cr52.train.data",
+          "rows": 6532,
+          "variables": 889,
+          "sha256": "b65359102592da05b46501c5f47d457b0b4ab9053491f85ab26002457cfb0ab4",
+          "sha256_normalized_lf": "fa334e35e419301883463bb42043f54d814d1865d90dd92eef09f997efab8095"
+        },
+        "valid": {
+          "file": "cr52.valid.data",
+          "rows": 1028,
+          "variables": 889,
+          "sha256": "bb7a21dfcc386dbc96ca9960d77d76a6b329b5843f9f52ec9b3377cd2d6bdeeb",
+          "sha256_normalized_lf": "9dbb0c6537b4ba3ee5316425dadf4b9e29c36b74e4ccfef28728f2d33a5c0e96"
+        },
+        "test": {
+          "file": "cr52.test.data",
+          "rows": 1540,
+          "variables": 889,
+          "sha256": "acc34635b6fb8a4985f3a7af05529f16f33dcef6a6679037eba0e877a3f4b7a9",
+          "sha256_normalized_lf": "758a2ec314962c902dcc57562b92d98317b1f662b8eb1e529a0aa3b67a20c5d4"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "4e8abc53c57ec5a35b998b3dc1ec98d8200d8e39623df353f1762846c53a8fa2"
+    },
+    "cwebkb": {
+      "variables": 839,
+      "splits": {
+        "train": {
+          "file": "cwebkb.train.data",
+          "rows": 2803,
+          "variables": 839,
+          "sha256": "525069bf2d30d4369d78d816dc43f28071676fb5d6761db80a8f9fe28edc4b9c",
+          "sha256_normalized_lf": "d5c73fba414b6bfeb483781fa353220e5b94456e3c661aa14cc8094a35aaca55"
+        },
+        "valid": {
+          "file": "cwebkb.valid.data",
+          "rows": 558,
+          "variables": 839,
+          "sha256": "6709e17584645bd2b41ee7ee54ac65841d15b9e3442a94dd91dcc4693612662b",
+          "sha256_normalized_lf": "1ab1f1abe7b20a4d78009eaaf64a78f5798a82a7823b8b3368abca4c16398a9e"
+        },
+        "test": {
+          "file": "cwebkb.test.data",
+          "rows": 838,
+          "variables": 839,
+          "sha256": "9d2dbf2a457d6195793f43b5292ed8e26b919fbbb4f7098428891b1eef8c32b3",
+          "sha256_normalized_lf": "d84dddffec11d4dc80f90afa3160fe8d54311de8a368383708123087f39f8ac4"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "b3d93ee260071da5ffd5da8eab1109380243d0b37b4a0879089865b0e7bd66cc"
+    },
+    "dna": {
+      "variables": 180,
+      "splits": {
+        "train": {
+          "file": "dna.train.data",
+          "rows": 1600,
+          "variables": 180,
+          "sha256": "0dc044b6af7fbbab429147fded2b81c413e1cc4bb09af98c4bd0aa984b006431",
+          "sha256_normalized_lf": "bb8de0ca4b6ad9b610036b7a302962ebecd4b504354b14c02c7d0bee48d207d9"
+        },
+        "valid": {
+          "file": "dna.valid.data",
+          "rows": 400,
+          "variables": 180,
+          "sha256": "b52f74ec8a538794e242faa0c7e406267266fb3aa71749cb6c3833dcbe73030d",
+          "sha256_normalized_lf": "4b0fc89cda5eaf5c75926e281afb6af99de194a546070d5b81b524ba251f4f3f"
+        },
+        "test": {
+          "file": "dna.test.data",
+          "rows": 1186,
+          "variables": 180,
+          "sha256": "7e4dea5b496ac11cf3c2e97fde4d89aa920ce0543593651c215eecd9fee59e8d",
+          "sha256_normalized_lf": "fec3ae7b26804020a9c43c99828441c5e08bb76b23719368a74ad2b09af99100"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "ef44068850c2c77e69af96c094e54de833a0689a7f7ea897138d1f2eed1ffc61"
+    },
+    "jester": {
+      "variables": 100,
+      "splits": {
+        "train": {
+          "file": "jester.train.data",
+          "rows": 9000,
+          "variables": 100,
+          "sha256": "c027a95f2bbf59f62835500592a88f5f94c77246c2b5718ac0166e8dfdf3ae05",
+          "sha256_normalized_lf": "dd93578c3359d5b234bb278bf0901c5215d83b910f7d51d7c91951a0a4c244cd"
+        },
+        "valid": {
+          "file": "jester.valid.data",
+          "rows": 1000,
+          "variables": 100,
+          "sha256": "8a4147161d5839efd8f82e5b9814ac8f3e02aa4c3772d4e6732db77706657503",
+          "sha256_normalized_lf": "91df833941e189265345898d3f63211560c2456df599f34beee8e95381ee7524"
+        },
+        "test": {
+          "file": "jester.test.data",
+          "rows": 4116,
+          "variables": 100,
+          "sha256": "d64a098655c6931511433dc95d476ff2372a476317c9a880863f78d0d13aebc6",
+          "sha256_normalized_lf": "346044fb561cf18f284f7e9d5896178b03048991b6ebb6f7482885fccbc16082"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "fbe34fa20b07d7f34033653eb67b7d2cc6df174d8cbd3cecdcb9a2688f7201a6"
+    },
+    "kdd": {
+      "variables": 64,
+      "splits": {
+        "train": {
+          "file": "kdd.train.data",
+          "rows": 180092,
+          "variables": 64,
+          "sha256": "3813d06d905d034543d56bc35b5562f1788869c3c932f0734203081599410926",
+          "sha256_normalized_lf": "8d26e8e5baf164df3315bf33861e53052457200a9a57834eae027d84c6e28c12"
+        },
+        "valid": {
+          "file": "kdd.valid.data",
+          "rows": 19907,
+          "variables": 64,
+          "sha256": "4eefa4d36e94fe289f2bcd4f8f149ea19f445e16cbdfc3702d6ad0f863832571",
+          "sha256_normalized_lf": "582aae9cf84785758869328d44295428395c53e5a091855ca0bf141a53c70765"
+        },
+        "test": {
+          "file": "kdd.test.data",
+          "rows": 34955,
+          "variables": 64,
+          "sha256": "82ac729571bd91ce1dcdaa28e6c04b0415694360cdb3ed99540a19f94474befa",
+          "sha256_normalized_lf": "5cc76212353d13ffc98574c29c14b4b7b7363081acc3a76214e5ff2a5baa79b2"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "7bcbda63f81c33a00075a493fc25bb80d514f7ac291ce48dd42d9a7387144f14"
+    },
+    "kosarek": {
+      "variables": 190,
+      "splits": {
+        "train": {
+          "file": "kosarek.train.data",
+          "rows": 33375,
+          "variables": 190,
+          "sha256": "110a4e5d1a5be9b169f570e06dd4456ac68b74ea0c555a787271f23236b4f8c6",
+          "sha256_normalized_lf": "31ca93de99cf823c22fb207a81043834c887e52b71d86c586a4939be16a2206a"
+        },
+        "valid": {
+          "file": "kosarek.valid.data",
+          "rows": 4450,
+          "variables": 190,
+          "sha256": "9e67fb0c4374d26ba6212ac48fe801b75d44dd9fa737c9a35530029521f3a203",
+          "sha256_normalized_lf": "5a4a5edc60b9c30a76b44fdc2978e976fec49c1544e850fe72a73ee60f760aa4"
+        },
+        "test": {
+          "file": "kosarek.test.data",
+          "rows": 6675,
+          "variables": 190,
+          "sha256": "80d0f8e8acec5056aec7924acc6264eadd686b52011f8b7588f5e3b75edddeb4",
+          "sha256_normalized_lf": "c54cb99ae56399e26005daba5d56d92d215f73fbb46ce75b9a919690b2990225"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "3429432464e9d493dd4de37c9faed297920a3602e89b35d36db4337d98c6bd1c"
+    },
+    "moviereview": {
+      "variables": 1001,
+      "splits": {
+        "train": {
+          "file": "moviereview.train.data",
+          "rows": 1600,
+          "variables": 1001,
+          "sha256": "01907b03a90f88f06315563d381a4460e7613afa8bfb3b9848744edd2d195a47",
+          "sha256_normalized_lf": "195729f0d72e9707abb7a901b57193bd1b1c9108bb261202170eec6c7e5e2ed1"
+        },
+        "valid": {
+          "file": "moviereview.valid.data",
+          "rows": 150,
+          "variables": 1001,
+          "sha256": "d96081500ea0e0340e02343f3af9c29cd98cb10f12ea8272ffafef0921634a4c",
+          "sha256_normalized_lf": "d887c7726485ca46026c3c9ab511174679cd1c96443c5410ab24fb81c8be38e3"
+        },
+        "test": {
+          "file": "moviereview.test.data",
+          "rows": 250,
+          "variables": 1001,
+          "sha256": "69dc992508276be37983d9506f191352c9c96f89163d75c9c63457c4acf5c5ba",
+          "sha256_normalized_lf": "9fea48ab7422d4a1c0b5d063311e6fd3104e59c11018276f7a9e909685a856d2"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "7eaf71cda69e1a5cbe3af4b957bab13455a12c78146820aeceac5bcf8461b7dc"
+    },
+    "msnbc": {
+      "variables": 17,
+      "splits": {
+        "train": {
+          "file": "msnbc.train.data",
+          "rows": 291326,
+          "variables": 17,
+          "sha256": "05bf21ab6aa1919a1bc29cd07a68bce08f3ebeb570027f5a869fb37e6fcaf939",
+          "sha256_normalized_lf": "92b1f4ed42ef87dafd6fe57c2e5c3b3dbc565157d2bc994a9b423898cd656e5e"
+        },
+        "valid": {
+          "file": "msnbc.valid.data",
+          "rows": 38843,
+          "variables": 17,
+          "sha256": "f523329277e0ef7b576545af2c93c0140ed2a3679088d78de810ef734de5b0ca",
+          "sha256_normalized_lf": "b937466c3e09b956b271438b2ff45ca4dc8b91890c9de6d02e486b0e22bf4e27"
+        },
+        "test": {
+          "file": "msnbc.test.data",
+          "rows": 58265,
+          "variables": 17,
+          "sha256": "ea3a33b2fb8bce3e4729fa25fe7b815d1be9408c7d8bbc4bcb0d0b63d79c7dc7",
+          "sha256_normalized_lf": "60ff71cc017cfde0bd84f0cd383ccd29065f5c06a64404b77d28c4b26aa1aca5"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "e7f008cea1a9e85b2b6b6611b223205a0d3c943678652f9e0f3a05a2a8443753"
+    },
+    "msweb": {
+      "variables": 294,
+      "splits": {
+        "train": {
+          "file": "msweb.train.data",
+          "rows": 29441,
+          "variables": 294,
+          "sha256": "3714b18002ce2b0db7f955101fe061fe3f51851ce4fc05e7ff26bacc8b36feb2",
+          "sha256_normalized_lf": "dc70b036c0af1822f39e12d4bfdb9a67dcfa23da40fbae4dbd7f83becf0b7a5b"
+        },
+        "valid": {
+          "file": "msweb.valid.data",
+          "rows": 3270,
+          "variables": 294,
+          "sha256": "8bb67a9bc1371ab705cfb7a4ebb2fe1f0245646ab5d11d1013ea40ab8680f434",
+          "sha256_normalized_lf": "a317cd9261dfa29982f0b8663943292773f6c31220d06071e9165c7c9eca13f5"
+        },
+        "test": {
+          "file": "msweb.test.data",
+          "rows": 5000,
+          "variables": 294,
+          "sha256": "377daa7bfdd39810ec9f1c7e26194d907a818f29b716b78faa2608c1af25cf20",
+          "sha256_normalized_lf": "a4f071037f0734618695bc8428e8d8ffefc03e52ff97f37e17c928fc964819ff"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "30a6e4aa0f5b714ca69255eb45076c646193969d55e23f1d899854860c663300"
+    },
+    "mushrooms": {
+      "variables": 112,
+      "splits": {
+        "train": {
+          "file": "mushrooms.train.data",
+          "rows": 2000,
+          "variables": 112,
+          "sha256": "f28406b35ff2cda513dad4d6739d091dba58852ab91c18716d4d043231c9ab2d",
+          "sha256_normalized_lf": "465c712c066bbbee3ccceded24bbe42b4c379df67b524e28cce9bf3a8b83f27b"
+        },
+        "valid": {
+          "file": "mushrooms.valid.data",
+          "rows": 500,
+          "variables": 112,
+          "sha256": "0fe7b802cc6799ae3c4f071b8f7948296fd142e874c3450d1f0f588f56b0de7d",
+          "sha256_normalized_lf": "5a067e6854df71623415e6adc8e913cbff766637a324788882ba800907aa5385"
+        },
+        "test": {
+          "file": "mushrooms.test.data",
+          "rows": 5624,
+          "variables": 112,
+          "sha256": "0b7163df6d7ed13aba740166a9fd81cb0e7a93cacf7d8c2ed90617fac9071560",
+          "sha256_normalized_lf": "313c5f04b5d0a18bee2f2ffa264be265d09f5362aad6f714637acd9552f81aa0"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "3a1d78f086d4e0ee49ddf1bfda691559ee05fc9df643b7c71c2a850272fd15ee"
+    },
+    "nips": {
+      "variables": 500,
+      "splits": {
+        "train": {
+          "file": "nips.train.data",
+          "rows": 400,
+          "variables": 500,
+          "sha256": "99f3d6b373aee45dbb579a0969cc813939fb50a32cad77e6126016d708641120",
+          "sha256_normalized_lf": "4d744cb1f2c725405bff6ef6878df06eafbbc2a91f0510e0f3d8a508b05ec7bb"
+        },
+        "valid": {
+          "file": "nips.valid.data",
+          "rows": 100,
+          "variables": 500,
+          "sha256": "a8a6f435e0b730b7f026e037516170d9c8cd085b632a1c3c967ba3ec07dc22af",
+          "sha256_normalized_lf": "b06acd8e6a701d63d4e58b5076c11c59bcd0343fb9b1fbb5997459d3e6b8ca96"
+        },
+        "test": {
+          "file": "nips.test.data",
+          "rows": 1240,
+          "variables": 500,
+          "sha256": "d7b3793260e364f5ed22e57b6546f2240e44826094c3dc89028a1e3a50c475b9",
+          "sha256_normalized_lf": "48711bdaffbd43aa439679785e19d9cc80c64a157fa84eadc5dce60ee4edf7bc"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "950a015ff49048a531be828c03039a3924eef4efb9fb4b5cd407533e5bd116e8"
+    },
+    "nltcs": {
+      "variables": 16,
+      "splits": {
+        "train": {
+          "file": "nltcs.train.data",
+          "rows": 16181,
+          "variables": 16,
+          "sha256": "ebed699ca687f35e799c1496b23507ce6a7e820f965304f0a5b8387e80d82089",
+          "sha256_normalized_lf": "e547a7aedad1dd2f7177030881ab1b92c7e24ae5464c71a0f1f89daecaf52b30"
+        },
+        "valid": {
+          "file": "nltcs.valid.data",
+          "rows": 2157,
+          "variables": 16,
+          "sha256": "17af5de450868b213225e862469c323ba423e36971129158935f0b2e66bde10e",
+          "sha256_normalized_lf": "93bbbf5c6febdc9bc6e5b5bfab636f4dc0685ab2896d24b23dd267794c3bfcf6"
+        },
+        "test": {
+          "file": "nltcs.test.data",
+          "rows": 3236,
+          "variables": 16,
+          "sha256": "e0a9b3b8f72ba932508939282e87707de6af3c28014279d20584686182239227",
+          "sha256_normalized_lf": "f9ffa6b74b27dc03bee3203d157ee31079e80b13be40d0c0093d635c25aed523"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "71a3866752835b024a9f717381010fabc4d08df87afa29177213e3bc3399c8f7"
+    },
+    "ocr_letters": {
+      "variables": 128,
+      "splits": {
+        "train": {
+          "file": "ocr_letters.train.data",
+          "rows": 32152,
+          "variables": 128,
+          "sha256": "0dfd5491b765f42570f2c4297ff3343b909bae3aabafcac56fb3aef809670feb",
+          "sha256_normalized_lf": "cf14ab30626ce194ca08a03359e81dfd4e3a649706be2f7f0676efcfa64ee622"
+        },
+        "valid": {
+          "file": "ocr_letters.valid.data",
+          "rows": 10000,
+          "variables": 128,
+          "sha256": "9209cfcc7d053ecf3a381c63ac1f7e2580657b3737d8ae80ed337f0b17e2018d",
+          "sha256_normalized_lf": "b28ca9c39bb94fc3b0aeb3197304547bb066daaad0a1cce3da9749d068b74133"
+        },
+        "test": {
+          "file": "ocr_letters.test.data",
+          "rows": 10000,
+          "variables": 128,
+          "sha256": "cdc8dacfffbe1693a2863eb024507352efda5bacc1d782027da44d749a5eb2c6",
+          "sha256_normalized_lf": "63c77682a932c5e5e04a429aba8dc7db5f942a87d549a8228fa144ec5ae998fb"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "49e0d04c9d2a79a888675302df52567f97dd407a49f1009503d69db33cd803f8"
+    },
+    "plants": {
+      "variables": 69,
+      "splits": {
+        "train": {
+          "file": "plants.train.data",
+          "rows": 17412,
+          "variables": 69,
+          "sha256": "75c76f408d4992fff8f6017dd3773f5c09c171f56ccd584030e3be14527b66d4",
+          "sha256_normalized_lf": "1fb1219ff94068d12a563f9e81f8889a1885f41e867884cff608669300c6848f"
+        },
+        "valid": {
+          "file": "plants.valid.data",
+          "rows": 2321,
+          "variables": 69,
+          "sha256": "125b261d3de1be96d832d58446ed19f15cf15671ac9bfc43e3d4b776fbf9d75f",
+          "sha256_normalized_lf": "47834ed318b2d74f48e4b083226ef47fd446d41986012ceae19d230574821b34"
+        },
+        "test": {
+          "file": "plants.test.data",
+          "rows": 3482,
+          "variables": 69,
+          "sha256": "92fa745c17e810aeb44022cdc3674a0a4402a3e125c6a7a05205c5e3a37927fe",
+          "sha256_normalized_lf": "95f53c033cd1d86467aec2610dc5bfe014534206c2da4919f73bcab246ab8755"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "cb0eccbd2800b2c223d4b7d17c6d96f245d9d1186c4a898f85d243281dedc017"
+    },
+    "pumsb_star": {
+      "variables": 163,
+      "splits": {
+        "train": {
+          "file": "pumsb_star.train.data",
+          "rows": 12262,
+          "variables": 163,
+          "sha256": "a928d3609d0c09cbc74f3c7f4573b82cc1c2fd525d668d513ae24522c2f7f097",
+          "sha256_normalized_lf": "27e610b5f9f507f94ebf8a227f8b96cc59d7eed51e06ee5d2fe8353afbc1524c"
+        },
+        "valid": {
+          "file": "pumsb_star.valid.data",
+          "rows": 1635,
+          "variables": 163,
+          "sha256": "531e609eb7b31a45e35943fffc6e90a8152eef9b38fbb782c40efcfcbf8ea9e1",
+          "sha256_normalized_lf": "6a491d1ea64eb0249dddd168fdddeef88aa21001a933eb7309603b6466187af8"
+        },
+        "test": {
+          "file": "pumsb_star.test.data",
+          "rows": 2452,
+          "variables": 163,
+          "sha256": "43420256009938c3421f7e46c193f3ac28b1e414db857f636923ce7074ede990",
+          "sha256_normalized_lf": "b2da195314ac17f9d8d171743c5f98a28ea9583332a52d34aa228ff2e11aa8e7"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "caf0cfccea08860034aee359cae56bcc574aa57f0727ab18486b9a95daeecb55"
+    },
+    "rcv1": {
+      "variables": 150,
+      "splits": {
+        "train": {
+          "file": "rcv1.train.data",
+          "rows": 40000,
+          "variables": 150,
+          "sha256": "58750410cadeb110d860df0f899e0f725eb57be2fee57f8ce4a900704ecb7adb",
+          "sha256_normalized_lf": "450ae96ffd93b516505b884618fb9c2c0f2d69a6d15dff797c6ea72283f74511"
+        },
+        "valid": {
+          "file": "rcv1.valid.data",
+          "rows": 10000,
+          "variables": 150,
+          "sha256": "5e71b60c4a30349ffbc3aa6bee42929c433de47c3ffcf228391bebf0917ac09d",
+          "sha256_normalized_lf": "d3a9c4b4d67fac28fcdf979acbc471b6ed688fce0c1cd7949379dd291021312e"
+        },
+        "test": {
+          "file": "rcv1.test.data",
+          "rows": 150000,
+          "variables": 150,
+          "sha256": "475d2e80de06ce04801fbc059c8050c9517ee95692d837b5abc4fd13a6d37f27",
+          "sha256_normalized_lf": "b97e063c80c321340d4417a0893af561861b50ab41f5280dc7f6530e632c2d82"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "80444f6690b96894c1d31ce36d91dc4762166a4e780a95fe4ebfd8180dfb3a7e"
+    },
+    "tmovie": {
+      "variables": 500,
+      "splits": {
+        "train": {
+          "file": "tmovie.train.data",
+          "rows": 4524,
+          "variables": 500,
+          "sha256": "ebdca3fa24d5156e321aeebc2d94b79af0c554ed42a8cbfdaab248c34a245015",
+          "sha256_normalized_lf": "f76927e1b763487af99baa07e8de8e4641595cbdd57eb2ccddfff2ce5c33cb59"
+        },
+        "valid": {
+          "file": "tmovie.valid.data",
+          "rows": 1002,
+          "variables": 500,
+          "sha256": "ca5517fbdbd64b42985ac294d09add111caf09a282921e02501634816577ac13",
+          "sha256_normalized_lf": "5162bf6ba0cd3d94d5107a48f7a3be4c6f0ca2cc99ef9a2273fa5bb1787cf257"
+        },
+        "test": {
+          "file": "tmovie.test.data",
+          "rows": 591,
+          "variables": 500,
+          "sha256": "4b2d414bd5f999ac60e34508aa810c83222281852542073b61563851c5c07c54",
+          "sha256_normalized_lf": "805e27d91fb2bff00d0183a3e941721bf93050efdd45b77ffd79d4bb906168d6"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "d816a155617cf2b22eb4e52be3e905fb351d77daa7f0116eb735e4db51f34b86"
+    },
+    "tretail": {
+      "variables": 135,
+      "splits": {
+        "train": {
+          "file": "tretail.train.data",
+          "rows": 22041,
+          "variables": 135,
+          "sha256": "0ead35da3fbadf1783e48607091f9fbfd5cdcc7e7c47a796522246f8b2c6a9ae",
+          "sha256_normalized_lf": "f85cbbde32672c029ff3c53b44e81bb29a6843cb50f962d2ae0b7326da9d7df0"
+        },
+        "valid": {
+          "file": "tretail.valid.data",
+          "rows": 2938,
+          "variables": 135,
+          "sha256": "02af1058aa02585ac81a7eeafd769fe498370bc661090775968dd6a3af8031d1",
+          "sha256_normalized_lf": "69024b394252f491a518ca93e164029fdae7d8c8eae7105739e8ab517b62e418"
+        },
+        "test": {
+          "file": "tretail.test.data",
+          "rows": 4408,
+          "variables": 135,
+          "sha256": "9b151cbee652fdd2385afff4f63ecf822497716d57a72bb30d7d5f1c0cfaf39e",
+          "sha256_normalized_lf": "474ffe4b10b213c0539a95d070955c35f042eb80d5a6198f7fca849cae28b378"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "e04df4ee93d6e7c0b08442db560ee3feec14a402e8f8e14c1f6dc664e9d90ca5"
+    },
+    "voting": {
+      "variables": 1359,
+      "splits": {
+        "train": {
+          "file": "voting.train.data",
+          "rows": 1214,
+          "variables": 1359,
+          "sha256": "ac2753bc85cc1c70bf71baa8f4ae6babbfcc1f663688996ebb887a52ab0ab80e",
+          "sha256_normalized_lf": "113c35bd468a0bb97772623634c1b729b76ba90674e62b68c38fe8d5ac08b341"
+        },
+        "valid": {
+          "file": "voting.valid.data",
+          "rows": 200,
+          "variables": 1359,
+          "sha256": "e0f7010762dc5160f2ce1de95eb354a8ec320788783cd0886292a72eeaedb397",
+          "sha256_normalized_lf": "391bad94351ac4565e2f6628c917607b6e82b82ebdc52d64dd8bfbebcdae12b7"
+        },
+        "test": {
+          "file": "voting.test.data",
+          "rows": 350,
+          "variables": 1359,
+          "sha256": "edb67c65b2b6b0651e5ce4228b581558771e4d1ef0bfe6581208873d3d488d5e",
+          "sha256_normalized_lf": "c77c851edfc1fd5c275e961de3530ae406fc5c3446fa305959720273a5bbe9c8"
+        }
+      },
+      "mle_pc_sha256_normalized_lf": "89d3c6a4080b9d639397f94ac4e0306c9ac8d81bff9fe7a0dd7c960a3db5339c"
+    }
+  }
+}

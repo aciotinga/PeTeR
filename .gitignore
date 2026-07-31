@@ -42,3 +42,28 @@ desktop.ini
 
 # Run outputs (e.g. robustify.py --output)
 outputs/
+
+# Reproduction-generated datasets and experiment artifacts
+/original_datasets/
+/adversarial_datasets/
+/corrupted_datasets/
+/results/
+/rltpm_learned_pcs/
+/mle_adv_learned_pcs/
+/runtime_results/
+/figures/
+/data/
+/sweeps/grid/
+/paper_outputs/
+
+# MNIST's paper circuit is a reference input; all other files are generated.
+/mnist/*
+!/mnist/hclt_mnist_blocksize4.json
+
+# Local smoke-test outputs
+/_smoke_*.data
+
+# Local manuscript-extraction and audit scratch files
+/_paper_extract.txt
+/_pdf*_extract.txt
+/_repro_checklist.txt

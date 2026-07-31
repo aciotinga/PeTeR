@@ -1,0 +1,6 @@
+# Install PyTorch and Torchvision for your platform/CUDA version first:
+# https://pytorch.org/get-started/locally/
+pyjuice==2.4.3
+numpy
+scipy
+matplotlib

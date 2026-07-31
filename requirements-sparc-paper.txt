@@ -1,0 +1,6 @@
+# Core framework version used for the submitted PeTeR experiments.
+sparc-pc==0.6.1
+numpy
+scipy
+matplotlib
+optuna

@@ -101,9 +101,9 @@ def main() -> None:
     adv_path = default_output(args.k)
 
     datasets: list[tuple[str, np.ndarray]] = [
-        ("original", load_rows(_ORIG_PATH)),
-        (f"sigma={format_sigma(_COMPARE_SIGMA)}", load_rows(sigma_path)),
-        (f"FGSM MLE K={args.k}", load_rows(adv_path)),
+        ("Unperturbed", load_rows(_ORIG_PATH)),
+        (f"Random Corruption", load_rows(sigma_path)),
+        (f"Adversarial Corruption", load_rows(adv_path)),
     ]
 
     n_rows = min(data.shape[0] for _, data in datasets)
@@ -148,15 +148,18 @@ def main() -> None:
             ax.set_xticks([])
             ax.set_yticks([])
             if c == 0:
-                ax.set_ylabel(label, rotation=0, ha="right", va="center", labelpad=18)
+                ax.set_ylabel(
+                    label,
+                    rotation=0,
+                    ha="right",
+                    va="center",
+                    labelpad=18,
+                    fontsize=16,
+                )
             if r == 0:
                 ax.set_title(f"idx {indices[c]}", fontsize=9)
 
-    fig.suptitle(
-        f"MNIST: original vs sigma={format_sigma(_COMPARE_SIGMA)} vs "
-        f"FGSM MLE (K={args.k}, r{args.replicate}, seed={args.seed})",
-        fontsize=11,
-    )
+    
     fig.tight_layout()
 
     out = args.output
